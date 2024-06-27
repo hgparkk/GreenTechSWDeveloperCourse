@@ -1,2 +1,5 @@
-# GreenTechSWDeveloperCourse
-빅데이터 기반 SW 개발자 과정
+# 빅데이터 기반 SW 개발자 과정
+## 박현규
+***
+### 1. JavaStudy : 자바 프로그래밍
+
