@@ -4,3 +4,4 @@
 ### Clone a Git Repository &rightarrow; URL 에 repository URL
 ### 2. 폰트 설정 : [D2CODING](https://github.com/naver/d2codingfont) 다운로드 &rightarrow; Window &rightarrow; preferences &rightarrow; font 검색 &rightarrow; General &rightarrow; Appearance &rightarrow; Colors 
 ### And Fonts &rightarrow; Text Editor Block Selection Font 와 Text Font 의 글꼴을 D2CODING으로 설정하기
+### 4. Spelling check 해제 : Window &rightarrow; Preferences &rightarrow; General &rightarrow; Editors &rightarrow; Text Editors &rightarrow; Spelling &rightarrow; Enable spell checking 해제
