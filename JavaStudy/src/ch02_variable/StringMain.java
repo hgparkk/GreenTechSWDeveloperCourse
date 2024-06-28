@@ -54,5 +54,14 @@ public class StringMain {
 
 		// etc
 		System.out.println("Mango, " + fruits);
+
+		String strNull = null; // 참조타입의 경우 null 값을 가질 수 있다.
+		System.out.println(strNull);
+
+		String strEmpty = "";
+		System.out.println(strEmpty);
+
+		System.out.println(strNull.length()); // 에러가 발생함.
+		System.out.println(strEmpty.length());
 	}
 }
