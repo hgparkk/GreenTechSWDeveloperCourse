@@ -5,7 +5,8 @@ import java.util.Scanner;
 public class SystemMain {
 	public static void main(String[] args) {
 		/**
-		 * Java Doc 주석 메소드 선언부 상단에 메소드에 대한 설명을 적는데 사용
+		 * Java Doc 주석 
+		 * 메소드 선언부 상단에 메소드에 대한 설명을 적는데 사용
 		 */
 
 		// TODO 주석
