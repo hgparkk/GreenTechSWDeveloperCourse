@@ -44,7 +44,7 @@ public class Submit02 {
 
 		System.out.println("결과는 : " + (hundred + ten + one));
 
-		//다른 방법
+		// 다른 방법
 		System.out.println("결과는 : " + ((example / 100) + (example % 100 / 10) + (example % 10)));
 	}
 }

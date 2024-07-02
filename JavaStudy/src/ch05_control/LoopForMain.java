@@ -1,5 +1,7 @@
 package ch05_control;
 
+import java.util.Scanner;
+
 public class LoopForMain {
 	public static void main(String[] args) {
 		System.out.println("1\n2\n3\n4\n5\n6\n7\n8\n9\n10");
@@ -97,5 +99,77 @@ public class LoopForMain {
 			}
 		}
 		System.out.println(count);
+
+		System.out.println("=========================================================");
+
+		char target = 0;
+
+		for (int i = 0; i < 65000; i++) {
+			if (target == '박') {
+				System.out.println(i);
+			}
+			if (target == '현') {
+				System.out.println(i);
+			}
+			if (target == '규') {
+				System.out.println(i);
+			}
+			target++;
+		}
+
+		for (int i = 1; i <= 9; i++) {
+			if (i < 4) {
+				continue;
+			}
+
+			System.out.println("2 x " + i + " = " + (i * 2));
+		}
+
+		System.out.println("=========================================================");
+
+		for (int i = 2; i < 10; i++) {
+			for (int j = 1; j < 10; j++) {
+				System.out.println(i + " x " + j + " = " + i * j);
+			}
+			System.out.println("----------");
+		}
+
+		System.out.println("=========================================================");
+
+		for (int i = 0; i < 5; i++) {
+			String stars = "";
+			for (int j = 0; j < 5; j++) {
+				if ((5 - j - i) <= 1) {
+					stars += "*";
+				} else {
+					stars += " ";
+				}
+			}
+			System.out.println(stars);
+		}
+
+		for (int i = 0; i < 5; i++) {
+			String stars = "";
+			for (int j = 0; j < 5 + i; j++) {
+				if ((5 - j - i) <= 1) {
+					stars += "*";
+				} else {
+					stars += " ";
+				}
+			}
+			System.out.println(stars);
+		}
+
+		System.out.println("=========================================================");
+
+		for (int i = 1; i <= 10; i++) {
+			System.out.println(i);
+		}
+
+		int i = 1;
+		while (i <= 10) {
+			System.out.println(i);
+			i++;
+		}
 	}
 }
