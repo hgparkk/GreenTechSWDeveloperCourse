@@ -1,47 +1,24 @@
-package ch05_control;
+package ch06_method;
 
 import java.util.Scanner;
 
-public class LoopWhileMain {
+public class MethodMain2 {
 	public static void main(String[] args) {
-		for (int i = 1; i <= 10; i++) {
-			System.out.println(i);
-		}
+		recursionPrint(10);
 
-		int i = 1;
-		while (i <= 10) {
-			System.out.println(i);
-			i++;
-		}
+		playPokemon();
+	}
 
-		boolean isRun = true;
+	public static void recursionPrint(int n) {
+		System.out.println(n);
+		if (n == 1) {
+			return;
+		}
+		recursionPrint(n - 1);
+	}
+
+	public static void playPokemon() {
 		Scanner scan = new Scanner(System.in);
-
-		String cart = "";
-		while (isRun) {
-			System.out.println("물품 입력[종료:q] : ");
-			String name = scan.nextLine();
-
-			if (name.equals("q")) {
-				isRun = false;
-			}
-
-			cart += name;
-			System.out.println("장바구니: " + cart);
-		}
-
-		cart = "";
-		while (true) {
-			System.out.println("물품 입력[종료:q] : ");
-			String name = scan.nextLine();
-
-			if (name.equals("q")) {
-				break;
-			}
-
-			cart += name;
-			System.out.println("장바구니: " + cart);
-		}
 
 		System.out.println("=========================================================");
 
@@ -78,7 +55,7 @@ public class LoopWhileMain {
 
 					if (hp <= 0) {
 						System.out.println("파이리를 잡았다!");
-						break outer; // outer: 로 이름을 붙인 while문에 대해 break 문을 실행할 수 있다.
+						return;
 					}
 				}
 			} else if (command == 2) {
