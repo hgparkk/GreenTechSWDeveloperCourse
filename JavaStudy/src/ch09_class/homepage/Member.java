@@ -1,26 +1,26 @@
 package ch09_class.homepage;
 
 public class Member {
-	String memid;
-	String memPw;
-	String memName;
+	private String memId;
+	private String memPw;
+	private String memName;
 
 	public Member() {
 	}
 
-	public Member(String memid, String memPw, String memName) {
+	public Member(String memId, String memPw, String memName) {
 		super();
-		this.memid = memid;
+		this.memId = memId;
 		this.memPw = memPw;
 		this.memName = memName;
 	}
 
-	public String getMemid() {
-		return memid;
+	public String getMemId() {
+		return memId;
 	}
 
-	public void setMemid(String memid) {
-		this.memid = memid;
+	public void setMemId(String memId) {
+		this.memId = memId;
 	}
 
 	public String getMemPw() {
@@ -37,5 +37,10 @@ public class Member {
 
 	public void setMemName(String memName) {
 		this.memName = memName;
+	}
+
+	@Override
+	public String toString() {
+		return "Member [memid=" + memId + ", memPw=" + memPw + ", memName=" + memName + "]";
 	}
 }
