@@ -3,6 +3,7 @@ package myProject;
 import java.time.Duration;
 
 public class Game {
+	//타이틀 화면
 	public Game() {
 		System.out.println(
 				"                                                                                                            \r\n"
@@ -25,8 +26,10 @@ public class Game {
 	private void GameStart() {
 		MineGame mineGame = MineGame.getInstance();
 		boolean checkClear = false;
+		//클리어 할때까지 반복
 		while (!checkClear) {
 			Console.clear();
+			//필드의 현재 상황 출력
 			for (int i = 0; i < mineGame.getShowField().length; i++) {
 				for (int j = 0; j < mineGame.getShowField()[i].length; j++) {
 					if (mineGame.getShowField()[i][j] == 0) {
@@ -40,12 +43,15 @@ public class Game {
 			}
 			int result[] = Console.answer();
 			int answer = mineGame.checkMine(result[1], result[0]);
+			//올바른 값을 입력하지 않았을 때
 			while (answer == 0) {
 				result = Console.answer();
 				answer = mineGame.checkMine(result[1], result[0]);
 			}
+			//올바른 값을 입력했을 때
 			if (answer == 1) {
 				checkClear = mineGame.checkClear();
+			//지뢰를 밟았을 때
 			} else {
 				Console.clear();
 				System.out.println(
@@ -64,6 +70,7 @@ public class Game {
 				break;
 			}
 		}
+		//성공했을 때
 		if(checkClear == true) {
 			Console.clear();
 			System.out.println(" ____       __         ____       ______      ____       \r\n"

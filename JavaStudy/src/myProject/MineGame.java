@@ -95,15 +95,20 @@ public class MineGame {
         return field;
     }
 	
+	//해당 좌표의 결과 반환
 	public int checkMine(int y, int x) {
+		//이미 결과를 아는 좌표 입력
 		if(showField[y][x] == 1) {
 			System.out.println("잘못된 입력입니다.");
 			return 0;
 		}else {
+			//지뢰 밟음
 			if(field[y][x].equals("Mine")) {
 				return 2;
+			//주변에 지뢰가 있는 칸을 확인할 때
 			}else if(!field[y][x].equals("0")){
 				showField[y][x] = 1;
+			//주변에 지뢰가 없는 칸을 확인할 때
 			}else {
 				openAdjacentZeros(y,x);
 			}
@@ -146,6 +151,7 @@ public class MineGame {
 	    }
 	}
 	
+	//성공 여부
 	public boolean checkClear() {
 		int count=0;
 		for(int i=0;i<showField.length;i++) {
