@@ -11,10 +11,18 @@ public class Console {
 			System.out.println();
 		}
 	}
-
+	
 	//게임을 시작할때 입력을 받아 시작하기 위한 함수
 	public static void start() {
 		scan.nextLine();
+	}
+	
+	//게임 재시작 여부를 알기 위한 답변
+	public static String reStart() {
+		System.out.println("다시 하시겠습니까? (Y|N)");
+		System.out.print(">>> ");
+		String reply = scan.nextLine();
+		return reply;
 	}
 
 	//사용자가 입력한 답안을 반환하는 함수
