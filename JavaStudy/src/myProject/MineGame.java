@@ -91,9 +91,29 @@ public class MineGame {
 		return field;
 	}
 
+	// 필드의 현재 상황 반환
+	public String[][] mineField() {
+		String[][] currentField = new String[showField.length][showField[0].length];
+		for (int i = 0; i < showField.length; i++) {
+			for (int j = 0; j < showField[i].length; j++) {
+				//열리지 않은 칸
+				if (showField[i][j] == 0) {
+					currentField[i][j] = "■";
+					//주변에 지뢰가 없는 칸
+				} else if (field[i][j].equals("0")) {
+					currentField[i][j] = "□";
+					//주변에 지뢰가 있는 칸
+				} else {
+					currentField[i][j] = field[i][j];
+				}
+			}
+		}
+		return currentField;
+	}
+
 	// 해당 좌표의 결과 반환
 	public int checkMine(int y, int x) {
-		// 이미 결과를 아는 좌표 입력
+		// 이미 결과를 아는 좌표 입력시
 		if (showField[y][x] == 1) {
 			System.out.println("잘못된 입력입니다.");
 			return 0;
@@ -158,6 +178,7 @@ public class MineGame {
 				}
 			}
 		}
+		//안열린 칸의 개수가 지뢰의 숫자와 같을 때
 		if (count == 10) {
 			end = LocalTime.now();
 			return true;
@@ -165,8 +186,8 @@ public class MineGame {
 			return false;
 		}
 	}
-	
-	//다시 시작
+
+	// 다시 시작
 	public void reStart() {
 		start = LocalTime.now();
 		field = initialField();
