@@ -48,7 +48,7 @@ public class ArrayMain {
 
 		printArray(seoyugi);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (int i = 0; i < seoyugi.length; i++) {
 			seoyugi[i] = "서유기 " + seoyugi[i];
@@ -83,7 +83,7 @@ public class ArrayMain {
 		System.out.println(findIndex);
 		System.out.println(seoyugi[findIndex]);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		int[] intArray = new int[6];
 		intArray[0] = 1;
@@ -105,7 +105,7 @@ public class ArrayMain {
 
 		System.out.println(numArray[2]);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		String books = "이것이 자바다, 에너지 데이터 경영론, 파이썬";
 		String[] bookArray = books.split(",");

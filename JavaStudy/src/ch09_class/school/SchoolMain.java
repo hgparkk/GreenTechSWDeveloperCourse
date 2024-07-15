@@ -37,7 +37,7 @@ public class SchoolMain {
 			System.out.println(stuList.get(i));
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (int i = 0; i < stuList.size(); i++) {
 			for (int j = 0; j < stuList.size() - 1 - i; j++) {

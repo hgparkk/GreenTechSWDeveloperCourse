@@ -55,7 +55,7 @@ public class ArrayMain2 {
 		Decoder base64Decoder = Base64.getDecoder();
 		System.out.println(new String(base64Decoder.decode(encodedPassword))); // decoding
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		String[] synSeoyugi = seoyugi.clone();
 
@@ -80,7 +80,7 @@ public class ArrayMain2 {
 
 		ArrayMain.printArray(newSeoyugi);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		int[] numArray = { 23, 456, 213, 32, 464, 1, 2 };
 
@@ -94,7 +94,7 @@ public class ArrayMain2 {
 
 		ArrayMain.printArray(numArray);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (int k = 0; k < numArray.length - 1; k++) {
 			for (int i = 0; i < numArray.length - k - 1; i++) {
@@ -128,7 +128,7 @@ public class ArrayMain2 {
 
 		ArrayMain.printArray(numArray);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		int[] lottoOne = { 1, 4, 7, 12, 23, 43 };
 

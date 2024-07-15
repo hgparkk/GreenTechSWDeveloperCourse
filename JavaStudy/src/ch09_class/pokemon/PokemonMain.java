@@ -44,7 +44,7 @@ public class PokemonMain {
 
 		System.out.println(squirtle);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		Pokemon pikachu = new Pokemon("피카츄", 4, "전기", "쥐포켓몬");
 

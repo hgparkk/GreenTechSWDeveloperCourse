@@ -58,7 +58,7 @@ public class CollectionList {
 
 		intList = new ArrayList<>(); // 리스트를 새로 초기화 하면서 리스트를 비우는 역할과 같다.
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		stuList.add("재민");
 		stuList.add("동희");
@@ -79,7 +79,7 @@ public class CollectionList {
 
 		System.out.println(stuList);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		ArrayList<String> copyList = stuList; // 같은 주소값을 넣는다
 		System.out.println(copyList);
@@ -104,7 +104,7 @@ public class CollectionList {
 
 		System.out.println(copyList4);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (String stu : stuList) {
 			System.out.println(stu);
@@ -125,7 +125,7 @@ public class CollectionList {
 			System.out.println(stu);
 		});
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		Integer[] numArray = { 30, 23, 1, 66, 34, 143 };
 		// List<Integer> numList = Arrays.asList(numArray); 배열을 리스트로

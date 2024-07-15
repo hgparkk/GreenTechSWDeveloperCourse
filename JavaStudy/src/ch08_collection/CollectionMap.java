@@ -52,7 +52,7 @@ public class CollectionMap {
 		
 		System.out.println(stuMap);
 		
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 		
 		Set<String> keySet = stuMap.keySet();
 		

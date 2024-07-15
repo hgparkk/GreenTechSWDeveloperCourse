@@ -7,7 +7,7 @@ public class LoopForMain {
 		System.out.println("1\n2\n3\n4\n5\n6\n7\n8\n9\n10");
 		System.out.println("11\n12\n13\n14\n15\n16\n17\n18\n19\n20");
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (int i = 1; i <= 10; i++) {
 			System.out.println(i);
@@ -28,7 +28,7 @@ public class LoopForMain {
 			System.out.println(one++);
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		int sum = 0;
 		for (int i = 1; i <= 20; i++) {
@@ -40,7 +40,7 @@ public class LoopForMain {
 			System.out.println("2 x " + i + " = " + 2 * i);
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 		String star = "";
 		for (int i = 1; i <= 5; i++) {
 			star += "*";
@@ -58,7 +58,7 @@ public class LoopForMain {
 			}
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (int i = 0; i < 40; i++) {
 			if (i % 2 == 0) {
@@ -72,13 +72,13 @@ public class LoopForMain {
 			}
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (int i = 10; i > 0; i--) {
 			System.out.println(i);
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		String example = "1882299911";
 		int sumString = 0;
@@ -100,7 +100,7 @@ public class LoopForMain {
 		}
 		System.out.println(count);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		char target = 0;
 
@@ -125,7 +125,7 @@ public class LoopForMain {
 			System.out.println("2 x " + i + " = " + (i * 2));
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (int i = 2; i < 10; i++) {
 			for (int j = 1; j < 10; j++) {
@@ -134,7 +134,7 @@ public class LoopForMain {
 			System.out.println("----------");
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (int i = 0; i < 5; i++) {
 			String stars = "";

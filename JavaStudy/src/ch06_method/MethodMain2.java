@@ -20,7 +20,7 @@ public class MethodMain2 {
 	public static void playPokemon() {
 		Scanner scan = new Scanner(System.in);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		int hp = 100;
 		outer: while (true) {

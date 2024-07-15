@@ -33,7 +33,7 @@ public class MySortMain {
 			System.out.println(stuList.get(i));
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		MyCollections.sort(stuList, new MyComparator<Student>() {
 			@Override
@@ -48,7 +48,7 @@ public class MySortMain {
 			System.out.println(stuList.get(i));
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		for (int i = 0; i < stuList.size(); i++) {
 			System.out.println(stuList.get(i));

@@ -13,7 +13,7 @@ public class ConditionalMain {
 			System.out.println("잔액이 부족합니다."); // {} 코드가 한줄이면 {} 생략 가능
 		System.out.println("조건문 밖"); // {}를 생략하고 코드를 한 줄 더 썼을 때 조건문 밖 코드이기 때문에 실행됨.
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		String review = "맛있어요.";
 
@@ -34,7 +34,7 @@ public class ConditionalMain {
 
 		System.out.println(warning);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		money = 100000;
 		price = 30000;
@@ -94,7 +94,7 @@ public class ConditionalMain {
 		}
 		isPowerOn = !isPowerOn;
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		int inputAge = 23;
 
@@ -142,7 +142,7 @@ public class ConditionalMain {
 			System.out.println("D");
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		// 회원가입 예제
 		String name = "박현규"; // 이름은 한글자 이상

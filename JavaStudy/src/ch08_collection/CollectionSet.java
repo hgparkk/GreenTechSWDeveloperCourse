@@ -34,7 +34,7 @@ public class CollectionSet {
 
 		System.out.println(stuSet.size());
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		Iterator<String> stuIter = stuSet.iterator();
 
@@ -56,7 +56,7 @@ public class CollectionSet {
 
 		stuSet.forEach(stu -> System.out.println(stu));
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		ArrayList<Integer> intList = new ArrayList<>();
 		for (int i = 0; i < 10; i++) {

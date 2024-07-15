@@ -5,7 +5,7 @@ public class OperatorMain {
 		int numA = 10;
 		int numB = 3;
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		// 산술 연산
 		System.out.println(numA + 1);
@@ -14,7 +14,7 @@ public class OperatorMain {
 
 		System.out.println(numA);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		// 사칙 연산
 		System.out.println(numA + numB);
@@ -23,7 +23,7 @@ public class OperatorMain {
 		System.out.println(numA / numB);
 		System.out.println(numA % numB);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		// 대입 연산
 		numA = 10;
@@ -52,7 +52,7 @@ public class OperatorMain {
 
 		// station -= "오룡역" 문자열에 대한 연산은 + 만 가능.
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		// 증감 연산
 		numA = 10;
@@ -74,7 +74,7 @@ public class OperatorMain {
 		System.out.println(numA++); // 출력 후에 증감 연산.
 		System.out.println(++numA); // 출력 전에 증감 연산.
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		// 비교 연산
 		numA = 10;
@@ -132,7 +132,7 @@ public class OperatorMain {
 		// score가 90 이상이면 A, 80점 이상이면 B, 아니면 C를 grade에 담기
 		grade = (score >= 90) ? ("A") : ((score >= 80) ? ("B") : ("C"));
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		// 회원가입 예제
 		String inputName = "박현규"; // 이름은 한글자 이상
@@ -160,7 +160,7 @@ public class OperatorMain {
 		System.out.println(
 				!inputName.isEmpty() && inputAge > 14 && (inputPhone.length() == 10 || inputPhone.length() == 11));
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		// 비트 연산자
 		

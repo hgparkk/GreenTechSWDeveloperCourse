@@ -18,7 +18,7 @@ public class MethodMain {
 
 		printSumNotFor(25, 50);
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		println("1 부터 100까지 더한 값: " + sum);
 		println("30 부터 60까지 더한 값: " + (((60 - 30 + 1) * (30 + 60)) / 2));
@@ -34,7 +34,7 @@ public class MethodMain {
 
 		makeCard("현규", 90, 87, 50);
 		
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 		
 		int age = 31;
 		println(calGen(age));

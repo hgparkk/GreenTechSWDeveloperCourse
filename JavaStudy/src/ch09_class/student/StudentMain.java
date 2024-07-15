@@ -99,7 +99,7 @@ public class StudentMain {
 			System.out.println(s);
 		}
 		
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 		
 		for (int k = 0; k < 113; k++) {
 			for (Student s : stuList) {

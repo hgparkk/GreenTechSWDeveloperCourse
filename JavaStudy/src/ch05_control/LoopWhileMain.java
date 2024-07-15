@@ -43,7 +43,7 @@ public class LoopWhileMain {
 			System.out.println("장바구니: " + cart);
 		}
 
-		System.out.println("=========================================================");
+		System.out.println("========================================================");
 
 		int hp = 100;
 		outer: while (true) {
