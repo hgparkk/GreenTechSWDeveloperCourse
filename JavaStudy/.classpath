@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/json-simple-1.1.1.jar"/>
 	<classpathentry kind="lib" path="lib/hyeongyu.jar"/>
 	<classpathentry kind="lib" path="lib/gson-2.11.0.jar"/>
+	<classpathentry kind="lib" path="lib/json-20240303.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

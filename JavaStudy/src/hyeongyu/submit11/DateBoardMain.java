@@ -75,15 +75,41 @@ public class DateBoardMain {
 		System.out.println();
 
 		cal = Calendar.getInstance();
-		int nowYear = cal.get(Calendar.YEAR);
-		int nowMonth = cal.get(Calendar.MONTH);
 		for (int i = 0; i < dbList.size(); i++) {
 			Calendar current = Calendar.getInstance();
 			Date currentDate = sdf.parse(dbList.get(i).getDate());
 			current.setTime(currentDate);
-			if (current.get(Calendar.YEAR) == nowYear && current.get(Calendar.MONTH) == nowMonth) {
+			if (current.get(Calendar.YEAR) == cal.get(Calendar.YEAR) && current.get(Calendar.MONTH) == cal.get(Calendar.MONTH)) {
 				System.out.println(dbList.get(i));
 			}
+		}
+		
+		System.out.println();
+		System.out.println("============================ 6월만 출력 ============================");
+		System.out.println();
+		
+		for (int i = 0; i < dbList.size(); i++) {
+			Calendar current = Calendar.getInstance();
+			Date currentDate = sdf.parse(dbList.get(i).getDate());
+			current.setTime(currentDate);
+			if (current.get(Calendar.YEAR) == 2024 && current.get(Calendar.MONTH) == 5) {
+				System.out.println(dbList.get(i));
+			}
+		}
+		
+		System.out.println();
+		System.out.println("2023.07.14 ~ 2023.08.21");
+		System.out.println();
+		
+		long start = sdf.parse("2023.07.14 00:00:00").getTime();
+		long end = sdf.parse("2023.08.21 23:59:59").getTime();
+		
+		for (int i = 0; i < dbList.size(); i++) {
+			long current = sdf.parse(dbList.get(i).getDate()).getTime();
+			if(start <= current && current <= end) {
+				System.out.println(dbList.get(i));
+			}
+			
 		}
 	}
 }
