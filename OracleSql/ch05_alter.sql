@@ -1,0 +1,1 @@
+ALTER TABLE bank ADD CONSTRAINT pk_bank PRIMARY KEY (bank_id,bank_account);
