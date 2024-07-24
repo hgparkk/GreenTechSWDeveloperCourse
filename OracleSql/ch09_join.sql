@@ -174,3 +174,17 @@ WHERE a.tips_author = b.mem_id; -- 조인은 잘 되지만 컬럼의 이름이 �
 ALTER TABLE members ADD CONSTRAINT pk_mem PRIMARY KEY (mem_id);
 ALTER TABLE tips ADD CONSTRAINT fk_tips FOREIGN KEY (tips_author) REFERENCES members (mem_id);
 
+SELECT
+    a.tips_no,
+    a.tips_title,
+    a.tips_author,
+    b.mem_name
+FROM tips a, members b
+WHERE a.tips_author = b.mem_id;
+
+-- 참조 무결성을 위해 members 테이블은 변경 및 삭제를 못하게 막아놓았다.
+-- 회원 탈퇴를 할 때 처리
+-- 1. 해당 회원이 작성한 게시글도 함께 삭제
+-- 2. 해당 회원이 작성한 게시글에서 id 부분을 NULL로 바꿈
+
+SELECT * FROM members;

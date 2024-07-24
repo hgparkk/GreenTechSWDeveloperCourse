@@ -316,10 +316,46 @@ SELECT
     round(AVG(stu_eng),1) AS avg_eng,
     round(AVG(stu_math),1) AS avg_math,
     round(
-        (round(AVG(stu_kor),1) + round(AVG(stu_eng),1) + round(AVG(stu_math),1) ) / 3,
+        (AVG(stu_kor) + AVG(stu_eng) + AVG(stu_math) ) / 3,
         1
     ) AS avg_total
 FROM
     students
 GROUP BY
     stu_name;
+
+SELECT
+    stu_name,
+    AVG(stu_kor)
+FROM
+    students
+GROUP BY
+    stu_name
+HAVING
+    AVG(stu_kor) >= 70
+ORDER BY stu_name;
+
+SELECT
+    COUNT(bank_id)
+FROM
+    bank;
+
+SELECT DISTINCT
+    bank_name
+FROM
+    bank;
+
+SELECT
+    COUNT(DISTINCT bank_name)
+FROM
+    bank;
+
+SELECT
+    bank_name,
+    COUNT(bank_name)
+FROM
+    bank
+GROUP BY
+    bank_name
+HAVING
+    COUNT(bank_name) > 1;
