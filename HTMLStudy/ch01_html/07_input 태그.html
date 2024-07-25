@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- input 태그는 웹페이지에서 사용자로부터 정보를 입력받는 용도로 사용 -->
+    <input type="text">
+    <input type="text" placeholder="아이디 입력">
+    <br>
+
+    <input type="password">
+    <input type="password" placeholder="비밀번호 입력">
+    <hr>
+
+    <input type="button" value="검색">
+
+    <button>검색</button>
+
+    <!-- button 태그 내에 아이콘 넣기 -->
+    <button>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search-heart"
+            viewBox="0 0 16 16">
+            <path d="M6.5 4.482c1.664-1.673 5.825 1.254 0 5.018-5.825-3.764-1.664-6.69 0-5.018" />
+            <path
+                d="M13 6.5a6.47 6.47 0 0 1-1.258 3.844q.06.044.115.098l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1-.1-.115h.002A6.5 6.5 0 1 1 13 6.5M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11" />
+        </svg>
+    </button>
+    <hr>
+
+    <input type="file">
+    <input type="file" accept="image/*">
+    <input type="file" multiple>
+    <hr>
+
+    <!-- 라디오 버튼 -->
+    <!-- checked : 화면 실행시 자동으로 선택되어있다. -->
+    <!-- label 태그를 이용하면 label 태그 클릭시 input 태그를 활성화 시킬 수 있음 -->
+    <input type="radio" name="menu" id="bbn" checked><label for="bbn">짜장면</label>
+    <input type="radio" name="menu" id=""><label for="">짬뽕</label>
+    <input type="radio" name="menu" id="fried_rice">볶음밥
+    <hr>
+
+    취미 생활
+    <br>
+    <input type="checkbox" name="hobby" id="soc"><label for="soc">축구</label>
+    <input type="checkbox" name="hobby" id="">야구
+    <input type="checkbox" name="hobby" id="">농구
+    <input type="checkbox" name="hobby" id="">테니스
+    <hr>
+
+    <!-- 옵션 선택 -->
+    <select name="" id="">
+        <option value="">제목</option>
+        <option value="">내용</option>
+        <option value="">닉네임</option>
+        <option value="">카테고리</option>
+        <option value="">제목+내용</option>
+    </select>
+    <hr>
+
+    <!-- 텍스트를 여러 라인으로 입력받고자 할 때 -->
+    <textarea name="" id="" cols="40" rows="25"></textarea>
+    <hr>
+
+    <!-- 날짜를 입력 받을 때 사용 -->
+    <input type="date">
+    <hr>
+
+    <!-- 색을 입력 받을 때 사용 -->
+    <input type="color">
+    <hr>
+
+    <!-- 숫자만 입력 받을 때 사용 -->
+    <input type="number">
+    <hr>
+
+    <!-- 범위를 지정할 때 사용 -->
+    <!-- max와 min 값이 있어야 의미가 있다 -->
+    <input type="range" min="0" max="100">
+
+</body>
+
+</html>
