@@ -1,18 +1,71 @@
 <!-- Ctrl + / 주석처리 -->
 <!-- html 문서 기본 틀 : html:s 입력 후 엔터 -->
 
-<!-- 현재 html 문서의 버전이 html 5 버전임을 의미한다 -->
+<!-- 현재 html 문서의 버전이 html 5 버전임을 의미 -->
 <!DOCTYPE html>
+
+<!-- 현재 html 문서의 주요 언어 정의 -->
 <html lang="ko">
+
+<!-- 메타정보 -->
+<!-- 페이지 명, 파비콘, css의 style 태그, 각종 css 및 js 파일을 불러다 놓는 역할 -->
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 페이지명 -->
     <title>Documents</title>
+
+    <!-- 파비콘 적용 (link:favicon)-->
+    <link rel="shortcut icon" href="favicon-16x16.png" type="image/x-icon">
+
+    <style>
+        /* CSS 코드의 주석 */
+        /* CSS는 html 태그에 스타일을 적용하는 용도 */
+        .title {
+            background-color: blueviolet;
+            color: aliceblue;
+        }
+    </style>
 </head>
 
 <body>
+    <!-- body 태그 안에 실제 브라우저 화면에 보이는 html 태그를 작성 -->
     Welcome HTML!
+
+    <!-- CSS에 선언해놓은 title 클래스의 스타일이 적용됨 -->
+    <h1 class="title">Welcome HTML!</h1>
+
+    <!-- 태그 이름 옆에 class, type 등등을 속성 이라고 함 -->
+    <!-- 사용자로부터 값을 입력 받을 수 있음 -->
+    <input id="inputText" type="text">
+
+    <!-- button 클릭 시, script에 선언된 f_click 함수가 실행됨 -->
+    <button onclick="f_click()">검색</button>
+
+    <!-- 자바스크립트는 script 태그 내에 작성 -->
+    <script>
+        // 자바 스크립트의 주석
+        /* 멀티 주석 */
+
+        // 변수 선언
+        let v_input = document.getElementById("inputText");
+
+        // 콘솔창에 내용 출력
+        console.log(v_input);
+
+        // 함수 선언
+        function f_click() {
+            let v_value = v_input.value;
+
+            if (v_value.length == 0) {
+                alert("검색어를 입력하세요");
+            } else {
+                alert(v_value);
+            }
+        }
+    </script>
 </body>
 
 </html>
