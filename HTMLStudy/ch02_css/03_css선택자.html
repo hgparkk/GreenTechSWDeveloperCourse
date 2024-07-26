@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css 선택자</title>
+
+    <style>
+        /* * : 모든 태그에 적용 */
+        * {
+            /* 몇몇 태그들에 적용되어 있는 margin이나 padding을 설정할 때 말고 거의 사용하지 않는다. */
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 태그명 : 해당 모든 태그에 적용 */
+        div {
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+        }
+
+        input[type=text] {
+            font-size: 30px;
+        }
+
+        /* 특정 id를 가지는 모든 태그에 적용 */
+
+        #melon {
+            background-color: greenyellow;
+            width: 50px;
+            height: 50px;
+        }
+
+        /* . : 해당 class가 부여된 태그만 */
+        .butter {
+            background-color: rgb(200, 200, 25);
+            width: 100px;
+            height: 200px;
+            border: 2px solid rgb(195, 195, 0);
+        }
+
+        .container {
+            width: 900px;
+            height: 600px;
+        }
+
+        /* 해당 class를 가지는 태그 내부에 특정 태그에 모두 적용 */
+        .container img {
+            width: 200px;
+        }
+
+        .container p {
+            font-weight: bold;
+        }
+
+        /* 해당 class를 가지는 태그 내부에 바로 아래에 있는 특정 태그에 모두 적용 */
+        .container>p {
+            font-size: 30px;
+        }
+
+        /* 해당 class를 가지는 태그 내부에 특정 태그를 가지는 두번째 요소에 적용 */
+        .container>div:nth-child(2) {
+            height: 100px;
+        }
+    </style>
+</head>
+
+<body>
+    <div></div>
+    <div class="butter"></div>
+    <p class="butter"></p>
+    <span class="butter" style="display: inline-block;"></span>
+    <hr>
+
+    <input type="text">
+    <input type="password">
+
+    <p id="melon"></p>
+
+    <div class="container">
+        <div>
+            <img src="https://i.namu.wiki/i/YVm0x8WHfLBtSyejD01_GTV1ITfWOJ-XODZzVTQPr386JsiBaz6Ucl1tKKxZmHiYStf_sXZBmK7AEXkEA18Tsg.webp"
+                alt="">
+        </div>
+        <div>
+            <p>후라이드 치킨</p>
+        </div>
+        <p>20,000원</p>
+    </div>
+</body>
+
+</html>

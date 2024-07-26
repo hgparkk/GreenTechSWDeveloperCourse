@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태그style속성</title>
+</head>
+
+<body>
+    <!-- span : 적용된 style 이 없다. -->
+    <!-- 단, 태그가 없는 텍스트는 별도로 style을 적용할 수 없으므로 태그가 없는 텍스트는 사용하지 않는다. -->
+    <sapn>Welcome HTML!</sapn>
+    <br>
+    <h1>h1 스타일</h1>
+
+    <!-- 모든 태그에는 style 속성이 존재함 -->
+    <!-- display: block은 해당 태그가 한 줄을 다 차지 함을 의미한다. 반대로 본인 영역만 차지는 inline-block 이다 -->
+    <span style="font-size: 30px; font-weight: bold; display: block; margin-top: 21px; margin-bottom: 21px">span style을
+        h1 style로</span>
+
+    <!-- div : display: block 스타일만 적용되어 있는 태그 -->
+    <div style="background-color: darkblue; color: white;">div 태그</div>
+
+    <div style="border: 2px solid black;">테두리가 보이도록</div>
+
+    <div style="width: 200px; height: 200px; background-color: chocolate;"></div>
+
+    <div style="width: 200px; height: 200px; background-color: chocolate;"></div>
+
+    <hr>
+
+    <div style="width: 200px; height: 200px; background-color: chocolate; display: inline-block;"></div>
+
+    <div style="width: 200px; height: 200px; background-color: chocolate; display: inline-block;"></div>
+
+    <hr>
+
+    <a href="https://www.naver.com">네이버</a>
+
+    <span style="color: #551A8B; text-decoration: underline; cursor: pointer">span 네이버</span>
+
+    <a style="color: black; text-decoration: none;" href="https:www.google.com">구글</a>
+    <br>
+
+    <b>볼드 처리</b>
+    <span style="font-weight: bold;">볼드 처리</span>
+    <br>
+
+    <i>italic 표기</i>
+    <span style="font-style: italic;">italic 표기</span>
+    <br>
+
+    <b><i>볼드+italic</i></b>
+    <span style="font-weight: bold; font-style: italic;">볼드+italic</span>
+    <br>
+
+    <del>취소선</del>
+    <span style="text-decoration: line-through;">취소선</span>
+    <br>
+
+    <ins>밑줄</ins>
+    <span style="text-decoration: underline;">밑줄</span>
+    <br>
+
+    <mark>형광펜</mark>
+    <span style="background-color: yellow;">형광펜</span>
+    <br>
+</body>
+
+</html>

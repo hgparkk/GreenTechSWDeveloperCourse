@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css 적용</title>
+
+    <!-- CSS : style 태그 내에 작성하는 코드 -->
+    <style>
+        .chocolate {
+            width: 200px;
+            height: 200px;
+            background-color: chocolate;
+            border: 2px solid black;
+            display: inline-block;
+            margin: 20px;
+        }
+
+        .bold-highlight{
+            font-weight: bold;
+            background-color: yellow;
+        }
+
+        .warning{
+            background-color: red;
+        }
+
+        .text-white{
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div
+        style="width: 200px; height: 200px; background-color: chocolate; border: 2px solid black; display: inline-block; margin: 20px;">
+    </div>
+
+    <div
+        style="width: 200px; height: 200px; background-color: chocolate; border: 2px solid black; display: inline-block; margin: 20px">
+    </div>
+
+    <div
+        style="width: 200px; height: 200px; background-color: chocolate; border: 2px solid black; display: inline-block; margin: 20px">
+    </div>
+    <hr>
+
+    <!-- 동일한 style을 가지는 태그에 대해 style 들을 CSS 로 묶어 사용 -->
+    <div class="chocolate"></div>
+    <div class="chocolate"></div>
+    <div class="chocolate"></div>
+    <hr>
+
+    <!-- 하나의 태그에만 스타일을 적용한다고 해도 CSS를 사용하는 편이다 -->
+    <span class="bold-highlight">볼드+하이라이트</span>
+
+    <!-- 두 개 이상의 CSS 적용 -->
+    <span class="warning text-white">경고</span>
+</body>
+
+</html>
