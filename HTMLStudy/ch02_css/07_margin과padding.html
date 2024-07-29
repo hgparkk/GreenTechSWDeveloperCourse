@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>margin과 padding</title>
+
+    <style>
+        .container {
+            border: 2px solid black;
+            height: 400px;
+        }
+
+        .container-p {
+            border: 2px solid black;
+            height: 400px;
+            padding: 20px;
+        }
+
+        .container>div:nth-child(2) {
+            padding: 20px;
+        }
+
+        .box {
+            border: 2px solid red;
+            margin: 20px;
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+        }
+
+        .title {
+            margin-left: 20px;
+            margin-top: 20px;
+            display: inline-block;
+        }
+
+        .news {
+            padding: 20px;
+            display: inline-block;
+        }
+
+        .close {
+            width: 40px;
+            cursor: pointer;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+    </div>
+    <div class="container">
+        <a class="title" href="">뉴스스탠드</a>
+    </div>
+    <div class="container-p">
+        <a href="">뉴스스탠드</a>
+    </div>
+    <div class="container">
+        <a class="news" href="">뉴스스탠드</a>
+    </div>
+    <div class="container">
+        <img class="close" src="https://static-00.iconduck.com/assets.00/close-icon-2048x2047-22z7exfk.png" alt="">
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css 적용순서</title>
+
+    <style>
+        /* 선택자로 style이 부여되는 순서는 범위가 넓은 쪽 부터 좁은 순이다. */
+        /* 위에 적힌 style이 가장 넓은 범위이고 아래에 적힐수록 범위가 좁혀지는 style이다. */
+
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        div {
+            margin: 20px;
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+        }
+
+        .box {
+            width: 100px;
+        }
+
+        #select {
+            border-style: dotted;
+            border-width: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- id 속성은 자바스크립트에서 해당 태그를 식별하기 위해 사용한다. -->
+    <div id="select" class="box"></div>
+    <!-- 해당 태그에 써진 style 속성이 가장 좁은 범위이다. -->
+    <div id="select" class="box" style="border-style: dashed;"></div>
+</body>
+
+</html>

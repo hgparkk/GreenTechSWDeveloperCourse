@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RGB 색상</title>
+
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            border: 1px solid black;
+        }
+
+        .name-color {
+            background-color: green;
+        }
+
+        /* RGB 색상 적용 */
+        .rgb-color {
+            background-color: rgb(3, 199, 90);
+        }
+
+        /* HEX 코드로 색상 적용 */
+        .hex-color {
+            background-color: #177BF2;
+        }
+
+        /* RGB 투명도도 같이 */
+        .rgba-color {
+            background-color: rgba(255, 0, 0, 0.3);
+        }
+
+        /* HEX 투명도도 같이 */
+        .hex-alpha {
+            background-color: #FF00003F;
+        }
+
+        /* 투명 */
+        .name-transparent {
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0);
+        }
+
+        /* opacity */
+        .opacity {
+            background-color: red;
+            opacity: 0.3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="name-color"></div>
+    <div class="rgb-color"></div>
+    <div class="hex-color"></div>
+    <div class="rgba-color"></div>
+    <div class="hex-alpha"></div>
+    <div class="opacity"></div>
+</body>
+
+</html>
