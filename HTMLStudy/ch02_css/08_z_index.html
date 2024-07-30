@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>z-index</title>
+
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+            position: absolute;
+        }
+
+        .apple {
+            background-color: red;
+            /* z-index로 겹쳐질 때 우선순위를 정할 수 있다. 높은 숫자일수록 위 */
+            z-index: 0;
+        }
+
+        .melon {
+            background-color: greenyellow;
+            top: 100px;
+            left: 100px;
+            z-index: 1;
+        }
+
+        .banana {
+            background-color: yellow;
+            top: 200px;
+            left: 200px;
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banana"></div>
+    <div class="melon"></div>
+    <div class="apple"></div>
+</body>
+
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>필터</title>
+
+    <style>
+        img {
+            width: 300px;
+        }
+
+        .f-blur {
+            filter: blur(5px);
+        }
+
+        .f-contrast {
+            filter: contrast(150%);
+        }
+
+        .f-invert {
+            filter: invert();
+        }
+
+        .f-grayscale {
+            filter: grayscale();
+        }
+
+        .f-brightness {
+            filter: brightness(150%);
+        }
+
+        .btn {
+            width: 100px;
+        }
+
+        .btn:hover {
+            background-color: orange;
+        }
+
+        .btn:hover>.qna {
+            filter: invert();
+        }
+
+        .btn:hover>p {
+            filter: invert();
+        }
+
+        .qna {
+            width: 80px;
+        }
+
+        .naver-btn {
+            width: 100px;
+            height: 60px;
+            background-color: greenyellow;
+        }
+
+        .naver-btn:hover {
+            filter: brightness(80%);
+        }
+
+        .f-many {
+            filter: blur(5px) grayscale();
+        }
+    </style>
+</head>
+
+<body>
+    <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    <img class="f-blur" src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    <hr>
+    <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    <img class="f-contrast" src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    <hr>
+    <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    <img class="f-invert" src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+
+    <div class="btn">
+        <img class="qna" src="https://cdn-icons-png.flaticon.com/512/6369/6369389.png" alt="">
+        <p>질문&답변</p>
+    </div>
+
+    <hr>
+    <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    <img class="f-grayscale" src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+
+    <hr>
+    <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    <img class="f-brightness" src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+
+    <div class="naver-btn"></div>
+
+    <hr>
+    <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    <img class="f-many" src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+</body>
+
+</html>

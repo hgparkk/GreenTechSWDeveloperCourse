@@ -44,17 +44,6 @@
             height: 300px;
         }
 
-        .innerbox {
-            position: absolute;
-
-            border: 2px solid red;
-
-            left: 50%;
-            top: 50%;
-
-            transform: translate(-50%, -50%);
-        }
-
         .text {
             position: absolute;
 
@@ -107,9 +96,24 @@
             color: white;
         }
 
+        .innerbox {
+            position: absolute;
+
+            border: 2px solid red;
+
+            text-align: center;
+            left: 50%;
+            top: 50%;
+
+            transform: translate(-50%, -50%);
+        }
+
         .inner-title {
             text-align: center;
             margin: 0;
+
+            font-weight: bold;
+            font-size: 40px;
 
             color: white;
         }
@@ -132,8 +136,6 @@
             top: 75%;
             left: 50%;
 
-            transform: translate(-50%, -50%);
-
             border-radius: 30px;
 
             font-weight: bold;
@@ -146,6 +148,12 @@
 
             /* 스타일 변경이 지속되는 시간 */
             transition-duration: 0.3s;
+        }
+
+        .inner-btn:hover {
+            cursor: pointer;
+            background-color: orange;
+            color: white;
         }
     </style>
 </head>

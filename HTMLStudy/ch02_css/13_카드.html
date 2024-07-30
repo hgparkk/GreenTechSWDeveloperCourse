@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카드</title>
+
+    <style>
+        .card {
+            width: 200px;
+            height: 300px;
+
+            /* 그림자 테두리 */
+            /* 그림자의 x축 y축 번짐정도 그림자의 크기 */
+            box-shadow: 0px 0px 5px 5px gray;
+
+            border-radius: 10px;
+
+            overflow: hidden;
+
+            cursor: pointer;
+        }
+
+        .card:hover .card-img {
+            width: 110%;
+            transition-duration: 0.5s;
+        }
+
+        .card-top {
+            position: relative;
+            height: 80%;
+            overflow: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-bottom {
+            height: 20%;
+            padding-left: 10px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: start;
+        }
+
+        .card-img {
+            width: 100%;
+            transition-duration: 0.5s;
+        }
+
+        .card-likes {
+            position: absolute;
+            width: 20px;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .card-sale {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card" title="아디다스 포럼 로우">
+        <div class="card-top">
+            <img class="card-img" src="https://image.msscdn.net/images/goods_img/20210818/2068678/2068678_1_500.jpg"
+                alt="">
+            <img class="card-likes"
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Coraz%C3%B3n.svg/1200px-Coraz%C3%B3n.svg.png"
+                alt="">
+        </div>
+        <div class="card-bottom">
+            <span>아디다스 포럼 로우</span>
+            <div>
+                <span class="card-sale">53%</span>
+                <span>59,990</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

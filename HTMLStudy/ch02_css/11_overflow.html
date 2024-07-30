@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>overflow</title>
+
+    <style>
+        .frame {
+            width: 300px;
+            height: 300px;
+            border: 2px solid black;
+            margin-bottom: 400px;
+        }
+
+        .frame>img {
+            width: 400px;
+            height: 600px;
+        }
+
+        .overflow-scroll {
+            overflow: scroll;
+        }
+
+        .overflow-hidden {
+            overflow: hidden;
+        }
+
+        .overflow-x-scroll {
+            overflow-x: scroll;
+            overflow-y: hidden;
+        }
+
+        .overflow-y-scroll {
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+
+        .box {
+            width: 400px;
+            height: 300px;
+            border: 5px solid black;
+
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .box>img {
+            height: 100%;
+            transition-duration: 0.5s;
+        }
+
+        .box:hover>img {
+            height: 110%;
+        }
+
+        .profile {
+            width: 100px;
+            height: 100px;
+            border-radius: 50px;
+            overflow: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile>img {
+            width: 120%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="frame">
+        <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    </div>
+
+    <div class="frame overflow-scroll">
+        <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    </div>
+
+    <div class="frame overflow-hidden">
+        <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    </div>
+
+    <div class="frame overflow-x-scroll">
+        <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    </div>
+
+    <div class="frame overflow-y-scroll">
+        <img src="https://cdn.hankyung.com/photo/202404/01.36520548.1.jpg" alt="">
+    </div>
+
+    <div class="box">
+        <img src="https://i.ytimg.com/vi/OqfiM8zEzQA/maxresdefault.jpg" alt="">
+    </div>
+
+    <div class="profile">
+        <img src="https://flexible.img.hani.co.kr/flexible/normal/400/500/imgdb/original/2023/0503/20230503501277.jpg"
+            alt="">
+    </div>
+</body>
+
+</html>
