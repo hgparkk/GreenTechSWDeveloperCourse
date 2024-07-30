@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>반응형</title>
+
+    <style>
+        .search-box {
+            text-align: center;
+        }
+
+        .search-box-input {
+            width: 60%;
+        }
+
+        .google-search-box {
+            text-align: center;
+        }
+
+        .google-search-box-input {
+            width: 60%;
+            min-width: 300px;
+        }
+
+        .card-box {
+            width: 60%;
+            border: 2px solid black;
+            margin: auto;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .card {
+            width: calc(100% / 4 - 10px);
+            height: 100px;
+            background-color: aqua;
+            border: 1px solid black;
+        }
+
+        @media (max-width:1000px) {
+            .card {
+                width: calc(100% / 3 - 10px);
+            }
+        }
+
+        @media (max-width:700px) {
+            .card {
+                width: calc(100% / 2 - 10px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="search-box">
+            <input class="search-box-input" type="text">
+        </div>
+
+        <div class="google-search-box">
+            <input class="google-search-box-input" type="text">
+        </div>
+
+        <div class="card-box">
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+            <div class="card"></div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맥도날드</title>
+
+    <style>
+        * {
+            margin: 0px;
+            padding: 0px;
+            background-color: black;
+        }
+
+        .text-orange {
+            color: orange;
+            font-weight: bold;
+        }
+
+        .text-white {
+            color: white;
+        }
+
+        .nav-bar {
+            position: fixed;
+            width: 1340px;
+            top: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-bar-content-left {
+            margin: 10px;
+            margin-left: 30px;
+            font-size: 20px;
+        }
+
+        .nav-bar-content-center {
+            width: 300px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .nav-bar-content-center-text {
+            font-size: 15px;
+        }
+
+        .nav-bar-content-right {
+            background-color: orange;
+            color: black;
+            font-weight: bold;
+            border-radius: 30px;
+            margin-right: 30px;
+            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        .container {
+            width: 1340px;
+            margin: auto;
+        }
+
+        .main-container {
+            margin-top: 80px;
+            margin-left: 25px;
+            margin-right: 25px;
+        }
+
+        .banner {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .banner-img {
+            height: 350px;
+        }
+
+        .banner-text {
+            margin: 50px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .banner-text-title {
+            margin-top: 50px;
+            font-size: 30px;
+        }
+
+        .banner-text-contents {
+            margin-top: 50px;
+            font-size: 20px;
+        }
+
+        .menu-container {
+            margin-top: 20px;
+            width: 100%;
+            height: 1000px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: white;
+        }
+
+        .menu-container * {
+            background-color: white;
+        }
+
+        .menu-title {
+            margin-top: 30px;
+            font-size: 30px;
+        }
+
+        .menu-box {
+            margin-top: 20px;
+            width: 100%;
+            height: 85%;
+        }
+
+        .menu-row {
+            display: flex;
+            height: calc(100%/2 - 2px);
+            justify-content: space-evenly;
+        }
+
+        .menu-content {
+            width: calc(100%/3 - 80px);
+            margin-top: 10px;
+            margin-bottom: 10px;
+            box-shadow: 0px 0px 5px 5px lightgray;
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .menu-img-div {
+            width: 250px;
+            height: 210px;
+            display: flex;
+            overflow: hidden;
+            align-items: flex-end;
+        }
+
+        .menu-img {
+            display: flex;
+            width: 250px;
+        }
+
+        .menu-text {
+            margin-top: 30px;
+            color: black;
+            font-weight: bold;
+        }
+
+        .menu-title {
+            margin-top: 30px;
+            font-size: 17px;
+            color: black;
+            font-weight: bold;
+        }
+
+        .map {
+            display: flex;
+            justify-content: center;
+            background-color: #121227;
+        }
+
+        .map * {
+            background-color: #121227;
+        }
+
+        .map-comment {
+            margin-top: 60px;
+            display: flex;
+            flex-direction: column;
+            background-color: #121227
+        }
+
+        .map-comment-text {
+            font-weight: bold;
+        }
+
+        .map-content {
+            margin-top: 20px;
+        }
+
+        .map-content * {
+            background-color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <div class="nav-bar-content-left text-orange">맥도날드</div>
+            <div class="nav-bar-content-center">
+                <span class="nav-bar-content-center-text text-white">Home</span>
+                <span class="nav-bar-content-center-text text-white">메뉴</span>
+                <span class="nav-bar-content-center-text text-white">매장찾기</span>
+            </div>
+            <div class="nav-bar-content-right">로그인/회원가입</div>
+        </div>
+        <div class="container">
+            <div class="main-container">
+                <div class="banner">
+                    <img class="banner-img"
+                        src="https://i.namu.wiki/i/vQAKv2bv89XEULNbUG_sWQnR7W0PfTp6QCJhXNPGnUsPigP7aMGekSNqvIdH61HvzXWlqO4eplpfzheWtbmBiA.webp"
+                        alt="">
+                    <div class="banner-text">
+                        <span class="banner-text-title text-orange">
+                            다양한 크기의 버거를 만나보세요!
+                        </span>
+                        <span class="banner-text-contents text-white">
+                            세 가지 크기의 버거를 취향대로<br>
+                            맥 주니어, 빅 맥, 그랜드 빅 맥
+                        </span>
+                    </div>
+                </div>
+                <div class="menu-container">
+                    <span class="menu-title text-orange">
+                        Menu
+                    </span>
+                    <div class="menu-box">
+                        <div class="menu-row">
+                            <div class="menu-content">
+                                <div class="menu-img-div">
+                                    <img class="menu-img"
+                                        src="https://eatsbible.com/wp-content/uploads/2024/04/cate-thumb-640-Mac-Jr-20240201.png"
+                                        alt="">
+                                </div>
+                                <span class="menu-text menu-title">맥 주니어</span>
+                                <span class="menu-text">7200원</span>
+                            </div>
+                            <div class="menu-content">
+                                <div class="menu-img-div">
+                                    <img class="menu-img"
+                                        src="https://eatsbible.com/wp-content/uploads/2022/07/McDonalds_Big-Mac.png"
+                                        alt="">
+                                </div>
+                                <span class="menu-text menu-title">빅 맥</span>
+                                <span class="menu-text">8000원</span>
+                            </div>
+                            <div class="menu-content">
+                                <div class="menu-img-div">
+                                    <img class="menu-img"
+                                        src="https://eatsbible.com/wp-content/uploads/2024/04/cate-thumb-640-Grand-Big-Mac-20240201.png"
+                                        alt="">
+                                </div>
+                                <span class="menu-text menu-title">그랜드 빅 맥</span>
+                                <span class="menu-text">13000원</span>
+                            </div>
+                        </div>
+                        <div class="menu-row">
+                            <div class="menu-content">
+                                <div class="menu-img-div">
+                                    <img class="menu-img"
+                                        src="https://eatsbible.com/wp-content/uploads/2024/04/cate-thumb-640-Mac-Jr-20240201.png"
+                                        alt="">
+                                </div>
+                                <span class="menu-text menu-title">맥 주니어</span>
+                                <span class="menu-text">7200원</span>
+                            </div>
+                            <div class="menu-content">
+                                <div class="menu-img-div">
+                                    <img class="menu-img"
+                                        src="https://eatsbible.com/wp-content/uploads/2022/07/McDonalds_Big-Mac.png"
+                                        alt="">
+                                </div>
+                                <span class="menu-text menu-title">빅 맥</span>
+                                <span class="menu-text">8000원</span>
+                            </div>
+                            <div class="menu-content">
+                                <div class="menu-img-div">
+                                    <img class="menu-img"
+                                        src="https://eatsbible.com/wp-content/uploads/2024/04/cate-thumb-640-Grand-Big-Mac-20240201.png"
+                                        alt="">
+                                </div>
+                                <span class="menu-text menu-title">그랜드 빅 맥</span>
+                                <span class="menu-text">13000원</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="map">
+                    <div class="map-content">
+                        <a href="https://map.kakao.com/?urlX=587283&urlY=788050&urlLevel=1&map_type=TYPE_MAP&map_hybrid=false"
+                            target="_blank"><img width="504" height="310"
+                                src="https://map2.daum.net/map/mapservice?FORMAT=PNG&SCALE=0.625&MX=587283&MY=788050&S=0&IW=504&IH=310&LANG=0&COORDSTM=WCONGNAMUL&logo=kakao_logo"
+                                style="border:1px solid #ccc"></a>
+                        <div class="hide"
+                            style="overflow:hidden;padding:7px 11px;border:1px solid #dfdfdf;border-color:rgba(0,0,0,.1);border-radius:0 0 2px 2px;background-color:#f9f9f9;width:482px;">
+                            <strong style="float: left;"><img
+                                    src="//t1.daumcdn.net/localimg/localimages/07/2018/pc/common/logo_kakaomap.png"
+                                    width="72" height="16" alt="카카오맵"></strong>
+                            <div style="float: right;position:relative"><a
+                                    style="font-size:12px;text-decoration:none;float:left;height:15px;padding-top:1px;line-height:15px;color:#000"
+                                    target="_blank"
+                                    href="https://map.kakao.com/?urlX=587283&urlY=788050&urlLevel=1&map_type=TYPE_MAP&map_hybrid=false">지도
+                                    크게 보기</a></div>
+                        </div>
+                    </div>
+                    <div class="map-comment">
+                        <span class="map-comment-text text-white">(35312) 맥도날드 대전가장DT점 대전 서구 도산로 324</span><br>
+                        <span class="text-white">Tel : 042-369-1600</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
