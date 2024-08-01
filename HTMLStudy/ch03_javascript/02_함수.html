@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>함수</title>
+
+    <style>
+        .container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .alert-button {
+            width: 200px;
+            height: 100px;
+            background-color: gainsboro;
+            border: 1px solid black;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="button1" class="alert-button" onclick="hello()">인사</div>
+        <div id="button2" class="alert-button" onclick="thanks()">감사</div>
+        <div id="button3" class="alert-button" onclick="sorry()">사과</div>
+    </div>
+    <script>
+        function hello() {
+            alert("안녕하세요.")
+        }
+
+        const thanks = function () {
+            alert("감사합니다.")
+        }
+
+        const sorry = () => {
+            alert("죄송합니다.")
+        }
+
+        function randNum(a, b) {
+            return Math.floor(Math.random() * (b - a + 1)) + a
+        }
+
+        let money = 100000000
+
+        document.write(randNum(10, 20))
+        //천 단위 comma 찍기
+        document.write("<h2>" + money.toLocaleString() + "</h2>")
+    </script>
+</body>
+
+</html>

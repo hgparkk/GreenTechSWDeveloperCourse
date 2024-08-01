@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>javascript 기본문법
+    </title>
+</head>
+
+<body>
+    <script>
+        console.log("Hello World")
+
+        var num = 10
+        let age = 27
+
+        console.log(num)
+        console.log(age)
+
+        console.log(typeof (num))
+
+        let name = "현규"
+
+        console.log(typeof (name))
+
+        let title = 'javascript'
+
+        console.log(typeof (title))
+
+        const pi = 3.14;
+
+        console.log(typeof (pi))
+
+        console.log("이름은 " + name + ", 나이는 " + age)
+
+        //ES6 방식으로 위와 같이 출력
+        console.log(`이름은 ${name}, 나이는 ${age}`)
+
+        console.log("이름:", name);
+
+        let inputAddress; //undefined
+        inputAddress = null // null
+
+        let fruits = 'Apple, Banana, Cherry'
+
+        console.log(fruits.length)
+
+        console.log(fruits[7])
+
+        console.log(fruits.substr(7, 6))
+        console.log(fruits.substring(7, 13))
+
+        console.log(fruits.replace('a', '4'))
+        console.log(fruits.replaceAll('a', '4'))
+
+        console.log(fruits.indexOf('Banana'))
+        console.log(fruits.indexOf('banana'))
+
+        let inputPhone = "01000000000"
+
+        if (inputPhone.length == 11) {
+            console.log("통과")
+        } else {
+            console.log("불통")
+        }
+
+        if (inputPhone.length == 11) {
+            console.log("통과")
+        } else if (inputPhone.length == 10) {
+            console.log("통과,")
+        } else {
+            console.log("불통")
+        }
+
+        if (inputPhone.length == 11 || inputPhone.length == 10) {
+            console.log("통과")
+        } else {
+            console.log("불통")
+        }
+
+        if (inputPhone.length >= 10 && inputPhone.length <= 11) {
+            console.log("통과")
+        } else {
+            console.log("불통")
+        }
+
+        /*
+        if 문의 조건에 숫자, 문자열, 객체도 넣을 수 있다.
+        숫자: 0은 false 그 외에 true
+        문자열: empty면 false 그 외에 true
+        객체: undefined 나 null 이면 false 그 외에 true
+        */
+
+        let numAge = 20
+        let strAge = "20"
+
+        console.log(numAge == strAge) // 값이 일치하면 true
+        console.log(numAge === strAge) // 값과 타입이 일치하면 true
+
+        console.log(numAge + strAge); // 문자열 이어붙이기 (자동 형 변환)
+
+        numPrice = 1000;
+        console.log(typeof numPrice) // 괄호가 안 붙어도 작동함
+
+        numPrice = numPrice + ""
+        console.log(typeof numPrice)
+
+        //문자열 > 숫자
+        numPrice = parseInt(numPrice);
+        console.log(typeof numPrice)
+
+        let strPrice = "2000"
+        strPrice = strPrice / 1
+        console.log(typeof strPrice)
+
+        strPrice = "2000"
+        strPrice = strPrice * 1
+        console.log(typeof strPrice)
+
+        for (let i = 1; i <= 10; i++) {
+            console.log(i);
+        }
+
+        document.write("<h1>구구단</h1>")
+
+        for (let i = 2; i <= 9; i++) {
+            for (let j = 1; j <= 9; j++) {
+                document.write(`<div style="font-size: ${i * 10}px"> ${i} * ${j} = ${i * j}</div>`);
+            }
+            document.write("<br>")
+        }
+
+
+    </script>
+</body>
+
+</html>

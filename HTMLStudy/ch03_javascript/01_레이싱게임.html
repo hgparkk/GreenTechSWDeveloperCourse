@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>레이싱게임</title>
+
+    <style>
+        .container {
+            display: flex;
+            height: 300px;
+            flex-direction: column;
+            border: 1px solid black;
+        }
+
+        .lane {
+            width: 100%;
+            height: calc(100%/3 - 2px);
+            border: 1px solid gray;
+        }
+
+        .lane-img {
+            display: flex;
+            align-items: center;
+            height: 80%;
+        }
+
+        .lane-length {
+            width: 0px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="lane">
+            <span id="lane1" class="lane-length"></span>
+            <img class="lane-img" src="https://cujgame.netlify.app/img/horse_six.gif" alt="">
+        </div>
+        <div class="lane">
+            <span id="lane2
+            " class="lane-length"></span>
+            <img class="lane-img" src="https://cujgame.netlify.app/img/horse_six.gif" alt="">
+        </div>
+        <div class="lane">
+            <span id="lane3" class="lane-length"></span>
+            <img class="lane-img" src="https://cujgame.netlify.app/img/horse_six.gif" alt="">
+        </div>
+    </div>
+    <script>
+        let lane1 = document.getElementById("lane1")
+        let lane2 = document.getElementById("lane2")
+        let lane3 = document.getElementById("lane3")
+
+        let width1 = 0;
+        let width2 = 0;
+        let width3 = 0;
+        while (true) {
+            let randNum = Math.floor(Math.random() * 3)
+
+            if (randNum == 0) {
+                width1 += 10;
+                lane1.style.width = width1 + "px";
+            } else if (randNum == 1) {
+                width2 += 10;
+                lane1.style.width = width2 + "px";
+            } else if (randNum == 2) {
+                width3 += 10;
+                lane3.style.width = width3 + "px";
+            }
+
+            if (width1 == 1000) {
+                alert("1번말 우승")
+                break
+            } else if (width2 == 1000) {
+                alert("2번말 우승")
+                break
+            } else if (width3 == 1000) {
+                alert("3번말 우승")
+                break
+            }
+        }
+    </script>
+</body>
+
+</html>

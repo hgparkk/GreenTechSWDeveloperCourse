@@ -1,0 +1,23 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.naver-color {
+    color: rgb(3, 199, 90);
+}
+
+.naver-bg {
+    background-color: rgb(3, 199, 90);
+}
+
+.align-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container {
+    width: 1340px;
+    margin: auto;
+}

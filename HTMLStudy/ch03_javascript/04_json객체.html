@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json 객체</title>
+</head>
+
+<body>
+    <script>
+        let personIU = {}; // 빈 json 객체
+        console.log(personIU)
+
+        personIU.name = "아이유"
+
+        console.log(personIU)
+
+        personIU["age"] = 32
+
+        console.log(personIU)
+
+        console.log(personIU["name"])
+
+        personIU.key = 160
+
+        personIU.height = 160
+
+        personIU["songs"] = ["분홍신", "좋은날", "블루밍"]
+
+        console.log(personIU)
+
+        delete personIU["key"]
+        delete personIU.height
+
+        console.log(personIU)
+
+        console.log(personIU["songs"][1])
+
+        const personTY = {};
+        personTY['name'] = "태연"
+
+        console.log(personTY)
+
+        personTY['friend'] = personIU
+
+        console.log(personTY)
+
+        console.log(personTY["friend"]["songs"][2])
+
+        let age = "나이"
+
+        let jsonData = {
+            name: "짱구",
+            age: 5
+        }
+
+        console.log(jsonData)
+
+        jsonData = {
+            "name": "짱구",
+            "age": 5
+        }
+
+        console.log(jsonData)
+
+        let keyArray = Object.keys(personIU)
+        console.log(keyArray)
+
+        for (let key of keyArray) {
+            console.log(key)
+            console.log(personIU[key])
+        }
+
+        for (let key in personIU) {
+            console.log(key)
+            console.log(personIU[key])
+        }
+    </script>
+</body>
+
+</html>

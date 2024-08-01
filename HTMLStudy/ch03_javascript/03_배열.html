@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배열</title>
+</head>
+
+<body>
+    <script>
+        let myArray = [];
+
+        console.log(myArray)
+        console.log(myArray.length)
+
+        myArray.push(55)
+        myArray.push("빨강")
+        myArray.push(3.45)
+
+        console.log(myArray)
+
+        myArray[3] = 37;
+
+        console.log(myArray)
+
+        myArray[myArray.length] = 66 // push 와 같음
+
+        console.log(myArray)
+
+        myArray[99] = "악마"
+
+        console.log(myArray)
+
+        console.log(myArray[1])
+        console.log(myArray[5])
+
+        myArray[1] = "파랑"
+        console.log(myArray)
+
+        myArray.splice(1, 2) //배열 요소 에서 index 부터 count 수 만큼 삭제
+        console.log(myArray)
+
+        myArray[150] = "천사"
+        console.log(myArray)
+
+        for (let i = 0; i < myArray.length; i++) {
+            if (!myArray[i]) {
+                myArray.splice(i, 1)
+                i--
+            }
+        }
+
+        console.log(myArray)
+
+        for (let i of myArray) {
+            console.log(i)
+        }
+
+        let arr = [12, 34, 55, "악마"]
+
+        console.log(arr)
+        console.log(arr[10])
+    </script>
+</body>
+
+</html>
