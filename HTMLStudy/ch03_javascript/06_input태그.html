@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>input 태그</title>
+
+    <style>
+        div {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>회원가입</h2>
+    <div>
+        아이디
+        <input id="inputId" type="text">
+    </div>
+    <div>
+        비밀번호
+        <input id="inputPw" type="password">
+    </div>
+    <div>
+        비밀번호 확인
+        <input id="inputPwCheck" type="password">
+    </div>
+    <div>
+        남성<input type="radio" name="gender" value="male">
+        여성<input type="radio" name="gender" value="female">
+    </div>
+    <div>
+        비밀번호 힌트<br>
+        <select name="" id="inputHint">
+            <option value="element">나의 초등학교 이름은?</option>
+            <option value="nickname">나의 어릴적 별명은?</option>
+            <option value="treasure">내 보물 1호는</option>
+        </select>
+        <input id="hintAnswer" type="text">
+        <div>
+            사이트 방문 사유<br>
+            지인<input type="checkbox" name="reason" value="friend">
+            검색<input type="checkbox" name="reason" value="search">
+            직장<input type="checkbox" name="reason" value="company">
+            기타<input type="checkbox" name="reason" value="etc">
+        </div>
+        <div>
+            생년월일<input id="inputBirth" type="date">
+        </div>
+        <div>
+            색상 선택<input id="inputColor" type="color">
+        </div>
+        <div>
+            <button onclick="signUp()">회원가입</button>
+        </div>
+    </div>
+
+    <script>
+        const v_inputId = document.getElementById("inputId")
+        const v_inputPw = document.getElementById("inputPw")
+        const v_inputPwCheck = document.getElementById("inputPwCheck")
+        const v_gender = document.getElementsByName("gender")
+        const v_inputHint = document.getElementById("inputHint")
+        const v_hintAnswer = document.getElementById("hintAnswer")
+        const v_reason = document.getElementsByName("reason")
+        const v_inputBirth = document.getElementById("inputBirth")
+        const v_inputColor = document.getElementById("inputColor")
+
+        function signUp() {
+            let v_inputIdValue = v_inputId.value
+
+            if (!v_inputIdValue) {
+                alert("아이디를 입력하세요")
+                return
+            }
+
+            let v_inputPwValue = v_inputPw.value
+
+            if (!v_inputPwValue) {
+                alert("비밀번호를 입력하세요")
+                return
+            }
+
+            let v_inputPwCheckValue = v_inputPwCheck.value
+
+            if (v_inputPwValue != v_inputPwCheckValue) {
+                alert("비밀번호확인이 일치하지 않습니다")
+                return
+            }
+
+            let v_genderValue = ""
+
+            for (let i = 0; i < v_gender.length; i++) {
+                if (v_gender[i].checked) {
+                    v_genderValue = v_gender[i].value
+                }
+            }
+
+            if (!v_genderValue) {
+                alert("성별을 입력해주세요")
+                return
+            }
+
+            let v_hintAnswerValue = v_hintAnswer.value
+
+            if (!v_hintAnswerValue) {
+                alert("비밀번호 힌트에 대한 답변을 입력해주세요")
+                return
+            }
+
+            let v_reasonValue = []
+
+            for (let i = 0; i < v_reason.length; i++) {
+                if (v_reason[i].checked) {
+                    v_reasonValue.push(v_reason[i].value)
+                }
+            }
+
+            v_inputBirthValue = v_inputBirth.value
+
+            if (!v_inputBirthValue) {
+                alert("생년월일을 입력해주세요")
+                return
+            }
+
+            v_inputColorValue = v_inputColor.value
+
+            console.log(v_inputIdValue)
+            console.log(v_inputPwValue)
+            console.log(v_inputPwCheckValue)
+            console.log(v_genderValue)
+            console.log(v_hintAnswerValue)
+            console.log(v_reasonValue)
+            console.log(v_inputBirthValue)
+            console.log(v_inputColorValue)
+        }
+    </script>
+</body>
+
+</html>

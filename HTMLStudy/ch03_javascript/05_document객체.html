@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>document 객체</title>
+
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>색이 바뀐 횟수: <span id="count"></span></h2>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <button onclick="changeColor()">색교체</button>
+
+    <script>
+
+        let v_count = document.getElementById("count")
+        v_count.innerHTML = 0
+
+        let v_box = document.getElementsByClassName("box")
+
+        v_box[0].style.width = "300px"
+        let cssbox = getComputedStyle(v_box[2]) // 해당 변수가 가진 모든 style 확인 (json)
+
+        console.log(cssbox)
+        console.log(cssbox["width"])
+
+        v_box[0].style.backgroundColor = "red"
+        v_box[1].style.backgroundColor = "rgb(0,255,0)"
+        v_box[2].style.backgroundColor = "#0000FF"
+
+        function makeRandomRGB() {
+            return Math.floor(Math.random() * 256)
+        }
+
+        function makeRandomRGBString() {
+            let array = [makeRandomRGB(), makeRandomRGB(), makeRandomRGB()]
+            return "rgb(" + array[0] + "," + array[1] + "," + array[2] + ")"
+        }
+
+        function changeColor() {
+            v_box[0].style.backgroundColor = makeRandomRGBString()
+            v_box[1].style.backgroundColor = makeRandomRGBString()
+            v_box[2].style.backgroundColor = makeRandomRGBString()
+            v_count.innerHTML++
+        }
+    </script>
+</body>
+
+</html>

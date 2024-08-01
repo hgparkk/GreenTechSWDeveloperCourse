@@ -76,6 +76,25 @@
             console.log(key)
             console.log(personIU[key])
         }
+
+        let jsonString = JSON.stringify(personIU) // JSON to string
+        console.log(jsonString)
+
+        let jsonObject = JSON.parse(jsonString) // string to JSON
+        console.log(jsonObject)
+
+        console.log(jsonObject["songs"][0])
+
+        let array = ["아이유", "태연", "나훈아"]
+
+        let arrayString = JSON.stringify(array)
+
+        console.log(arrayString)
+
+        let arrayObject = JSON.parse(arrayString)
+
+        console.log(arrayObject)
+        console.log(arrayObject[0])
     </script>
 </body>
 

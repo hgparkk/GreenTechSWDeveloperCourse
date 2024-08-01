@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또번호생성기</title>
+
+    <style>
+        .d-flex {
+            display: flex;
+        }
+
+        .num {
+            width: 100px;
+            height: 100px;
+            border: 2px solid black;
+            font-size: 30px;
+            text-align: center;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <button onclick="refresh()">새로뽑기</button>
+    <div class="d-flex">
+        <div class="num"></div>
+        <div class="num"></div>
+        <div class="num"></div>
+        <div class="num"></div>
+        <div class="num"></div>
+        <div class="num"></div>
+    </div>
+
+    <script>
+        let v_lottoNum = []
+        let v_num = document.getElementsByClassName("num")
+
+        refresh()
+
+        function makeRandomNumber() {
+            return Math.floor(Math.random() * 45) + 1
+        }
+
+        function refresh() {
+            v_lottoNum = []
+            for (let i = 0; i < v_num.length; i++) {
+                v_num[i].style.backgroundColor = "#FFFFFF"
+            }
+            while (v_lottoNum.length != 6) {
+                let check = makeRandomNumber()
+                if (v_lottoNum.indexOf(check) == -1) {
+                    v_lottoNum.push(check)
+                }
+            }
+
+            v_lottoNum.sort((a, b) => a - b)
+
+            for (let i = 0; i < 6; i++) {
+                v_num[i].innerHTML = v_lottoNum[i]
+            }
+
+            lottoCheck()
+        }
+
+        function lottoCheck() {
+            let winLotto = [15, 19, 21, 25, 27, 28]
+            for (let i = 0; i < v_num.length; i++) {
+                if (winLotto.indexOf(v_num[i].innerHTML / 1) != -1) {
+                    v_num[i].style.backgroundColor = "#00FF00"
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

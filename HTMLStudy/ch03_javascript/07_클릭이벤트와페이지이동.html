@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>클릭이벤트와 페이지이동</title>
+</head>
+
+<body>
+    <a href="https://www.naver.com">네이버</a>
+
+    <div onclick="goNaver()">네이버</div>
+
+    <a href="https://www.google.com" target="_blank">구글</a>
+
+    <div id="google">구글</div>
+
+    <div id="next">다음화</div>
+
+    <a href="05_img교체.html">고양이보러가자</a>
+
+    <div id="cat">고양이보자</div>
+
+    <div>
+        <select name="" id="searchTag">
+            <option value="q=">전체</option>
+            <option value="udm=2&q=">이미지</option>
+        </select> <input id="inputKeyword" type="text"><button id="searchBtn">검색</button>
+    </div>
+
+    <script>
+        function goNaver() {
+            location.href = "https://www.naver.com"
+        }
+
+        let v_google = document.getElementById("google")
+        v_google.addEventListener("click", () => open("https://www.google.com"))
+
+        document.getElementById("next").addEventListener("click", () => location.replace("https://www.google.com"))
+
+        document.getElementById("cat").onclick = () => location.href = "./05_img교체.html"
+
+        let v_searchTag = document.getElementById("searchTag")
+        let v_inputKeyword = document.getElementById("inputKeyword")
+        let v_searchBtn = document.getElementById("searchBtn")
+
+        v_inputKeyword.onkeydown = () => {
+            if (event.keyCode == 13) {
+                v_searchBtn.click()
+            }
+        }
+
+        v_searchBtn.onclick = () => {
+            let v_keyWord = v_inputKeyword.value
+            let v_searchTagValue = v_searchTag.value
+            location = "https://www.google.com/search?" + v_searchTagValue + v_keyWord
+        }
+
+    </script>
+</body>
+
+</html>

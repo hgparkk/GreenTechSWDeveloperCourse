@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>img 교체</title>
+</head>
+
+<body>
+    <img id="catImg" src="../resources/images/1.jpg" width="500px" height="300px">
+    <br>
+    <button onclick="changeImg2()">이미지교체</button>
+
+    <script>
+        let v_imgIndex = 0;
+        let v_img = document.getElementById("catImg")
+
+        let imgArray = ["1.jpg", "2.jpg", "3.jpg"]
+
+        function changeImg() {
+            v_imgIndex++
+            if (v_imgIndex > 3) {
+                v_imgIndex = 1
+            }
+            v_img.src = "../resources/images/" + v_imgIndex + ".jpg"
+
+        }
+
+        function changeImg2() {
+            v_imgIndex++
+            if (v_imgIndex > 2) {
+                v_imgIndex = 0
+            }
+            v_img.src = "../resources/images/" + imgArray[v_imgIndex]
+
+        }
+    </script>
+</body>
+
+</html>
