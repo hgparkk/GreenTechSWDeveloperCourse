@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>표중체중계산기</title>
+
+    <style>
+        * {
+            margin: 0
+        }
+
+        .modal-container {
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #00000070;
+
+            position: absolute;
+
+            display: none;
+        }
+
+        .modal-box {
+            width: 600px;
+            background-color: white;
+
+            box-shadow: 0px 0px 10px 4px skyblue;
+            border-radius: 20px;
+
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translate(-50%, 0)
+        }
+
+        .modal-content {
+            margin-left: 15px;
+            margin-right: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            font-family: Arial;
+        }
+
+        .modal-header {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 30px;
+        }
+
+        .close-button {
+            width: 25px;
+            height: 25px;
+        }
+
+        .close-button:hover {
+            cursor: pointer;
+            filter: contrast(50%);
+        }
+
+        .modal-body-input {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .modal-body-input-content {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .modal-body-input-content-text {
+            margin-bottom: 10px;
+        }
+
+        .modal-body-input-content-input {
+            width: 240px;
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .modal-body-radio {
+            margin: 15px;
+        }
+
+        .modal-body-radio-content {
+            margin: 5px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-footer-button {
+            width: 90%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 18px;
+        }
+
+        .modal-footer-button:hover {
+            cursor: pointer;
+            filter: brightness(80%)
+        }
+
+        .modal-footer-button-blue {
+            background-color: blue
+        }
+
+        .modal-result {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <button id="modalBtn">표준 체중 계산하기</button>
+    <div class="modal-container">
+        <div class="modal-box">
+            <div class="modal-content modal-header">
+                <p>표준 체중 계산기</p>
+                <img class="close-button" src="https://static.thenounproject.com/png/953232-200.png" alt="">
+            </div>
+            <div class="modal-content">
+                <div class="modal-body-input">
+                    <div class="modal-body-input-content">
+                        <span class="modal-body-input-content-text">키(cm):</span>
+                        <input id="height" class="modal-body-input-content-input" type="number">
+                    </div>
+                    <div class="modal-body-input-content">
+                        <span class="modal-body-input-content-text">체중(kg):</span>
+                        <input id="weight" class="modal-body-input-content-input" type="number">
+                    </div>
+                </div>
+                <div class="modal-body-radio">
+                    남성<input class="modal-body-radio-content" type="radio" name="gender" value="m">
+                    여성<input class="modal-body-radio-content" type="radio" name="gender" value="f">
+                </div>
+            </div>
+            <div class="modal-content modal-footer">
+                <button id="calculation" class="modal-footer-button modal-footer-button-blue">계산하기</button>
+            </div>
+            <div class="modal-result">
+                <span id="result"></span>
+                <span id="result_second"></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const modalBtn = document.getElementById("modalBtn")
+        const modalContainer = document.getElementsByClassName("modal-container")[0]
+        const modalBox = document.getElementsByClassName("modal-box")[0]
+
+        const closeBtn = document.getElementsByClassName("close-button")[0]
+
+        const buttons = document.getElementsByClassName("modal-footer-button")
+
+        modalBtn.addEventListener("click", () => modalContainer.style.display = "block")
+
+        modalContainer.addEventListener("click", () => modalContainer.style.display = "none")
+
+        closeBtn.addEventListener("click", () => modalContainer.style.display = "none")
+
+        modalBox.addEventListener("click", () => event.stopPropagation()) // 부모의 이벤트와 관계없이 독립적으로 행동한다.
+
+        const v_height = document.getElementById("height")
+        const v_weight = document.getElementById("weight")
+        const v_gender = document.getElementsByName("gender")
+
+        const v_calculation = document.getElementById("calculation")
+
+        const v_result = document.getElementById("result")
+        const v_resultSecond = document.getElementById("result_second")
+
+        v_calculation.addEventListener("click", () => {
+            v_heightValue = v_height.value
+
+            if (!v_heightValue) {
+                v_result.innerHTML = "키를 입력해주세요."
+                return
+            }
+
+            v_weightValue = v_weight.value
+
+            if (!v_weightValue) {
+                v_result.innerHTML = "몸무게를 입력해주세요."
+                return
+            }
+
+            let v_genderValue = ""
+
+            for (let i = 0; i < v_gender.length; i++) {
+                if (v_gender[i].checked) {
+                    v_genderValue = v_gender[i].value
+                }
+            }
+
+            if (!v_genderValue) {
+                v_result.innerHTML = "성별을 선택해주세요."
+                return
+            }
+
+            let result_avg = (v_heightValue / 100) * (v_heightValue / 100)
+            let percentage = 0
+
+            if (v_genderValue == "m") {
+                result_avg *= 22
+            } else if (v_genderValue == "f") {
+                result_avg *= 21
+            }
+
+            percentage = (v_weightValue / 1) / result_avg * 100
+
+            let result_bmi = ""
+
+            if (percentage < 90) {
+                result_bmi = "저체중"
+            } else if (percentage < 110) {
+                result_bmi = "정상 체중"
+            } else if (percentage < 120) {
+                result_bmi = "과체중"
+            } else if (percentage < 130) {
+                result_bmi = "경도 비만"
+            } else if (percentage < 160) {
+                result_bmi = "중정도 비만"
+            } else {
+                result_bmit = "고도 비만"
+            }
+
+            v_result.innerHTML = "적합한 표준 체중은" + Math.floor(result_avg) + "kg 이며,"
+            v_resultSecond.innerHTML = "현재 비만도는 " + result_bmi + "입니다."
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>setInterval과date</title>
+</head>
+
+<body>
+    <div id="clock">00:00:00</div>
+    <button id="stopClock">시계 멈추기</button>
+    <div id="stopWatch">00:00.00</div>
+    <button id="startButton">시작</button>
+    <button id="lapButton">랩</button>
+    <button id="stopButton">멈춤</button>
+    <button id="resetButton">초기화</button>
+    <div id="lapLog"></div>
+
+    <script>
+        let v_date = new Date()
+        console.log(v_date.toLocaleString())
+        console.log("년:", v_date.getFullYear())
+        console.log("월:", v_date.getMonth() + 1)
+        console.log("일:", v_date.getDate())
+        console.log("요일:", v_date.getDay())
+        console.log("시간:", v_date.getHours())
+        console.log("분:", v_date.getMinutes())
+        console.log("초:", v_date.getSeconds())
+        console.log("밀리초:", v_date.getMilliseconds())
+
+        let v_holiday = new Date("2024-08-15 00:00:00");
+        console.log(v_holiday.toLocaleString())
+
+        const v_clock = document.getElementById("clock")
+        const v_stopClock = document.getElementById("stopClock")
+
+        f_setTime()
+
+        let command = setInterval(f_setTime, 1000) // 1초마다 반복 비동기식으로 실행
+
+        v_stopClock.addEventListener("click", () => clearInterval(command))
+
+        function f_setTime() {
+            let v_now = new Date();
+            let v_hours = v_now.getHours() + "";
+            let v_minutes = v_now.getMinutes() + "";
+            let v_seconds = v_now.getSeconds() + "";
+
+            v_clock.innerHTML = v_hours.padStart(2, "0") + ":" + v_minutes.padStart(2, "0") + ":" + v_seconds.padStart(2, "0")
+        }
+    </script>
+
+    <script>
+        const v_stopWatch = document.getElementById("stopWatch")
+        const v_startButton = document.getElementById("startButton")
+        const v_lapButton = document.getElementById("lapButton")
+        const v_stopButton = document.getElementById("stopButton")
+        const v_resetButton = document.getElementById("resetButton")
+        const v_lapLog = document.getElementById("lapLog")
+
+        let countMilSec = 0
+        let countSec = 0
+        let countMinute = 0
+
+        let stopWatchCommand = null
+
+        v_startButton.addEventListener("click", stopWatchStart)
+        v_lapButton.addEventListener("click", () => v_lapLog.innerHTML = (countMinute + "").padStart(2, "0") + ":" + (countSec + "").padStart(2, "0") + "." + (countMilSec + "").padStart(2, "0") + "<br>" + v_lapLog.innerHTML)
+        v_stopButton.addEventListener("click", stopWatchStop)
+        v_resetButton.addEventListener("click", () => {
+            countMilSec = 0
+            countSec = 0
+            countMinute = 0
+            v_stopWatch.innerHTML = (countMinute + "").padStart(2, "0") + ":" + (countSec + "").padStart(2, "0") + "." + (countMilSec + "").padStart(2, "0")
+        })
+
+        function stopWatchWork() {
+            countMilSec++
+            if (countMilSec >= 100) {
+                countSec++
+                countMilSec = 0
+            }
+            if (countSec >= 60) {
+                countMinute++
+                countSec = 0
+            }
+            v_stopWatch.innerHTML = (countMinute + "").padStart(2, "0") + ":" + (countSec + "").padStart(2, "0") + "." + (countMilSec + "").padStart(2, "0")
+        }
+
+        function stopWatchStart() {
+            stopWatchCommand = setInterval(stopWatchWork, 10)
+        }
+
+        function stopWatchStop() {
+            if (stopWatchCommand) {
+                clearInterval(stopWatchCommand)
+                stopWatchCommand = null
+            }
+        }
+
+    </script>
+
+    <!-- 한 html 문서 안에 두개의 script 사용 가능 -->
+    <script>
+        const Student = function (p_name, p_age) {
+            this.name = p_name
+            this.age = p_age
+
+            this.getName = () => this.name
+
+            this.getAge = () => this.age
+
+            this.abs = (p_number) => (p_number < 0) ? (p_number * -1) : (p_number)
+        } // 자바 스크립트의 생성자
+
+        let stu = new Student("호빵맨", 20)
+
+        console.log(stu)
+        console.log(stu.getName())
+        console.log(stu.getAge())
+        console.log(stu.abs(-10))
+    </script>
+</body>
+
+</html>
