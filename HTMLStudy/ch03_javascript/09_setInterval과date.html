@@ -63,16 +63,20 @@
         let countSec = 0
         let countMinute = 0
 
+        let v_logCount = 0
+
         let stopWatchCommand = null
 
         v_startButton.addEventListener("click", stopWatchStart)
-        v_lapButton.addEventListener("click", () => v_lapLog.innerHTML = (countMinute + "").padStart(2, "0") + ":" + (countSec + "").padStart(2, "0") + "." + (countMilSec + "").padStart(2, "0") + "<br>" + v_lapLog.innerHTML)
+        v_lapButton.addEventListener("click", () => v_lapLog.innerHTML = (++v_logCount) + ". " + (countMinute + "").padStart(2, "0") + ":" + (countSec + "").padStart(2, "0") + "." + (countMilSec + "").padStart(2, "0") + "<br>" + v_lapLog.innerHTML)
         v_stopButton.addEventListener("click", stopWatchStop)
         v_resetButton.addEventListener("click", () => {
             countMilSec = 0
             countSec = 0
             countMinute = 0
             v_stopWatch.innerHTML = (countMinute + "").padStart(2, "0") + ":" + (countSec + "").padStart(2, "0") + "." + (countMilSec + "").padStart(2, "0")
+            v_lapLog.innerHTML = ""
+            logCount = 0
         })
 
         function stopWatchWork() {
@@ -89,7 +93,9 @@
         }
 
         function stopWatchStart() {
-            stopWatchCommand = setInterval(stopWatchWork, 10)
+            if (!stopWatchCommand) {
+                stopWatchCommand = setInterval(stopWatchWork, 10)
+            }
         }
 
         function stopWatchStop() {
