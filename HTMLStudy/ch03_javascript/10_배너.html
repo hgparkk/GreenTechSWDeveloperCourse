@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>배너</title>
+
+    <style>
+        .banner-box {
+            width: 400px;
+            height: 200px;
+            position: relative;
+        }
+
+        .banner-box-img {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .banner {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner-box">
+        <img id="bannerId" class="banner-box-img" src="" alt="">
+    </div>
+
+    <div class="banner-box">
+        <div class="banner">
+            <img class="banner-box-img"
+                src="https://stockboy.co.kr/wp-content/uploads/2023/12/%EB%84%A4%EC%9D%B4%EB%B2%84png-optimized.png"
+                alt="">
+        </div>
+        <div class="banner">
+            <img class="banner-box-img"
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPnxefHYLnvWuIF1nChEInB3ekM6BbxYGzHA&s"
+                alt="">
+        </div>
+        <div class="banner">
+            <img class="banner-box-img" src="https://cdn.mediatoday.co.kr/news/photo/202305/310236_429532_3917.jpg"
+                alt="">
+        </div>
+    </div>
+
+    <script>
+        const v_bannerId = document.getElementById("bannerId")
+
+        let v_src = []
+        v_src.push("https://stockboy.co.kr/wp-content/uploads/2023/12/%EB%84%A4%EC%9D%B4%EB%B2%84png-optimized.png")
+        v_src.push("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRPnxefHYLnvWuIF1nChEInB3ekM6BbxYGzHA&s")
+        v_src.push("https://cdn.mediatoday.co.kr/news/photo/202305/310236_429532_3917.jpg")
+
+        let v_href = []
+        v_href.push("https://www.naver.com")
+        v_href.push("https://www.google.com")
+        v_href.push("https://www.kakao.com")
+
+        let banner_index = 0
+
+        f_change()
+
+        function f_change() {
+            v_bannerId.src = v_src[banner_index]
+            v_bannerId.addEventListener("click", () => {
+                location.href = v_href[banner_index]
+            })
+            banner_index++
+            if (banner_index == v_src.length) {
+                banner_index = 0
+            }
+            setTimeout(f_change, 3000)
+        }
+
+        let v_bannerArray = document.getElementsByClassName("banner")
+
+        let v_order = 0
+
+        function f_indexChange() {
+            v_bannerArray[0].style.zIndex = 0
+            v_bannerArray[1].style.zIndex = 0
+            v_bannerArray[2].style.zIndex = 0
+
+            v_order++
+
+            if (v_order == 3) {
+                v_order = 0
+            }
+
+            v_bannerArray[v_order].style.zIndex = 1
+        }
+
+        setInterval(f_indexChange, 3000)
+    </script>
+</body>
+
+</html>

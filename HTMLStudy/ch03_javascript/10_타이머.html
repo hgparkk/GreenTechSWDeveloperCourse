@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>타이머</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+
+    <style>
+        .progress-box {
+            width: 200px;
+            height: 20px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="progress-box">
+            <div id="progress"></div>
+        </div>
+        <span id="cnt">30</span>
+        <button id="extend">시간연장</button>
+        <button id="stop">중지</button>
+    </div>
+
+    <script>
+        let v_cnt = document.getElementById("cnt")
+        let v_prog = document.getElementById("progress")
+
+        v_prog.style.width = "100%"
+        v_prog.style.height = "100%"
+        v_prog.style.backgroundColor = "#0000cc"
+
+        const space = (parseInt(v_prog.style.width)) / (v_cnt.innerHTML)
+
+        let v_command = null
+
+        f_cnt()
+
+        function f_cnt() {
+            v_cnt.innerHTML -= 1
+            v_prog.style.width = space * v_cnt.innerHTML + "%"
+            if (v_cnt.innerHTML == 0) {
+                return
+            }
+            v_command = setTimeout(f_cnt, 1000)
+        }
+
+        document.getElementById("extend").addEventListener("click", () => {
+            v_cnt.innerHTML = 30
+            v_prog.style.width = space * v_cnt.innerHTML + "%"
+        })
+
+        document.getElementById("stop").addEventListener("click", () => {
+            clearTimeout(v_command)
+        })
+    </script>
+
+    <button id="qrBtn">결제</button>
+
+    <div id="qrBox">
+        <div id="count"></div>
+    </div>
+
+    <script>
+        let qrBtn = document.getElementById("qrBtn")
+        let qrBox = document.getElementById("qrBox")
+        let v_count = document.getElementById("count")
+        qrBox.style.display = "none"
+
+        let v_value = '{"name":"새우깡","price":1500}'
+
+        qrBtn.addEventListener("click", () => {
+            QRCode.toCanvas(v_value, { width: 256 }, (error, canvas) => {
+                qrBox.prepend(canvas)
+            })
+            qrBox.style.display = "block"
+            v_count.innerHTML = 20
+            f_count()
+        })
+
+        function f_count() {
+            v_count.innerHTML -= 1
+
+            if (v_count.innerHTML == 0) {
+                qrBox.style.display = "none"
+                return
+            }
+
+            setTimeout(f_count, 1000)
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <style>
+        #qrcode canvas {
+            margin: auto;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100">
+    <div class="container mx-auto p-8">
+        <div class="max-w-md mx-auto">
+            <div class="bg-white p-6 rounded-lg shadow-lg">
+                <h2 class="text-2xl font-bold mb-4 text-gray-800">QR 코드 생성기</h2>
+                <div class="mb-4">
+                    <label for="qrInput" class="block text-gray-700 text-sm font-bold mb-2">QR 코드로 만들고 싶은 것을 입력하세요(URL,
+                        이메일 주소, 전화번호 등):</label>
+                    <input type="text" id="qrInput" value="https://wikidocs.net/book/13486"
+                        class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                </div>
+                <button id="generateButton"
+                    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">실행</button>
+            </div>
+            <div class="bg-white p-6 rounded-lg shadow-lg mt-6">
+                <h3 class="text-xl font-bold mb-4 text-gray-800">생성된 QR 코드</h3>
+                <div id="qrcode" class="mb-4"></div>
+                <button id="downloadButton"
+                    class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">다운로드</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const qrInput = document.getElementById('qrInput');
+        const generateButton = document.getElementById('generateButton');
+        const qrcodeContainer = document.getElementById('qrcode');
+        const downloadButton = document.getElementById('downloadButton');
+
+        generateButton.addEventListener('click', () => {
+            qrcodeContainer.innerHTML = ''; // Clear previous QR code
+            QRCode.toCanvas(qrInput.value, { width: 256 }, function (error, canvas) {
+                if (error) console.error(error);
+                qrcodeContainer.appendChild(canvas);
+            });
+        });
+
+        downloadButton.addEventListener('click', () => {
+            const canvas = qrcodeContainer.querySelector('canvas');
+            if (canvas) {
+                const image = canvas.toDataURL("image/png").replace("image/png", "image/octet-stream");
+                const link = document.createElement('a');
+                link.download = 'qrcode.png';
+                link.href = image;
+                link.click();
+            }
+        });
+
+        // Generate initial QR code
+        generateButton.click();
+    </script>
+</body>
+
+</html>

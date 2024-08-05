@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>물리엔진</title>
+
+    <style>
+        .container {
+            height: 500px;
+            border: 2px solid black;
+            position: relative;
+        }
+
+        #heart {
+            width: 50px;
+            height: 50px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <img id="heart"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Coraz%C3%B3n.svg/1200px-Coraz%C3%B3n.svg.png"
+            alt="">
+    </div>
+
+    <script>
+        let v = 80
+        let t = 0
+
+        let v_heart = document.getElementById("heart")
+
+        v_heart.addEventListener("click", f_jump)
+
+        function f_jump() {
+            t += 0.5
+
+            let h = v * t - 0.5 * 9.8 * t * t
+
+            v_heart.style.bottom = h + "px"
+
+            if (h <= 0) {
+                h = 0
+                t = 0
+                v_heart.style.bottom = h + "px"
+                return
+            }
+
+            setTimeout(f_jump, 30)
+        }
+    </script>
+</body>
+
+</html>
