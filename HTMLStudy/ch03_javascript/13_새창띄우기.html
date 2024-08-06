@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 창 띄우기</title>
+</head>
+
+<body>
+    <div id="result"></div>
+    <button id="payBtn">결제하기</button>
+
+    <script>
+        document.getElementById("payBtn").addEventListener("click", () => {
+            // open(경로, 새창이름, 새창크기) 로 주면 새 창을 띄운다
+            open("./13_새창.html", "", "width=400,height=600,left=0,top=0")
+        })
+
+        function f_result(rst) {
+            document.getElementById("result").innerHTML = rst
+        }
+    </script>
+</body>
+
+</html>

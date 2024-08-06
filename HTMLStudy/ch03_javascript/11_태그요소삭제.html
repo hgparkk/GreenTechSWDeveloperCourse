@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태그요소삭제</title>
+
+    <style>
+        .reple {
+            display: flex;
+
+            padding: 10px;
+        }
+
+        .reple>div:nth-child(1) {
+            width: 20%;
+        }
+
+        .reple>div:nth-child(2) {
+            width: 65%;
+        }
+
+        .reple>div:nth-child(3) {
+            width: 15%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reple-container">
+        <div id="repleBox">
+            <div class="reple">
+                <div>ㅇㅇ</div>
+                <div>onclick</div>
+                <div>08.06 08:39:07 <a href="#" onclick="f_delete()">x</a></div>
+            </div>
+            <div class="reple">
+                <div>ㅇㅇ</div>
+                <div>onclick</div>
+                <div>08.06 09:54:07 <a href="#" onclick="f_delete()">x</a></div>
+            </div>
+            <div class="reple">
+                <div>ㅇㅇ</div>
+                <div>onclick</div>
+                <div>08.06 09:54:07 <a href="#" onclick="f_delete()">x</a></div>
+            </div>
+
+            <div class="reple">
+                <div>ㅇㅇ</div>
+                <div>onclick</div>
+                <div>08.06 09:54:07 <a href="#" onclick="f_del(this)">x</a></div>
+            </div>
+            <div class="reple">
+                <div>ㅇㅇ</div>
+                <div>onclick</div>
+                <div>08.06 09:54:07 <a href="#" onclick="f_del(this)">x</a></div>
+            </div>
+            <div class="reple">
+                <div>ㅇㅇ</div>
+                <div>onclick</div>
+                <div>08.06 09:54:07 <a href="#" onclick="f_del(this)">x</a></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function f_delete() {
+            let v_a = event.target
+
+            let v_dateDiv = v_a.parentElement
+
+            let v_div = v_dateDiv.parentElement
+
+            v_div.remove()
+        }
+
+        function f_del(p_this) {
+            p_this.parentElement.parentElement.remove()
+        }
+    </script>
+</body>
+
+</html>

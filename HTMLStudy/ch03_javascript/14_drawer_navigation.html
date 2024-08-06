@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>drawer navigation</title>
+
+    <style>
+        .container {
+            margin: auto;
+            width: 1200px;
+            height: 800px;
+            border: 2px solid black;
+
+            background-color: antiquewhite;
+            position: relative;
+
+            overflow: hidden;
+        }
+
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+
+            background-color: white;
+        }
+
+        .navigation>img {
+            width: 50px;
+            cursor: pointer;
+        }
+
+        .left-navigation {
+            top: 0;
+            left: 0;
+            border-right: 2px solid black;
+            transform: translate(-100%, 0);
+
+            width: 300px;
+            height: 100%;
+            position: absolute;
+
+            background-color: aquamarine;
+            transition-duration: 1s;
+        }
+
+        .left-navigation>img {
+            width: 50px;
+            cursor: pointer;
+        }
+
+        .left-nav-open {
+            transform: translate(0, 0);
+            transition-duration: 1s;
+        }
+
+        .right-navigation {
+            top: 0;
+            right: 0;
+            border-left: 2px solid black;
+            transform: translate(100%, 0);
+
+            width: 300px;
+            height: 100%;
+            position: absolute;
+
+            background-color: aquamarine;
+            transition-duration: 1s;
+        }
+
+        .right-navigation>img {
+            width: 50px;
+            cursor: pointer;
+        }
+
+        @keyframes drawIn {
+            from {
+                transform: translate(100%, 0);
+            }
+
+            to {
+                transform: translate(0, 0);
+            }
+        }
+
+        .drawIn {
+            animation: drawIn 1s forwards ease-in;
+        }
+
+        @keyframes drawOut {
+            from {
+                transform: translate(0, 0);
+            }
+
+            to {
+                transform: translate(100%, 0);
+            }
+        }
+
+        .drawOut {
+            animation: drawOut 1s forwards ease-out;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="navigation">
+            <img id="left-btn" src="https://www.svgrepo.com/show/509382/menu.svg" alt="">
+            <img id="right-btn" src="https://www.svgrepo.com/show/509382/menu.svg" alt="">
+        </div>
+
+        <div class="left-navigation">
+            <img id="left-close-btn" src="https://cdn.icon-icons.com/icons2/2518/PNG/512/x_icon_150997.png" alt="">
+        </div>
+        <div class="right-navigation">
+            <img id="right-close-btn" src="https://cdn.icon-icons.com/icons2/2518/PNG/512/x_icon_150997.png" alt="">
+        </div>
+    </div>
+
+    <script>
+        let v_leftNavi = document.getElementsByClassName("left-navigation")[0]
+        // getElement 방식이 아닌 querySelector 로 불러오기
+        // querySelector는 가장 위의 하나만 가져옴
+        // querySelectorAll은 요소가 하나라도 배열로 가져옴
+        let v_rightNavi = document.querySelector(".right-navigation")
+
+        document.getElementById("left-btn").addEventListener("click", () => {
+            v_leftNavi.classList.add("left-nav-open")
+        })
+
+        document.getElementById("left-close-btn").addEventListener("click", () => {
+            v_leftNavi.classList.remove("left-nav-open")
+        })
+
+        document.getElementById("right-btn").addEventListener("click", () => {
+            v_rightNavi.classList.remove("drawOut")
+            v_rightNavi.classList.add("drawIn")
+        })
+
+        document.getElementById("right-close-btn").addEventListener("click", () => {
+            v_rightNavi.classList.remove("drawIn")
+            v_rightNavi.classList.add("drawOut")
+        })
+    </script>
+</body>
+
+</html>

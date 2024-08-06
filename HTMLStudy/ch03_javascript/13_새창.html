@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>새 창</title>
+
+    <link rel="stylesheet" href="../resources/css/mystyle.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* 사용자 드래그 막기 */
+        html {
+            user-select: none;
+        }
+
+        .container {
+            width: 100%;
+            /* vh : 브라우저 창의 전체 길이 */
+            height: 100vh;
+        }
+
+        .top {
+            height: 50%;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .text {
+            text-align: center;
+            padding-bottom: 10px;
+        }
+
+        .circle-box {
+            display: flex;
+            justify-content: center;
+        }
+
+        .circle {
+            width: 20px;
+            height: 20px;
+
+            background-color: #dddddd;
+            border-radius: 10px;
+
+            margin: 5px;
+        }
+
+        .circle-active {
+            background-color: #000000;
+        }
+
+        .bottom {
+            height: 50%;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .bottom_keypad {
+            width: calc(100% / 3);
+            height: calc(100% / 4);
+            font-weight: bold;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 15px;
+        }
+
+        .num {
+            font-size: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top">
+            <div>
+                <h2 class="text">비밀번호 입력</h2>
+                <div class="circle-box">
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                    <div class="circle"></div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom naver-bg">
+            <div class="bottom_keypad num">1</div>
+            <div class="bottom_keypad num">2</div>
+            <div class="bottom_keypad num">3</div>
+            <div class="bottom_keypad num">4</div>
+            <div class="bottom_keypad num">5</div>
+            <div class="bottom_keypad num">6</div>
+            <div class="bottom_keypad num">7</div>
+            <div class="bottom_keypad num">8</div>
+            <div class="bottom_keypad num">9</div>
+            <div id="deleteAll" class="bottom_keypad">전체삭제</div>
+            <div class="bottom_keypad num">0</div>
+            <div id="delete" class="bottom_keypad">지우기</div>
+        </div>
+    </div>
+
+    <script>
+        let v_num = document.getElementsByClassName("num")
+        let v_pinNum = ""
+
+        let v_circle = document.getElementsByClassName("circle")
+
+        for (let i of v_num) {
+            i.addEventListener("click", () => {
+                v_pinNum += event.target.innerHTML
+                active()
+                if (v_pinNum.length == 6) {
+                    let v_response = "fail"
+
+                    if (v_pinNum == "123456") {
+                        v_response = "success"
+                    }
+
+                    opener.f_result(v_response)
+                    close()
+                }
+            })
+        }
+
+        document.getElementById("delete").addEventListener("click", () => {
+            v_pinNum = v_pinNum.substring(0, v_pinNum.length - 1)
+            active()
+        })
+
+        document.getElementById("deleteAll").addEventListener("click", () => {
+            v_pinNum = ""
+            active()
+        })
+
+        function active() {
+            for (let i of v_circle) {
+                i.classList.remove("circle-active")
+            }
+            for (let i = 0; i < v_pinNum.length; i++) {
+                v_circle[i].classList.add("circle-active")
+            }
+        }
+    </script>
+</body>
+
+</html>

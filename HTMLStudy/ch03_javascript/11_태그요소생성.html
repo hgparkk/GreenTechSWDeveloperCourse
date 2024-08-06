@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태그요소생성</title>
+
+    <style>
+        .reple {
+            display: flex;
+
+            padding: 10px;
+        }
+
+        .reple>div:nth-child(1) {
+            width: 20%;
+        }
+
+        .reple>div:nth-child(2) {
+            width: 65%;
+        }
+
+        .reple>div:nth-child(3) {
+            width: 15%;
+        }
+
+        .reple-write-box {
+            border-top: 2px solid skyblue;
+            border-bottom: 2px solid skyblue;
+
+            padding: 5px;
+
+            background-color: #EEEEEE;
+        }
+
+        .input-box {
+            display: flex;
+        }
+
+        .left {
+            width: 10%;
+            padding-right: 10px;
+        }
+
+        .left>input {
+            width: 100%;
+        }
+
+        .right {
+            width: 90%;
+        }
+
+        .right>textarea {
+            width: 100%;
+            height: 100px;
+        }
+
+        .btn-box {
+            text-align: end;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reple-container">
+        <div id="repleBox">
+            <div class="reple">
+                <div>ㅇㅇ</div>
+                <div>난 코인 하는데 한강 갈 뻔 했다</div>
+                <div>08.06 08:39:07 <a href="#" onclick="f_delete()">x</a></div>
+            </div>
+        </div>
+        <div class="reple-write-box">
+            <div class="input-box">
+                <div class="left">
+                    <input type="text" id="inputName" placeholder="닉네임">
+                    <input type="password" id="inputPw" placeholder="비밀번호">
+                </div>
+                <div class="right">
+                    <textarea id="inputContent"></textarea>
+                </div>
+            </div>
+            <div class="btn-box">
+                <button id="replyBtn">등록(문자열)</button>
+                <button id="createBtn">등록(createElement)</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../resources/js/myJs.js"></script>
+
+    <script>
+        let v_inputName = document.getElementById("inputName")
+        let v_inputPw = document.getElementById("inputPw")
+        let v_inputContent = document.getElementById("inputContent")
+
+        function f_delete() {
+            let v_a = event.target
+
+            let v_dateDiv = v_a.parentElement
+
+            let v_div = v_dateDiv.parentElement
+
+            v_div.remove()
+        }
+
+        document.getElementById("replyBtn").addEventListener("click", () => {
+            let v_inputNameValue = v_inputName.value
+            let v_inputPwValue = v_inputPw.value
+            let v_inputContentValue = v_inputContent.value
+
+            let v_nowStr = getTime();
+
+            if (v_inputNameValue && v_inputPwValue && v_inputContentValue) {
+                let v_reple = '<div class="reple"><div>'
+                v_reple += v_inputNameValue
+                v_reple += '</div><div>'
+                v_reple += v_inputContentValue
+                v_reple += '</div><div>'
+                v_reple += v_nowStr
+                v_reple += ' <a href="#" onclick="f_delete()">x</a></div></div>'
+
+                document.getElementById("repleBox").innerHTML += v_reple
+            }
+        })
+
+        document.getElementById("createBtn").addEventListener("click", () => {
+            let v_inputNameValue = v_inputName.value
+            let v_inputPwValue = v_inputPw.value
+            let v_inputContentValue = v_inputContent.value
+
+
+            let v_nowStr = getTime()
+
+            if (v_inputNameValue && v_inputPwValue && v_inputContentValue) {
+                let v_div = document.createElement("div")
+                v_div.classList.add("reple")
+
+                let v_divName = document.createElement("div")
+                v_divName.innerHTML = v_inputNameValue
+                v_div.appendChild(v_divName)
+
+                let v_divContent = document.createElement("div")
+                v_divContent.innerHTML = v_inputContentValue
+                v_div.appendChild(v_divContent)
+
+                let v_divCreateTime = document.createElement("div")
+                v_divCreateTime.innerHTML = v_nowStr
+
+                let v_a = document.createElement("a")
+                v_a.innerHTML = "x"
+                v_a.onclick = f_delete
+                v_divCreateTime.appendChild(v_a)
+                v_div.appendChild(v_divCreateTime)
+
+                document.getElementById("repleBox").appendChild(v_div)
+            }
+        })
+    </script>
+</body>
+
+</html>

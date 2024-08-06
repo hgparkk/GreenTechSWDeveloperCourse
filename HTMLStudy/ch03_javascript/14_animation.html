@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>animation</title>
+
+    <style>
+        .img-box {
+            width: 600px;
+            height: 400px;
+            border: 2px solid black;
+        }
+
+        .img-box>img {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* fade-out */
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .fade-out {
+            animation-name: fadeOut;
+            animation-duration: 2s;
+            /* 애니메이션이 끝나면 끝난 상태 유지 */
+            animation-fill-mode: forwards;
+        }
+
+        /* fade-in */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* 구간별로 정해줄 수 있다 */
+        @keyframes fadeIn {
+            0% {
+                opacity: 0
+            }
+
+            50% {
+                opacity: 0.3
+            }
+
+            75% {
+                opacity: 0.5
+            }
+
+            100% {
+                opacity: 1
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 2s forwards
+        }
+
+        .fade-out-transition {
+            opacity: 0;
+            transition-duration: 2s;
+        }
+
+        .fade-in-transition {
+            opacity: 1;
+            transition-duration: 2s;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img-box">
+        <img id="img" src="https://i.pinimg.com/originals/01/81/bc/0181bc5ff612ef003e6c9bd40a25b35a.jpg" alt="">
+    </div>
+    <button id="fadeOutBtn">페이드 아웃</button>
+    <button id="fadeInBtn">페이드 인</button>
+    <div class="img-box">
+        <img id="img2" src="https://i.pinimg.com/originals/01/81/bc/0181bc5ff612ef003e6c9bd40a25b35a.jpg" alt="">
+    </div>
+    <button id="fadeOutBtn2">페이드 아웃</button>
+    <button id="fadeInBtn2">페이드 인</button>
+
+    <script>
+        let v_img = document.getElementById("img")
+        document.getElementById("fadeOutBtn").addEventListener("click", () => {
+            v_img.classList.remove("fade-in")
+            v_img.classList.add("fade-out")
+        })
+        document.getElementById("fadeInBtn").addEventListener("click", () => {
+            v_img.classList.remove("fade-out")
+            v_img.classList.add("fade-in")
+        })
+
+        let v_img2 = document.getElementById("img2")
+        document.getElementById("fadeOutBtn2").addEventListener("click", () => {
+            v_img2.classList.remove("fade-in-transition")
+            v_img2.classList.add("fade-out-transition")
+        })
+        document.getElementById("fadeInBtn2").addEventListener("click", () => {
+            v_img2.classList.remove("fade-out-transition")
+            v_img2.classList.add("fade-in-transition")
+        })
+    </script>
+</body>
+
+</html>
