@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery</title>
+
+    <!-- jQuery 를 사용하지 않는 자바 스크립트를 vanilla javascript 라고 한다 -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        .container {
+            width: 700px;
+            margin: auto;
+        }
+
+        .board {
+            display: flex;
+        }
+
+        .col-2 {
+            width: 20%;
+        }
+
+        .col-6 {
+            width: 60%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner">
+        <a href="">
+            <img src="../resources/images/1.jpg" style="width:100px">
+        </a>
+    </div>
+    <div class="container">
+        <div id="box">
+            <div class="board">
+                <div class="col-2">5123</div>
+                <div class="col-6">글 제목이다3</div>
+                <div class="col-2">글 작성자다3</div>
+            </div>
+            <div class="board">
+                <div class="col-2">5122</div>
+                <div class="col-6">글 제목이다2</div>
+                <div class="col-2">글 작성자다2</div>
+            </div>
+            <div class="board">
+                <div class="col-2">5121</div>
+                <div class="col-6">글 제목이다1</div>
+                <div class="col-2">글 작성자다1</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let v_getClass = document.getElementsByClassName("board")
+
+        let v_query = document.querySelectorAll(".board")
+
+        let v_jQuery = $(".board")
+
+        console.log(v_jQuery)
+
+        console.log(v_getClass[1])
+        console.log(v_query[1])
+        console.log(v_jQuery[1])
+        console.log($(".board").eq(1))
+
+        v_getClass[1].children[1].innerHTML = "화요일은 돈까스다"
+        v_query[1].children[1].innerHTML = "화요일은 생선까스?"
+        $(".board").eq(1).children().eq(1).html("화요일은 치킨까스!")
+
+        v_getClass = document.getElementsByClassName("col-6")
+        for (let i of v_getClass) {
+            i.addEventListener("click", () => event.target.style.backgroundColor = "yellow")
+        }
+
+        //jQuery 는 한번에 이벤트 리스너 부착 가능
+        $(".col-6").on("click", () => event.target.style.fontWeight = "bold")
+
+        //event.target의 style 바꾸기
+        $(".col-6").on("click", () => $(event.target).css("fontSize", "30px"))
+
+        document.querySelector("img").src = "../resources/images/2.jpg"
+
+        $("img").attr("src", "../resources/images/3.jpg")
+
+        document.querySelector(".banner > a").href = "https://www.naver.com"
+
+        $(".banner > a").attr("href", "https://www.google.com")
+
+        let v_board = '<div class="board">'
+        v_board += '<div class="col-2">5124</div>'
+        v_board += '<div class="col-6">글 제목이다4</div>'
+        v_board += '<div class="col-2">글 작성자다4</div>'
+        v_board += '</div>'
+
+        document.querySelector("#box").innerHTML = v_board + document.querySelector("#box").innerHTML
+
+        $("#box").prepend(v_board)
+
+        $("#box").html(v_board + $("#box").html())
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 요청받기</title>
+</head>
+
+<body>
+    <div id="result"></div>
+
+    <script>
+        let urlSearch = new URLSearchParams(location.search)
+        console.log(urlSearch.get("id"))
+        console.log(urlSearch.get("pw"))
+
+        document.querySelector("#result").innerHTML = urlSearch.get("id") + " " + urlSearch.get("pw")
+    </script>
+</body>
+
+</html>

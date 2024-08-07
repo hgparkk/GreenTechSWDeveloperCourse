@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 드래그 첨부 (멀티)</title>
+
+    <style>
+        .img-box {
+            width: 400px;
+            height: 80px;
+            border: 1px solid black;
+        }
+
+        .img {
+            width: 80px;
+            height: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="img-box"></div>
+    <input id="inputImg" type="file" accept="image/*" multiple>
+
+    <div id="imgBox" class="img-box"></div>
+    <input id="inputImgCreate" type="file" accept="image/*" multiple>
+
+    <script>
+        window.addEventListener("drop", () => event.preventDefault())
+        window.addEventListener("dragover", () => event.preventDefault())
+
+        let v_imgBox = document.querySelector(".img-box")
+        let v_inputImg = document.querySelector("#inputImg")
+
+        v_imgBox.addEventListener("drop", () => {
+            let v_fileArray = event.dataTransfer.files
+
+            let v_dataTransfer = new DataTransfer();
+
+            for (let i = 0; i < v_fileArray.length; i++) {
+                if (!v_fileArray[i].type.startsWith('image/')) {
+                    continue
+                }
+                v_dataTransfer.items.add(v_fileArray[i])
+            }
+
+            console.log(v_dataTransfer)
+
+            v_inputImg.files = v_dataTransfer.files
+
+            document.querySelector(".img-box").innerHTML = ""
+            for (let i = 0; i < v_dataTransfer.files.length; i++) {
+                let v_file = v_dataTransfer.files[i]
+
+                let v_fr = new FileReader()
+                v_fr.readAsDataURL(v_file)
+                v_fr.onload = () => {
+                    let v_img = document.createElement("img")
+                    v_img.classList.add("img")
+                    v_img.src = v_fr.result
+                    document.querySelector(".img-box").appendChild(v_img)
+                }
+            }
+        })
+
+        document.getElementById("inputImg").addEventListener("change", () => {
+            document.querySelector(".img-box").innerHTML = ""
+            let v_fileArray = event.target.files
+            for (let i = 0; i < v_fileArray.length; i++) {
+                let v_file = v_fileArray[i]
+
+                let v_fr = new FileReader()
+                v_fr.readAsDataURL(v_file)
+                v_fr.onload = () => {
+                    let strImg = '<img class="img" src="' + v_fr.result + '">'
+                    document.querySelector(".img-box").innerHTML += strImg
+                }
+            }
+        })
+
+        document.getElementById("inputImgCreate").addEventListener("change", () => {
+            document.getElementById("imgBox").innerHTML = ""
+            let v_fileArray = event.target.files
+            for (let i = 0; i < v_fileArray.length; i++) {
+                let v_file = v_fileArray[i]
+
+                if (!v_file.type.startsWith('image/')) {
+                    coutinue
+                }
+
+                let v_fr = new FileReader()
+                v_fr.readAsDataURL(v_file)
+                v_fr.onload = () => {
+                    let v_img = document.createElement("img")
+                    v_img.classList.add("img")
+                    v_img.src = v_fr.result
+                    document.getElementById("imgBox").appendChild(v_img)
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

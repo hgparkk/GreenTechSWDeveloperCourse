@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>validation</title>
+</head>
+
+<body>
+    <div>
+        <input type="text" id="inputId">
+        <button id="checkId">아이디 체크</button>
+        <div id="resultId"></div>
+    </div>
+
+    <script>
+        let result = document.getElementById("resultId")
+        document.getElementById("checkId").addEventListener("click", () => {
+            let v_id = document.getElementById("inputId").value
+
+            // 자바 스크립트 에서는 / 사이에 정규표현식이 들어간다
+            let regex = /^[0-9A-Za-z]{6,12}$/
+
+            if (regex.test(v_id)) {
+                result.style.color = "rgb(9,199,90)"
+                result.innerHTML = "사용 가능"
+            } else {
+                result.style.color = "red"
+                result.innerHTML = "영어 또는 숫자로 이루어진 6~12 글자"
+            }
+        })
+    </script>
+</body>
+
+</html>

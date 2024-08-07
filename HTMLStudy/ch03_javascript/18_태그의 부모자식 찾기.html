@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>태그의 부모자식 찾기</title>
+
+    <style>
+        div {
+            border: 1px solid black;
+        }
+
+        .container {
+            width: 600px;
+            height: 700px;
+            margin: auto;
+        }
+
+        .parent {
+            width: 500px;
+            height: 600px;
+        }
+
+        .child {
+            width: 400px;
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="parent">
+            <div class="child"></div>
+            <div class="child" id="me"></div>
+            <div class="child"></div>
+        </div>
+    </div>
+
+    <script>
+        let v_me = document.querySelector("#me")
+
+        console.log(v_me.parentElement)
+
+        console.log(v_me.parentElement.parentElement)
+
+        let v_parent = v_me.parentElement
+
+        console.log(v_parent.children)
+
+        console.log(v_parent.children[0])
+
+        console.log(v_me.previousElementSibling) //전에 있는 형제 노드
+
+        console.log(v_me.nextElementSibling) // 다음에 있는 형제 노드
+    </script>
+</body>
+
+</html>

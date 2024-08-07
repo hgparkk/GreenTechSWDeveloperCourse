@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지첨부</title>
+
+    <style>
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 100px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+        }
+
+        .img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-img">
+        <img id="profImg" class="img"
+            src="https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg"
+            alt="">
+    </div>
+    <input id="inputImg" type="file" accept="image/*" onchange="readImg()" hidden>
+
+    <script>
+        document.querySelector(".img").addEventListener("click", () => {
+            document.getElementById("inputImg").click()
+        })
+
+        function readImg() {
+            let v_file = event.target.files[0]
+            let v_fr = new FileReader()
+            v_fr.readAsDataURL(v_file)
+            v_fr.onload = () => {
+                document.getElementById("profImg").src = v_fr.result
+            }
+        }
+    </script>
+</body>
+
+</html>
