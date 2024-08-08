@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>광고 하루 보지 않기</title>
+
+    <style>
+        .container {
+            width: 1200px;
+            height: 800px;
+            margin: auto;
+            border: 1px solid black;
+            background-color: whitesmoke;
+        }
+
+        .banner-box {
+            position: fixed;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid black;
+
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .banner-close {
+            display: none;
+        }
+
+        .banner-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 10px;
+            padding-bottom: 10px;
+            background-color: white;
+        }
+
+        .banner-text {
+            margin-left: 3px;
+            display: flex;
+            align-items: center;
+        }
+
+        .close-button {
+            margin-right: 3px;
+            cursor: pointer;
+        }
+
+        .banner-img {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+    </div>
+
+    <div class="banner-box">
+        <div class="banner-top">
+            <div class="banner-text">
+                <label for="check" id="checkText">오늘하루보지않기</label>
+                <input id="check" type="checkbox">
+            </div>
+            <span class="close-button">닫기</span>
+        </div>
+        <img class="banner-img" src="https://tkfile.yes24.com/upload2/PerfBlog/202405/20240502/20240502-49637.jpg"
+            alt="">
+    </div>
+
+    <script>
+        document.querySelector(".close-button").addEventListener("click", () => {
+            if (document.querySelector("#check").checked) {
+                localStorage.setItem("checked", "now")
+            }
+            document.querySelector(".banner-box").classList.add("banner-close")
+        })
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json 데이터 다루기</title>
+
+    <style>
+        .print {
+            width: 500px;
+            height: 400px;
+            border: 1px solid black;
+
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <select id="selectLitter">
+            <option value="10ℓ가격">10ℓ</option>
+            <option value="20ℓ가격">20ℓ</option>
+        </select>
+        <input id="inputRegion" type="text" placeholder="시도명">
+        <button id="regionSearch">검색</button>
+        <button id="low">낮은가격순</button>
+        <button id="high">높은가격순</button>
+    </div>
+    <div id="printData" class="print">
+    </div>
+
+    <script src="./01_price.js"></script>
+    <script>
+        console.log(v_priceData)
+
+        console.log(v_priceData.records[0])
+
+        for (let i = 0; i < v_priceData.records.length; i++) {
+            if (v_priceData.records[i]["시도명"] == "대전광역시" && v_priceData.records[i]["종량제봉투처리방식"] == "소각용") {
+                console.log(v_priceData.records[i])
+            }
+        }
+
+        let v_records = [];
+
+        for (let i = 0; i < v_priceData.records.length; i++) {
+            if (v_priceData.records[i]["종량제봉투사용대상"] == "가정용" && v_priceData.records[i]["종량제봉투용도"] == "생활쓰레기"
+                && v_priceData.records[i]["종량제봉투종류"] == "규격봉투" && v_priceData.records[i]["종량제봉투처리방식"] == "소각용") {
+                v_records.push(v_priceData.records[i])
+            }
+        }
+
+        for (let i = v_records.length - 1; i >= 0; i--) {
+            if (v_records[i]["10ℓ가격"] == "0" || v_records[i]["20ℓ가격"] == "0") {
+                v_records.splice(i, 1)
+            }
+        }
+
+        max_index = 0
+        max_price = v_records[0]["10ℓ가격"]
+        min_index = 0
+        min_price = v_records[0]["10ℓ가격"]
+        for (let i = 0; i < v_records.length; i++) {
+            if (parseInt(v_records[max_index]["10ℓ가격"]) < parseInt(v_records[i]["10ℓ가격"])) {
+                max_index = i
+                max_price = v_records[max_index]["10ℓ가격"]
+            }
+            if (parseInt(v_records[min_index]["10ℓ가격"]) > parseInt(v_records[i]["10ℓ가격"]) && v_records[i]["10ℓ가격"] != "0") {
+                min_index = i
+                min_price = v_records[min_index]["10ℓ가격"]
+            }
+        }
+
+        console.log("max")
+
+        for (let i of v_records) {
+            if (i["10ℓ가격"] == max_price) {
+                console.log(i)
+            }
+        }
+
+        console.log("min")
+
+        for (let i of v_records) {
+            if (i["10ℓ가격"] == min_price) {
+                console.log(i)
+            }
+        }
+
+        console.log("after")
+
+        console.log(v_records[max_index])
+        console.log(max_price)
+        console.log(v_records[min_index])
+        console.log(min_price)
+    </script>
+    <script>
+        let v_print = document.querySelector("#printData")
+        let v_selectLitter = document.querySelector("#selectLitter")
+        let v_inputRegion = document.querySelector("#inputRegion")
+        let v_result = []
+
+        setResult()
+        set()
+
+        v_selectLitter.addEventListener("change", () => {
+            setResult()
+            set()
+        })
+
+        document.querySelector("#regionSearch").addEventListener("click", () => {
+            setResult()
+            set()
+        })
+
+        function setResult() {
+            v_result = []
+            for (let i of v_records) {
+                if ((i["시도명"].includes(v_inputRegion.value))) {
+                    v_result.push(i)
+                }
+            }
+        }
+
+        function set() {
+            v_print.innerHTML = "<h2>시도명 | 시군구명 | " + v_selectLitter.value + "</h2><hr>"
+            for (let i of v_result) {
+                let v_h2 = '<h2>' + i["시도명"] + ' | '
+                    + i["시군구명"] + ' | '
+                    + i[v_selectLitter.value] + "원"
+                '</h2>'
+                v_print.innerHTML += v_h2
+
+            }
+        }
+
+        document.querySelector("#low").addEventListener("click", () => {
+            v_result.sort((o1, o2) => o1[v_selectLitter.value] - o2[v_selectLitter.value])
+            set()
+        })
+
+        document.querySelector("#high").addEventListener("click", () => {
+            v_result.sort((o1, o2) => o2[v_selectLitter.value] - o1[v_selectLitter.value])
+            set()
+        })
+    </script>
+</body>
+
+</html>

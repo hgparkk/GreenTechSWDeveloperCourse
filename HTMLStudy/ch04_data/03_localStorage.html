@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>localStorage</title>
+</head>
+
+<body>
+    <script>
+        // 브라우저의 로컬 스토리지
+        localStorage.setItem("name", "짱아")
+        localStorage.setItem("money", 1500)
+
+        localStorage.money = 2300
+        localStorage["money"] = 3500
+
+        console.log(localStorage.getItem("name"))
+
+        let v_money = localStorage.getItem("money")
+        let v_money2 = localStorage.money
+        let v_money3 = localStorage["money"]
+
+        console.log(v_money)
+        console.log(v_money2)
+        console.log(v_money3)
+
+        localStorage.removeItem("name")
+        localStorage.removeItem("money")
+
+        let v_json = { "date": "2024-08-08", "check": 1 }
+
+        localStorage.setItem("bannerClose", JSON.stringify(v_json))
+
+        let v_array = ["짱구", "철수", "유리", "맹구", "훈이"]
+
+        localStorage.setItem("party", JSON.stringify(v_array))
+
+        localStorage.clear()
+    </script>
+</body>
+
+</html>
