@@ -73,10 +73,25 @@
             alt="">
     </div>
 
+    <script src="../resources/js/myJs.js"></script>
     <script>
+        let v_noShowInfo = JSON.parse(localStorage.getItem("noShowInfo"))
+        if (v_noShowInfo) {
+            let v_setDate = new Date(v_noShowInfo["time"])
+            let v_nowDate = new Date()
+
+            v_setDate.setSeconds(v_setDate.getSeconds() + 30)
+            if (v_nowDate.getTime() < v_setDate.getTime()) {
+                document.querySelector(".banner-box").classList.add("banner-close")
+            }
+        }
+
         document.querySelector(".close-button").addEventListener("click", () => {
             if (document.querySelector("#check").checked) {
-                localStorage.setItem("checked", "now")
+                let noShowInfo = {}
+                noShowInfo['howLong'] = 1
+                noShowInfo['time'] = getFullTime()
+                localStorage.setItem("noShowInfo", JSON.stringify(noShowInfo))
             }
             document.querySelector(".banner-box").classList.add("banner-close")
         })

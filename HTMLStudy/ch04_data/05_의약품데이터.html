@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>의약품 데이터</title>
+
+    <style>
+        .container {
+            width: 1340px;
+            margin: auto;
+            border: 1px solid black;
+
+        }
+
+        .row {
+            display: flex;
+        }
+
+        .card {
+            border: 1px solid black;
+            width: 300px;
+            height: 400px;
+
+            margin-left: 16px;
+            margin-right: 16px;
+
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .align-center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-img-div {
+            border: 1px solid black;
+            width: 90%;
+            height: 60%;
+            margin: 10px;
+            overflow: hidden;
+        }
+
+        .card-img {
+            height: 100%;
+        }
+
+        .card-text {
+            border: 1px solid black;
+            width: 90%;
+            height: 40%;
+            margin: 10px;
+            font-size: 24px;
+        }
+
+        .card-itemSeq {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container"></div>
+
+    <script>
+        let v_drugInfo = JSON.parse(localStorage.getItem("drugInfo"))
+
+        let v_items = v_drugInfo["body"]["items"]
+
+        console.log(v_items)
+
+        let startIndex = 0
+        let endIndex = 12
+
+        let useArray = []
+
+        for (let i of v_items) {
+            if (i["itemImage"]) {
+                useArray.push(i)
+            }
+        }
+
+        function pageLoad() {
+            let i_Count = 0
+            let divString = ""
+            for (let i = startIndex; i < endIndex; i++) {
+                if (useArray[i]) {
+                    let newString = ""
+                    if (i % 4 == 0) {
+                        divString += "<div class=row>"
+                    }
+                    newString += '<div class="card" onclick="f_detail()">'
+                        + '<div class="card-itemSeq">' + useArray[i]["itemSeq"] + '</div>'
+                        + '<div class="card-img-div align-center">'
+                        + '<img class="card-img" src="' + useArray[i]["itemImage"] + '">'
+                        + '</div>'
+                        + '<div class="card-text align-center">'
+                        + '<span>' + useArray[i]["itemName"] + '</span>'
+                        + '</div></div>'
+                    divString += newString
+                    if (i % 4 == 3) {
+                        divString += "</div>"
+                        document.querySelector(".container").innerHTML += divString
+                        divString = ""
+                    }
+                    i_Count++
+                }
+            }
+            if (i_Count % 4 != 3) {
+                divString += "</div>"
+                document.querySelector(".container").innerHTML += divString
+            }
+        }
+
+        function f_detail() {
+            let v_data = event.currentTarget.children[0].innerHTML
+            open("./05_의약품상세.html?itemSeq=" + v_data)
+        }
+
+        pageLoad()
+
+        window.onscroll = () => {
+            let v_docHeight = document.documentElement.scrollHeight // 전체 문서의 높이
+            let v_winHeight = document.documentElement.clientHeight // 브라우저 창의 높이
+            let v_scrollTop = document.documentElement.scrollTop // 스크롤바의 상단 위치
+
+            if (v_winHeight + v_scrollTop >= v_docHeight * 0.8) {
+                if (startIndex == endIndex) {
+                    return
+                }
+                startIndex = endIndex
+                endIndex = startIndex + 12
+                if (endIndex > useArray.length) {
+                    endIndex = useArray.length
+                }
+                pageLoad()
+            }
+        }
+
+    </script>
+</body>
+
+</html>

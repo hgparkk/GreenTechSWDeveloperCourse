@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>생년월일<select id="selectBirth"></select>월<select id="selectMonth"></select>일<select id="selectDate"></select>
+    </div>
+    <script>
+        let selectBirth = document.querySelector("#selectBirth")
+        let selectMonth = document.querySelector("#selectMonth")
+        let selectDate = document.querySelector("#selectDate")
+
+        let v_date = new Date()
+
+        for (let i = 1900; i <= v_date.getFullYear(); i++) {
+            let v_option = document.createElement("option")
+            v_option.value = i
+            v_option.innerHTML = i
+            if (i == v_date.getFullYear()) {
+                v_option.selected = "selected"
+            }
+            selectBirth.prepend(v_option)
+        }
+
+        for (let i = 1; i <= 12; i++) {
+            let v_option = document.createElement("option")
+            v_option.value = i - 1
+            v_option.innerHTML = i
+            selectMonth.append(v_option)
+        }
+
+        let thirtyOneMonth = [0, 2, 4, 6, 7, 9, 11]
+        let thirtyMonth = [3, 5, 8, 10]
+
+        setDate()
+
+        selectBirth.addEventListener("change", setDate)
+        selectMonth.addEventListener("change", setDate)
+
+        function setDate() {
+            selectDate.innerHTML + ""
+            let maxDate = 28
+            if (thirtyOneMonth.includes(parseInt(selectMonth.value))) {
+                maxDate = 31
+            } else if (thirtyMonth.includes(parseInt(selectMonth.value))) {
+                maxDate = 30
+            } else if (parseInt(selectBirth.value) % 4 == 0 && parseInt(selectBirth.value) % 100 != 0 || parseInt(selectBirth.value) % 400 == 0) {
+                maxDate = 29
+            }
+
+            for (let i = 1; i <= maxDate; i++) {
+                let v_option = document.createElement("option")
+                v_option.value = i
+                v_option.innerHTML = i
+                selectDate.append(v_option)
+            }
+        }
+    </script>
+</body>
+
+</html>

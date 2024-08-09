@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json 파일 가져오기</title>
+
+    <style>
+        .print {
+            width: 500px;
+            height: 400px;
+            border: 1px solid black;
+
+            overflow-y: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <select id="states">
+        <option value="all">전체</option>
+    </select>
+    <div id="printData" class="print"></div>
+    <script>
+        let v_printData = document.querySelector("#printData")
+        let v_states = document.querySelector("#states")
+
+        let v_ajax = new XMLHttpRequest()
+        v_ajax.open("GET", "./06_price.json")
+
+        v_ajax.onload = () => {
+            let v_json = JSON.parse(v_ajax.response)
+            let v_records = v_json["records"]
+
+            for (let i of v_records) {
+                let dupCheckList = v_states.children
+                let dupCheck = ""
+                for (let j of dupCheckList) {
+                    if (j.value == i["시도명"]) {
+                        dupCheck = "false"
+                    }
+                }
+                if (!dupCheck) {
+                    let v_option = document.createElement("option")
+                    v_option.value = i["시도명"]
+                    v_option.innerHTML = i["시도명"]
+                    v_states.append(v_option)
+                }
+            }
+
+            setData()
+
+            v_states.addEventListener("change", setData)
+
+            function setData() {
+                v_printData.innerHTML = ""
+                for (let i of v_records) {
+                    if (v_states.value == i["시도명"] || v_states.value == "all") {
+                        let v_h2 = "<h2>" + i["시도명"] + "|" + i["시군구명"] + "|" + i["10ℓ가격"] + "</h2>"
+                        v_printData.innerHTML += v_h2
+                    }
+                }
+            }
+        }
+
+        v_ajax.send()
+    </script>
+</body>
+
+</html>

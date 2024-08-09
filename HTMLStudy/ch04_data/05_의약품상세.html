@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>의약품 상세</title>
+
+    <style>
+        .container {
+            width: 1000px;
+            margin: auto;
+
+            display: flex;
+        }
+
+        .image-box {
+            width: 50%;
+        }
+
+        .image {
+            width: 100%
+        }
+
+        .item-info {
+            width: 50%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="image-box">
+            <img class="image" src="" alt="">
+        </div>
+        <div class="item-info">
+            <div id="itemSeq">
+                의약품 번호 :
+            </div>
+            <br>
+            <div id="itemName">
+                의약품 명 :
+            </div>
+            <br>
+            <div id="entpName">
+                회사 명 :
+            </div>
+            <br>
+            <div id="efcyQesitm">
+                용도 :
+            </div>
+            <br>
+            <div id="useMethodQesitm">
+                복용 방법 :
+            </div>
+            <br>
+            <div id="depositMethodQesitm">
+                보관 방법 :
+            </div>
+            <br>
+            <div id="seQesitm">
+                주의사항 :
+            </div>
+        </div>
+    </div>
+    <script>
+        let v_drugInfo = JSON.parse(localStorage.getItem("drugInfo"))
+
+        let v_items = v_drugInfo["body"]["items"]
+
+        let urlSearch = new URLSearchParams(location.search)
+
+        let currentItem = {}
+
+        for (let i of v_items) {
+            if (i["itemSeq"] == urlSearch.get("itemSeq")) {
+                currentItem = i
+                break;
+            }
+        }
+
+        let v_infos = ["itemSeq", "itemName", "entpName", "efcyQesitm", "useMethodQesitm", "depositMethodQesitm", "seQesitm"]
+
+        document.querySelector(".image-box>img").src = currentItem["itemImage"]
+
+        for (let info of v_infos) {
+            document.querySelector("#" + info).innerHTML += " " + currentItem[info]
+        }
+    </script>
+</body>
+
+</html>

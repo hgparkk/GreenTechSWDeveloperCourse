@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX 통신 (jQuery)</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <button id="reqBtn">데이터요청</button>
+
+    <script>
+        let servicekeyEncoding = "?serviceKey=7iwd9W8L5Kbf0TSMmZlfTf9B4Bzi6b6KX5HkUGG0XkD19ZSr%2BIw3WD9zmD1MoXdQ7UQhPYlBK3wWkg3%2B4jSaVQ%3D%3D"
+
+        let servicekeyDecoding = "?serviceKey=7iwd9W8L5Kbf0TSMmZlfTf9B4Bzi6b6KX5HkUGG0XkD19ZSr+Iw3WD9zmD1MoXdQ7UQhPYlBK3wWkg3+4jSaVQ=="
+
+        let v_url = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList"
+
+        let v_query = "&pageNo=1&numOfRows=100&type=json"
+
+        document.querySelector("#reqBtn").addEventListener("click", () => {
+            $.ajax({
+                url: v_url + servicekeyEncoding + v_query,
+                method: "GET",
+                success: function (response) {
+                    console.log(response)
+                    localStorage.setItem("drugInfo", JSON.stringify(response))
+                }
+            })
+        })
+
+        console.log("통신요청함")
+    </script>
+</body>
+
+</html>
