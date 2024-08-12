@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>막대그래프</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .canvas-box {
+            width: 800px;
+            height: 600px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="canvas-box">
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <div class="canvas-box">
+        <canvas id="myChart1"></canvas>
+    </div>
+
+    <script>
+        let v_jsonArray = []
+
+        let v_keys = []
+
+        let v_ajax = new XMLHttpRequest()
+
+        v_ajax.open("GET", "./08_score.csv")
+
+        v_ajax.onload = () => {
+            let v_result = v_ajax.response.split("\r\n")
+
+            v_result[0] = v_result[0].replaceAll(" ", "")
+            v_keys = v_result[0].split(",")
+
+            for (let i = 1; i < v_result.length; i++) {
+                v_result[i] = v_result[i].replaceAll(" ", "")
+                let currentArray = v_result[i].split(",")
+                let currentJson = {}
+                for (let j = 0; j < v_keys.length; j++) {
+                    currentJson[v_keys[j]] = currentArray[j]
+                }
+                v_jsonArray.push(currentJson)
+            }
+
+            let jsonData = {}
+            jsonData[v_keys[0]] = []
+            jsonData[v_keys[1]] = []
+            jsonData[v_keys[2]] = []
+            jsonData[v_keys[3]] = []
+
+            for (let i = 0; i < v_keys.length; i++) {
+                for (let j = 0; j < v_jsonArray.length; j++) {
+                    jsonData[v_keys[i]].push(v_jsonArray[j][v_keys[i]])
+                }
+            }
+
+            console.log(jsonData)
+
+            const ctx = document.getElementById('myChart');
+
+            f_draw(ctx, jsonData)
+
+            const ctx1 = document.getElementById("myChart1")
+
+            f_draw1(ctx1, v_keys, v_jsonArray)
+        }
+
+        function f_draw(ctx, jsonData) {
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: jsonData["name"],
+                    datasets: [{
+                        label: "java",
+                        data: jsonData["java"],
+                        borderWidth: 1,
+                        backgroundColor: "#FF0000"
+                    }, {
+                        label: "database",
+                        data: jsonData["database"],
+                        borderWidth: 1,
+                        backgroundColor: "#00FF00"
+                    }, {
+                        label: "javascript",
+                        data: jsonData["javascript"],
+                        borderWidth: 1,
+                        backgroundColor: "#0000FF"
+                    },]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            })
+        }
+
+        function f_draw1(ctx, keys, jsonArray) {
+            let jsonData = {}
+            for (let key of keys) {
+                jsonData[key] = []
+            }
+
+            let dataSet = []
+
+            for (let i = 0; i < keys.length; i++) {
+                for (let j = 0; j < jsonArray.length; j++) {
+                    jsonData[keys[i]].push(jsonArray[j][keys[i]])
+                }
+                if (i) {
+                    let currentJson = {}
+                    currentJson["label"] = keys[i]
+                    currentJson["data"] = jsonData[keys[i]]
+                    currentJson["borderWidth"] = 1
+                    dataSet.push(currentJson)
+                }
+            }
+
+            console.log(jsonData)
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: jsonData[keys[0]],
+                    datasets: dataSet
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            })
+        }
+
+        v_ajax.send()
+    </script>
+</body>
+
+</html>

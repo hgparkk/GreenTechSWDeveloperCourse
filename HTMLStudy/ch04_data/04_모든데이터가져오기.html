@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모든데이터가져오기</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <button id="reqBtn">모든 데이터 가져오기</button>
+    <div id="monitor"></div>
+
+    <script>
+        let v_monitor = document.getElementById("monitor")
+
+        let servicekeyEncoding = "?serviceKey=7iwd9W8L5Kbf0TSMmZlfTf9B4Bzi6b6KX5HkUGG0XkD19ZSr%2BIw3WD9zmD1MoXdQ7UQhPYlBK3wWkg3%2B4jSaVQ%3D%3D"
+
+        let servicekeyDecoding = "?serviceKey=7iwd9W8L5Kbf0TSMmZlfTf9B4Bzi6b6KX5HkUGG0XkD19ZSr+Iw3WD9zmD1MoXdQ7UQhPYlBK3wWkg3+4jSaVQ=="
+
+        let v_url = "http://apis.data.go.kr/1471000/DrbEasyDrugInfoService/getDrbEasyDrugList"
+
+        let v_query = "&numOfRows=100&type=json&pageNo="
+
+        let v_array = []
+
+        let pageNo = 1
+
+        function f_reqData() {
+            $.ajax({
+                url: v_url + servicekeyEncoding + v_query + pageNo,
+                method: "GET",
+                success: function (response) {
+                    if (response["body"]["items"]) {
+                        let v_items = response["body"]["items"]
+                        for (i of v_items) {
+                            v_array.push(i)
+                        }
+                        v_monitor.innerHTML = pageNo
+                        pageNo++
+                        console.log(response)
+                        f_reqData()
+                    } else {
+                        localStorage.setItem("drugItems", JSON.stringify(v_array))
+                    }
+                }
+            })
+        }
+
+        document.getElementById("reqBtn").addEventListener("click", f_reqData)
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>꺾은선 그래프</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div>
+        <canvas id="myChart"></canvas>
+
+        <script>
+            const crx = document.getElementById("myChart")
+
+            let v_chart = new Chart(crx, {
+                type: 'line',
+                data: {
+                    labels: ["2017", "2018", "2019", "2020", "2021"],
+                    datasets: [{
+                        label: "짜장면",
+                        data: [4798, 5011, 5201, 5276, 5438],
+                        borderWidth: 2,
+                    }, {
+                        label: "우유(1L)",
+                        data: [2526, 2556, 2617, 2590, 2559],
+                        borderWidth: 2,
+                    }, {
+                        label: "삼겹살(100g)",
+                        data: [2095, 1935, 1843, 2122, 2095],
+                        borderWidth: 2,
+                    }]
+                }
+            })
+        </script>
+    </div>
+</body>
+
+</html>

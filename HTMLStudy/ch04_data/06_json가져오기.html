@@ -33,20 +33,19 @@
             let v_json = JSON.parse(v_ajax.response)
             let v_records = v_json["records"]
 
+            let v_regions = {}
+
             for (let i of v_records) {
-                let dupCheckList = v_states.children
-                let dupCheck = ""
-                for (let j of dupCheckList) {
-                    if (j.value == i["시도명"]) {
-                        dupCheck = "false"
-                    }
-                }
-                if (!dupCheck) {
-                    let v_option = document.createElement("option")
-                    v_option.value = i["시도명"]
-                    v_option.innerHTML = i["시도명"]
-                    v_states.append(v_option)
-                }
+                v_regions[i["시도명"]] = "0"
+            }
+
+            let v_regionArray = Object.keys(v_regions)
+
+            for (let i of v_regionArray) {
+                let v_option = document.createElement("option")
+                v_option.value = i
+                v_option.innerHTML = i
+                v_states.append(v_option)
             }
 
             setData()

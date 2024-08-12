@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>환율 시각화</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        let wheelEvent = 0;
+
+        let v_ajax = new XMLHttpRequest()
+        v_ajax.open("GET", "./10_exchange.json")
+        v_ajax.onload = () => {
+            let v_result = JSON.parse(v_ajax.response)
+            let v_rate = v_result["rates"]
+            let v_rateDateArray = Object.keys(v_rate)
+
+            let v_krwRate = []
+
+            for (let i of v_rateDateArray) {
+                v_krwRate.push(v_rate[i]["KRW"])
+            }
+
+            let crx = document.getElementById("myChart")
+
+            let v_chart = new Chart(crx, {
+                type: 'line',
+                data: {
+                    labels: v_rateDateArray,
+                    datasets: [{
+                        label: "KRW",
+                        data: v_krwRate,
+                        borderWidth: 1,
+                        pointRadius: 0
+                    }]
+                }
+            })
+
+            crx.addEventListener("wheel", (e) => {
+                let newArray = v_rateDateArray
+                let newRateArray = v_krwRate
+                if (e.deltaY < 0 && wheelEvent < v_rateDateArray.length - 4) {
+                    newArray = v_rateDateArray.slice(wheelEvent++, v_rateDateArray.length - 1)
+                    newRateArray = v_krwRate.slice(wheelEvent++, v_krwRate.length - 1)
+                } else if (e.deltaY > 0 && wheelEvent > 0) {
+                    newArray = v_rateDateArray.slice(wheelEvent--, v_rateDateArray.length - 1)
+                    newRateArray = v_krwRate.slice(wheelEvent--, v_krwRate.length - 1)
+                } else {
+                    newArray = v_rateDateArray.slice(wheelEvent, v_rateDateArray.length - 1)
+                    newRateArray = v_krwRate.slice(wheelEvent, v_krwRate.length - 1)
+                }
+                console.log(wheelEvent)
+                v_chart.data.labels = newArray
+                v_chart.data.datasets[0].data = newRateArray
+                v_chart.update()
+            })
+        }
+        v_ajax.send();
+    </script>
+</body>
+
+</html>

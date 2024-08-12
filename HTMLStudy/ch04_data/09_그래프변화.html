@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>그래프 변화</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <button id="javaBtn">java</button>
+    <button id="dbBtn">database</button>
+    <button id="jsBtn">javascript</button>
+    <div>
+        <canvas id="myChart"></canvas>
+    </div>
+
+    <script>
+        let v_jsonData = {
+            "labels": [
+                "고니",
+                "아귀",
+                "짝귀",
+                "평경장",
+                "예림이"
+            ],
+            "java": [
+                "80",
+                "87",
+                "65",
+                "97",
+                "86"
+            ],
+            "database": [
+                "68",
+                "78",
+                "68",
+                "100",
+                "91"
+            ],
+            "javascript": [
+                "77",
+                "90",
+                "56",
+                "99",
+                "84"
+            ]
+        }
+
+        const crx = document.getElementById("myChart")
+
+        let v_chart = new Chart(crx, {
+            type: 'bar',
+            data: {
+                labels: v_jsonData["labels"],
+                datasets: [{
+                    label: "java",
+                    data: v_jsonData["java"],
+                    backgroundColor: "rgb(255,0,0,0.3)",
+                    borderWidth: 1,
+                    borderColor: "rgb(255,0,0)"
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        })
+
+        document.getElementById("javaBtn").addEventListener("click", () => {
+            v_chart.data.datasets[0].label = "java"
+            v_chart.data.datasets[0].data = v_jsonData["java"]
+            v_chart.data.datasets[0].backgroundColor = "#FF000050"
+            v_chart.data.datasets[0].borderColor = "#FF0000"
+            v_chart.update()
+        })
+
+        document.getElementById("dbBtn").addEventListener("click", () => {
+            v_chart.data.datasets[0].label = "database"
+            v_chart.data.datasets[0].data = v_jsonData["database"]
+            v_chart.data.datasets[0].backgroundColor = "#00FF0050"
+            v_chart.data.datasets[0].borderColor = "#00FF00"
+            v_chart.update()
+        })
+
+        document.getElementById("jsBtn").addEventListener("click", () => {
+            let v_json = {
+                label: "javascript",
+                data: v_jsonData["javascript"],
+                backgroundColor: "#0000FF50",
+                borderWidth: 1,
+                borderColor: "#0000FF"
+            }
+            v_chart.data.datasets.push(v_json)
+            v_chart.update()
+        })
+    </script>
+</body>
+
+</html>

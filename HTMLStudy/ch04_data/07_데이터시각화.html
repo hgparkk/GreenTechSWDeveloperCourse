@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터시각화</title>
+
+    <style>
+        .container {
+            width: 800px;
+            height: 600px;
+            margin: auto;
+
+            display: flex;
+        }
+
+        .content {
+            height: 100%;
+            border: 1px solid skyblue;
+            border-right: 0px;
+        }
+
+        .content-right {
+            border-right: 1px solid skyblue;
+        }
+
+        .content-box {
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .content-bar {
+            width: 50%;
+            background-color: skyblue;
+        }
+
+        .content-text {
+            height: 10%;
+            border-top: 1px solid skyblue;
+            font-size: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+    </div>
+    <script>
+        let v_data = { "유성구": 0, "서구": 9, "중구": 1, "동구": 0, "대덕구": 1, "타지역": 3 }
+
+        let keyArray = Object.keys(v_data)
+
+        for (let i = 0; i < keyArray.length; i++) {
+            let v_content = document.createElement("div")
+            v_content.classList.add("content")
+            if (i == keyArray.length - 1) {
+                v_content.classList.add("content-right")
+            }
+            v_content.style.width = "calc(100% /" + keyArray.length + ")"
+
+            let v_contentBox = document.createElement("div")
+            v_contentBox.classList.add("content-box")
+            v_content.append(v_contentBox)
+
+            let v_contentTop = document.createElement("div")
+            v_contentTop.innerHTML = v_data[keyArray[i]]
+            v_contentBox.append(v_contentTop)
+
+            let v_percent = (document.querySelector(".container").clientHeight * 0.9) / 10
+
+            let v_contentBar = document.createElement("div")
+            v_contentBar.classList.add("content-bar")
+            v_contentBar.style.height = (parseInt(v_data[keyArray[i]]) * v_percent) + "px"
+            v_contentBox.append(v_contentBar)
+
+            let v_contentText = document.createElement("div")
+            v_contentText.classList.add("content-text")
+            v_contentText.innerHTML = keyArray[i]
+            v_content.append(v_contentText)
+
+            document.querySelector(".container").append(v_content)
+        }
+    </script>
+</body>
+
+</html>
