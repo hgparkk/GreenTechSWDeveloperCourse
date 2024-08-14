@@ -5,32 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>이메일 인증 완료</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script src="../resources/js/serviceKey-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
 </head>
 
 <body>
+    <div>이메일 인증 완료!</div>
     <script>
         if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
             // 로컬 스토리지에 저장된 이메일 꺼내기
             var email = window.localStorage.getItem('emailForSignIn');
             if (!email) {
-                // User opened the link on a different device. To prevent session fixation
-                // attacks, ask the user to provide the associated email again. For example:
                 email = window.prompt('Please provide your email for confirmation');
             }
-            // The client SDK will parse the code from the link for you.
             firebase.auth().signInWithEmailLink(email, window.location.href)
                 .then((result) => {
-                    // Clear email from storage.
                     window.localStorage.removeItem('emailForSignIn');
-                    // You can access the new user via result.user
-                    // Additional user info profile not available via:
-                    // result.additionalUserInfo.profile == null
-                    // You can check if the user is new or existing:
-                    // result.additionalUserInfo.isNewUser
                 })
                 .catch((error) => {
-                    // Some error occurred, you can inspect the code: error.code
-                    // Common errors could be invalid email and invalid or expired OTPs.
                 });
         }
     </script>
