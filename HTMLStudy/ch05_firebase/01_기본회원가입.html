@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script src="../resources/js/firebase-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id="inputEmail" type="email" placeholder="이메일">
+    </div>
+    <div>
+        <input id="inputPw" type="password" placeholder="비밀번호">
+    </div>
+    <div>
+        <input id="inputName" type="text" placeholder="닉네임">
+    </div>
+    <button id="signUpBtn">회원가입</button>
+
+    <script>
+        document.querySelector("#signUpBtn").addEventListener("click", () => {
+            let inputEmail = document.querySelector("#inputEmail").value
+            let inputPw = document.querySelector("#inputPw").value
+            let inputName = document.querySelector("#inputName").value
+
+            // firebase.auth() : 인증에 필요한 객체 꺼내기
+            // .createUserWithEmailAndPassword(email, password) : email 과 password를 전송해서 회원가입을 시킴
+            firebase.auth().createUserWithEmailAndPassword(inputEmail, inputPw)
+                // .then(()=>{}) : firebase 서버에 요청 후 응답이 오면 실행되는 부분
+                .then((userCredential) => {
+                    var user = userCredential.user;
+                    console.log(user)
+
+                    /*.user의 정보
+                    displayName : 닉네임
+                    email : 입력한 이메일
+                    phoneNumber : 연락처
+                    photoURL : 프로필 이미지
+                    uid : DB서버에서 해당 유저에 대한 식별키
+                    */
+
+                    // 회원가입 시 추가정보 등록
+                    user.updateProfile({
+                        displayName: inputName
+                    })
+                })
+                // .catch(()=>{}) : firebase 서버에 요청 시 에러가 발생하면 실행되는 부분
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.error(errorCode + ", " + errorMessage)
+                });
+        })
+    </script>
+</body>
+
+</html>

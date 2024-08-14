@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>방사형 그래프</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"
+        integrity="sha512-HX+/SvM7094YZEKOCtG9EyjRYvK8dKlFhdYAnVCGNxMkA59BZNSZTZrqdDlLXp0O6/NjDb1uKnmutUeuzHb3iQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        .canvas-box {
+            width: 1000px;
+        }
+
+        .radar-box {
+            display: flex;
+        }
+
+        .canvas-box-third {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="canvas-box">
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="radar-box">
+        <div class="canvas-box-third">
+            <canvas class="radar-chart"></canvas>
+        </div>
+        <div class="canvas-box-third">
+            <canvas class="radar-chart"></canvas>
+        </div>
+        <div class="canvas-box-third">
+            <canvas class="radar-chart"></canvas>
+        </div>
+    </div>
+
+    <script>
+        let v_ajax = new XMLHttpRequest()
+
+        v_ajax.open("GET", "./12_캐릭터스탯.xml")
+
+        v_ajax.onload = () => {
+            let x2js = new X2JS()
+
+            let v_data = v_ajax.responseXML
+            v_data = x2js.xml2json(v_data)
+
+            let v_labels = Object.keys(v_data["characters"]["character"][0])
+
+            v_labels.splice(v_labels.indexOf("name"), 1)
+
+            let dataList = []
+
+            for (let i = 0; i < v_data["characters"]["character"].length; i++) {
+                let character = {}
+                character["label"] = v_data["characters"]["character"][i]["name"]
+                character["fill"] = "false"
+                character["data"] = []
+
+                for (let j of v_labels) {
+                    character["data"].push(v_data["characters"]["character"][i][j])
+                }
+                dataList.push(character)
+            }
+
+            let crx = document.getElementById("myChart")
+
+            let v_chart = new Chart(crx, {
+                type: 'radar',
+                data: {
+                    labels: v_labels,
+                    datasets: dataList
+                },
+                options: {
+                    scale: {
+                        ticks: {
+                            stepSize: 1
+                        },
+                        r: {
+                            suggestedMin: 0,
+                            suggestedMax: 5
+                        }
+                    }
+                }
+            });
+
+            let crxArray = document.querySelectorAll(".radar-chart")
+
+            for (let i = 0; i < crxArray.length; i++) {
+                let newArray = []
+                newArray.push(dataList[i])
+                new Chart(crxArray[i], {
+                    type: 'radar',
+                    data: {
+                        labels: v_labels,
+                        datasets: newArray
+                    },
+                    options: {
+                        scale: {
+                            ticks: {
+                                stepSize: 1
+                            },
+                            r: {
+                                suggestedMin: 0,
+                                suggestedMax: 5
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        v_ajax.send()
+    </script>
+</body>
+
+</html>

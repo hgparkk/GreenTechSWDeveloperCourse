@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>워드클라우드</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wordcloud2.js/1.2.2/wordcloud2.min.js"
+        integrity="sha512-lGnVsh3WK0YJ7NX7rQmUu6kqF7vqELuDrUTnxpI2iD86VwI+OlQhi3EAJJZbrBUOfDFOAYAkigxkApHGM2IZTg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <style>
+        .canvas-box {
+            width: 800px
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <canvas id="myCanvas" class="canvas-box"></canvas>
+    </div>
+    <script>
+        let v_data = [
+            ["React", 120],
+            ["Alpine", 6],
+            ["Angular", 7],
+            ["Preact", 8],
+            ["Ember", 9]
+        ]
+
+        console.log(v_data)
+
+        let ctx = document.querySelector("#myCanvas")
+
+        WordCloud(ctx, { "list": v_data })
+    </script>
+</body>
+
+</html>

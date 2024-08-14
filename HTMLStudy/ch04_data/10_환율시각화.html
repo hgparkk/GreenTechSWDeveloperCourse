@@ -7,10 +7,17 @@
     <title>환율 시각화</title>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        .canvas-box {
+            height: 900px;
+        }
+    </style>
 </head>
 
 <body>
-    <div>
+    <select id="codeSelect"></select>
+    <div class="canvas-box">
         <canvas id="myChart"></canvas>
     </div>
 
@@ -24,10 +31,21 @@
             let v_rate = v_result["rates"]
             let v_rateDateArray = Object.keys(v_rate)
 
-            let v_krwRate = []
+            let codeList = Object.keys(v_rate["2020-08-01"])
+
+            let v_valueRate = []
+
+            let codeSelect = document.querySelector("#codeSelect")
+
+            for (let i of codeList) {
+                let v_option = document.createElement("option")
+                v_option.value = i
+                v_option.innerHTML = i
+                codeSelect.append(v_option)
+            }
 
             for (let i of v_rateDateArray) {
-                v_krwRate.push(v_rate[i]["KRW"])
+                v_valueRate.push(v_rate[i][codeSelect.value])
             }
 
             let crx = document.getElementById("myChart")
@@ -37,28 +55,37 @@
                 data: {
                     labels: v_rateDateArray,
                     datasets: [{
-                        label: "KRW",
-                        data: v_krwRate,
+                        label: codeSelect.value,
+                        data: v_valueRate,
                         borderWidth: 1,
-                        pointRadius: 0
+                        pointRadius: 0,
                     }]
                 }
+            });
+
+            codeSelect.addEventListener("change", () => {
+                v_valueRate = []
+                for (let i of v_rateDateArray) {
+                    v_valueRate.push(v_rate[i][event.target.value])
+                }
+                v_chart.data.datasets[0].label = event.target.value
+                v_chart.data.datasets[0].data = v_valueRate
+                v_chart.update()
             })
 
             crx.addEventListener("wheel", (e) => {
                 let newArray = v_rateDateArray
-                let newRateArray = v_krwRate
+                let newRateArray = v_valueRate
                 if (e.deltaY < 0 && wheelEvent < v_rateDateArray.length - 4) {
                     newArray = v_rateDateArray.slice(wheelEvent++, v_rateDateArray.length - 1)
-                    newRateArray = v_krwRate.slice(wheelEvent++, v_krwRate.length - 1)
+                    newRateArray = v_valueRate.slice(wheelEvent++, v_valueRate.length - 1)
                 } else if (e.deltaY > 0 && wheelEvent > 0) {
                     newArray = v_rateDateArray.slice(wheelEvent--, v_rateDateArray.length - 1)
-                    newRateArray = v_krwRate.slice(wheelEvent--, v_krwRate.length - 1)
+                    newRateArray = v_valueRate.slice(wheelEvent--, v_valueRate.length - 1)
                 } else {
                     newArray = v_rateDateArray.slice(wheelEvent, v_rateDateArray.length - 1)
-                    newRateArray = v_krwRate.slice(wheelEvent, v_krwRate.length - 1)
+                    newRateArray = v_valueRate.slice(wheelEvent, v_valueRate.length - 1)
                 }
-                console.log(wheelEvent)
                 v_chart.data.labels = newArray
                 v_chart.data.datasets[0].data = newRateArray
                 v_chart.update()

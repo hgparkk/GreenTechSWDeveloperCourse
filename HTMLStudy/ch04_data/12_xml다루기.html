@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>xml다루기</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"
+        integrity="sha512-HX+/SvM7094YZEKOCtG9EyjRYvK8dKlFhdYAnVCGNxMkA59BZNSZTZrqdDlLXp0O6/NjDb1uKnmutUeuzHb3iQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <script>
+        let v_ajax = new XMLHttpRequest()
+
+        v_ajax.open("GET", "./12_캐릭터스탯.xml")
+
+        v_ajax.onload = () => {
+            console.log(v_ajax.response)
+            console.log(v_ajax.responseXML)
+
+            let domParser = new DOMParser()
+            let xmlObj = domParser.parseFromString(v_ajax.response, "text/xml")
+
+            console.log(xmlObj)
+            console.log(xmlObj.getElementsByTagName("character"))
+            console.log(xmlObj.getElementsByTagName("character")[1])
+            console.log(xmlObj.getElementsByTagName("character")[1].getElementsByTagName("name")[0].innerHTML)
+
+            let x2js = new X2JS()
+            console.log(x2js.xml_str2json(v_ajax.response))
+
+            let v_json = x2js.xml2json(v_ajax.responseXML)
+            console.log(v_json)
+
+            console.log(x2js.json2xml(v_json))
+            console.log(x2js.json2xml_str(v_json))
+        }
+
+        v_ajax.send()
+    </script>
+</body>
+
+</html>

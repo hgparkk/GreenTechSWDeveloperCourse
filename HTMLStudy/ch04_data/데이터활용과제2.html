@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터활용과제2</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 1340px;
+            margin: auto;
+        }
+
+        .nav-bar {
+            height: 30px;
+            background-color: gainsboro;
+
+            padding: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-bar-text {
+            margin: 10px;
+        }
+
+        .card-row {
+            margin-top: 30px;
+            display: flex;
+        }
+
+        .card {
+            position: relative;
+
+            width: 400px;
+            height: 400px;
+
+            margin-left: 20px;
+            margin-right: 20px;
+
+            border-radius: 10px;
+            box-shadow: 0px 0px 1px 1px gainsboro;
+
+            overflow: hidden;
+        }
+
+        .card-status {
+            position: absolute;
+
+            width: 60px;
+            height: 40px;
+
+            left: 30px;
+            top: 30px;
+
+            border-radius: 5px;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-size: 13px;
+        }
+
+        .status-style-orange {
+            background-color: orange;
+            color: white;
+        }
+
+        .status-style-navy {
+            background-color: navy;
+            color: white;
+        }
+
+        .status-style-skyblue {
+            background-color: skyblue;
+            color: white;
+        }
+
+        .status-style-pink {
+            background-color: pink;
+            color: white;
+        }
+
+        .status-style-black {
+            background-color: black;
+            color: white;
+        }
+
+        .status-style-white {
+            background-color: white;
+            color: black;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 300px;
+        }
+
+        .card-text-box {
+            padding: 15px;
+        }
+
+        .card-text-box-row {
+            margin-bottom: 20px;
+        }
+
+        .spice-tag {
+            font-size: 20px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .gender-tag {
+            font-size: 10px;
+            color: darkgray
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="nav-bar">
+            <span class="nav-bar-text">종류</span>
+            <select id="species">
+                <option value="0">선택하세요</option>
+                <option value="1">개</option>
+                <option value="2">고양이</option>
+                <option value="3">기타동물</option>
+            </select>
+        </div>
+    </div>
+    <div id="info" class="container"></div>
+
+    <script>
+        let species = document.querySelector("#species")
+
+        let animalInfo = JSON.parse(localStorage.getItem("animalInfo"))
+
+        let pageStart = 0
+        let pageEnd = 99
+
+        pageLoad()
+
+        // 스크롤 이벤트
+        window.onscroll = () => {
+            let v_docHeight = document.documentElement.scrollHeight
+            let v_winHeight = document.documentElement.clientHeight
+            let v_scrollTop = document.documentElement.scrollTop
+
+            if (v_winHeight + v_scrollTop >= v_docHeight) {
+                if (pageStart == pageEnd) {
+                    return
+                }
+
+                //기타 동물의 개체수가 적어 수량 확보를 위해 로드되는 페이지 수를 늘림
+                if (species.value == 3) {
+                    pageStart = pageEnd + 297
+                    pageEnd = pageStart + 396
+                } else {
+                    pageStart = pageEnd
+                    pageEnd = pageStart + 99
+                }
+                if (pageEnd > animalInfo.length) {
+                    pageEnd = animalInfo.length
+                }
+                pageLoad()
+            }
+        }
+
+        species.addEventListener("change", () => {
+            document.querySelector("#info").innerHTML = ""
+            pageStart = 0
+            pageEnd = 99
+            //기타 동물의 개체수가 적어 수량 확보를 위해 로드되는 페이지 수를 늘림
+            if (species.value == 3) {
+                pageEnd += 297
+            }
+            pageLoad()
+            if (species.value == 3) {
+                pageEnd -= 297
+            }
+        })
+
+        function pageLoad() {
+            let itemCount = 0
+            let stringRow = ""
+            for (let i = pageStart; i < pageEnd; i++) {
+                if (species.value == animalInfo[i]["classification"] || species.value == 0) {
+                    if (itemCount % 3 == 0) {
+                        stringRow += '<div class="card-row">'
+                    }
+                    let adoptionStatusCd = ""
+                    let adoptionStyle = ""
+                    let classification = ""
+                    let gender = ""
+                    switch (animalInfo[i]["adoptionStatusCd"]) {
+                        case "1":
+                            adoptionStatusCd = "공고중"
+                            adoptionStyle = "status-style-orange"
+                            break
+                        case "2":
+                            adoptionStatusCd = "입양가능"
+                            adoptionStyle = "status-style-skyblue"
+                            break
+                        case "3":
+                            adoptionStatusCd = "입양예정"
+                            adoptionStyle = "status-style-pink"
+                            break
+                        case "4":
+                            adoptionStatusCd = "입양완료"
+                            adoptionStyle = "status-style-navy"
+                            break
+                        case "7":
+                            adoptionStatusCd = "주인반환"
+                            adoptionStyle = "status-style-black"
+                            break
+                        default:
+                            adoptionStatusCd = "알수없음" + animalInfo[i]["adoptionStatusCd"]
+                            adoptionStyle = "status-style-white"
+                            break
+                    }
+                    switch (animalInfo[i]["classification"]) {
+                        case "1":
+                            classification = "개"
+                            break
+                        case "2":
+                            classification = "고양이"
+                            break
+                        case "3":
+                            classification = "기타동물"
+                            break
+                        default:
+                            adoptionStatusCd = animalInfo[i]["classification"]
+                            break
+                    }
+                    switch (animalInfo[i]["gender"]) {
+                        case "1":
+                            gender = "암컷"
+                            break
+                        case "2":
+                            gender = "수컷"
+                            break
+                        case "3":
+                            gender = "중성화암컷"
+                            break
+                        case "4":
+                            gender = "중성화수컷"
+                            break
+                        case "5":
+                            gender = "미상"
+                            break
+                        default:
+                            gender = animalInfo[i]["gender"]
+                            break
+                    }
+                    stringRow += '<div class="card">'
+                    stringRow += '<div class="card-status ' + adoptionStyle + '">' + adoptionStatusCd + '</div>'
+                    stringRow += '<img class="card-img" src=http://www.daejeon.go.kr/' + animalInfo[i]["filePath"] + '>'
+                    stringRow += '<div class="card-text-box">'
+                    stringRow += '<div class="card-text-box-row">'
+                    stringRow += '<span class="spice-tag">' + animalInfo[i]["species"] + '</span>'
+                    stringRow += '<span class="gender-tag">' + gender + '</span>'
+                    stringRow += '</div>'
+                    stringRow += '<span>관리번호: ' + animalInfo[i]["regId"] + '</span>'
+                    stringRow += '</div></div>'
+                    if (itemCount % 3 == 2) {
+                        stringRow += '</div>'
+                        document.querySelector("#info").innerHTML += stringRow
+                        stringRow = ""
+                    }
+                    itemCount++
+                }
+            }
+            console.log(pageStart + "," + pageEnd)
+        }
+    </script>
+</body>
+
+</html>

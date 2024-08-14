@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script src="../resources/js/firebase-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id="inputEmail" type="email" placeholder="이메일">
+    </div>
+    <div>
+        <input id="inputPw" type="password" placeholder="비밀번호">
+    </div>
+    <button id="signInBtn">로그인</button>
+
+    <script>
+        document.querySelector("#signInBtn").addEventListener("click", () => {
+            let inputEmail = document.querySelector("#inputEmail").value
+            let inputPw = document.querySelector("#inputPw").value
+
+            firebase.auth().signInWithEmailAndPassword(inputEmail, inputPw)
+                .then((userCredential) => {
+                    var user = userCredential.user;
+                    console.log(user)
+                })
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.error(errorCode + ", " + errorMessage)
+                });
+        })
+    </script>
+</body>
+
+</html>

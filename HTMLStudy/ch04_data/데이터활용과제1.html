@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>데이터활용과제1</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/x2js/1.2.0/xml2json.min.js"
+        integrity="sha512-HX+/SvM7094YZEKOCtG9EyjRYvK8dKlFhdYAnVCGNxMkA59BZNSZTZrqdDlLXp0O6/NjDb1uKnmutUeuzHb3iQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+
+<body>
+    <script>
+        // openAPI의 URL
+        let v_serviceURL = "http://apis.data.go.kr/6300000/animalDaejeonService/animalDaejeonList"
+
+        // serviceKey Ecoding
+        let v_serviceKeyEncoding = "?serviceKey=7iwd9W8L5Kbf0TSMmZlfTf9B4Bzi6b6KX5HkUGG0XkD19ZSr%2BIw3WD9zmD1MoXdQ7UQhPYlBK3wWkg3%2B4jSaVQ%3D%3D"
+
+        // serviceKey Decoding
+        let v_serviceKeyDecoding = "?serviceKey=7iwd9W8L5Kbf0TSMmZlfTf9B4Bzi6b6KX5HkUGG0XkD19ZSr+Iw3WD9zmD1MoXdQ7UQhPYlBK3wWkg3+4jSaVQ=="
+
+        // 파라미터
+        let v_queryParams = "&numOfRows=100&pageNo="
+
+        // 페이지 번호
+        let v_pageNo = 1
+
+        // 결과를 담을 배열 선언
+        let resultArray = []
+
+        f_request()
+
+        function f_request() {
+            let v_ajax = new XMLHttpRequest()
+
+            v_ajax.open("GET", v_serviceURL + v_serviceKeyEncoding + v_queryParams + v_pageNo)
+
+            v_ajax.onload = () => {
+                let x2js = new X2JS()
+
+                // 결과를 json 파일로 변환
+                let v_jsonData = x2js.xml2json(v_ajax.responseXML)
+
+                // 결과가 존재할 경우 다음 반복
+                if (v_jsonData["ServiceResult"]["MsgBody"]["items"]) {
+                    let v_items = v_jsonData["ServiceResult"]["MsgBody"]["items"]
+
+                    // 필요한 데이터 (입양상태, 유기동물구분, 사진경로, 성별구분, 동물등록번호, 동물종구분) 만 추출
+                    for (i of v_items) {
+                        let currentJson = {}
+                        currentJson["adoptionStatusCd"] = i["adoptionStatusCd"]
+                        currentJson["classification"] = i["classification"]
+                        currentJson["filePath"] = i["filePath"]
+                        currentJson["gender"] = i["gender"]
+                        currentJson["regId"] = i["regId"]
+                        currentJson["species"] = i["species"]
+
+                        // 배열에 넣기
+                        resultArray.push(currentJson)
+                    }
+                    v_pageNo++
+                    f_request()
+                } else {
+
+                    //로컬 스토리지에 결과 저장
+                    localStorage.setItem("animalInfo", JSON.stringify(resultArray))
+                }
+            }
+
+            v_ajax.send()
+        }
+    </script>
+</body>
+
+</html>
