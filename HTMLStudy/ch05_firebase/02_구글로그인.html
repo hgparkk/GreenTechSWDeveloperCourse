@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>구글 로그인</title>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
 
-    <script src="../resources/js/firebase-info.js"></script>
+    <script src="../../../privatefolder/firebase-info.js"></script>
     <script>
         firebase.initializeApp(firebaseConfig)
     </script>
@@ -28,6 +28,26 @@
 
     <script>
         let provider = new firebase.auth.GoogleAuthProvider()
+
+        document.querySelector("#googleBtn").addEventListener("click", () => {
+            firebase.auth().signInWithPopup(provider)
+                .then((result) => {
+                    /** @type {firebase.auth.OAuthCredential} */
+                    var credential = result.credential;
+
+                    var token = credential.accessToken;
+                    var user = result.user;
+
+                    console.log(user)
+                }).catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    var email = error.email;
+                    var credential = error.credential;
+
+                    console.error(errorCode + ", " + errorMessage)
+                });
+        })
     </script>
 </body>
 
