@@ -12,15 +12,12 @@
 </head>
 
 <body>
+    <button id="request">데이터요청</button>
+
+    <script src="../resources/js/serviceKey-info.js"></script>
     <script>
         // openAPI의 URL
         let v_serviceURL = "http://apis.data.go.kr/6300000/animalDaejeonService/animalDaejeonList"
-
-        // serviceKey Ecoding
-        let v_serviceKeyEncoding = "?serviceKey=7iwd9W8L5Kbf0TSMmZlfTf9B4Bzi6b6KX5HkUGG0XkD19ZSr%2BIw3WD9zmD1MoXdQ7UQhPYlBK3wWkg3%2B4jSaVQ%3D%3D"
-
-        // serviceKey Decoding
-        let v_serviceKeyDecoding = "?serviceKey=7iwd9W8L5Kbf0TSMmZlfTf9B4Bzi6b6KX5HkUGG0XkD19ZSr+Iw3WD9zmD1MoXdQ7UQhPYlBK3wWkg3+4jSaVQ=="
 
         // 파라미터
         let v_queryParams = "&numOfRows=100&pageNo="
@@ -31,12 +28,12 @@
         // 결과를 담을 배열 선언
         let resultArray = []
 
-        f_request()
+        document.querySelector("#request").addEventListener("click", f_request)
 
         function f_request() {
             let v_ajax = new XMLHttpRequest()
 
-            v_ajax.open("GET", v_serviceURL + v_serviceKeyEncoding + v_queryParams + v_pageNo)
+            v_ajax.open("GET", v_serviceURL + servicekeyEncoding + v_queryParams + v_pageNo)
 
             v_ajax.onload = () => {
                 let x2js = new X2JS()

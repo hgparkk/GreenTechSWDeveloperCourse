@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>휴대폰 인증</title>
+    <title>이메일 인증 요청</title>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -19,6 +19,7 @@
 <body>
     <div>
         <input id="inputEmail" type="email" placeholder="이메일">
+        <button id="sendEmailBtn">이메일 인증 요청</button>
     </div>
     <div>
         <input id="inputPw" type="password" placeholder="비밀번호">
@@ -39,36 +40,23 @@
     <script>
         firebase.auth().languageCode = "ko"
 
-        document.querySelector("#sendMsgBtn").addEventListener("click", () => {
-            let v_inputPhone = document.querySelector("#inputPhone").value
+        var actionCodeSettings = {
+            // 인증 버튼 클릭시 이동될 페이지 URL
+            url: 'http://127.0.0.1:5500/ch05_firebase/04_%EC%9D%B4%EB%A9%94%EC%9D%BC%EC%9D%B8%EC%A6%9D%EC%99%84%EB%A3%8C.html',
+            handleCodeInApp: true
+        };
 
-            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-                'size': 'invisible',
-                'callback': (response) => {
-                    // onSignInSubmit() 함수가 실행된 이후 문자를 보낼 수 있게됨
-                    onSignInSubmit();
-                }
-            })
+        document.querySelector("#sendEmailBtn").addEventListener("click", () => {
+            let v_inputEmail = document.querySelector("#inputEmail").value
 
-            const phoneNumber = "+82" + v_inputPhone
-            const appVerifier = window.recaptchaVerifier;
-            firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-                .then((confirmationResult) => {
-                    window.confirmationResult = confirmationResult;
-                }).catch((error) => {
-                    console.log("SMS 전송 실패")
+            firebase.auth().sendSignInLinkToEmail(v_inputEmail, actionCodeSettings)
+                .then(() => {
+                    localStorage.setItem('emailForSignIn', v_inputEmail);
                 })
-        })
-
-        document.querySelector("#checkAuthNumBtn").addEventListener("click", () => {
-            let v_inputPhone = document.querySelector("#inputAuthNum").value
-
-            confirmationResult.confirm(v_inputPhone).then((result) => {
-                const user = result.user;
-                console.log(user)
-            }).catch((error) => {
-                console.error(error)
-            });
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                });
         })
     </script>
 </body>
