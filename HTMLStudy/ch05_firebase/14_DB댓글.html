@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script src="../resources/js/serviceKey-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
+
+    <style>
+        .reply {
+            display: flex;
+        }
+
+        .reply-name {
+            width: 20%;
+        }
+
+        .reply-content {
+            width: 60%;
+        }
+
+        .reply-date {
+            width: 10%;
+        }
+
+        .reply-delete {
+            color: red;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="reply-container">
+        <div class="reply-box">
+        </div>
+        <div class="reply-input">
+            <textarea name="" id="replyContent"></textarea>
+            <button id="registReplyBtn">등록</button>
+        </div>
+    </div>
+
+    <script src="./common.js"></script>
+    <script>
+        let v_docId = "Kw1epZNwDbcMIq7I483T"
+
+        let v_login = JSON.parse(sessionStorage.getItem("login"))
+
+        const db = firebase.firestore()
+
+        db.collection("board").doc(v_docId).collection("reply").orderBy("date").get()
+            .then((result) => {
+                result.forEach((doc) => {
+                    let v_data = doc.data()
+                    let v_reply = '<div class="reply">'
+                        + '<input type=hidden value="' + doc.id + '">'
+                        + '<div class="reply-name" >' + v_data["memName"] + '</div>'
+                        + '<div class="reply-content">' + v_data["content"] + '</div>'
+                        + '<div class="reply-date">' + v_data["date"] + '</div>'
+                    if (JSON.parse(sessionStorage.getItem("login"))["memId"] == v_data["memId"]) {
+                        v_reply += '<div class="reply-delete" onclick="f_delete()">x</div>'
+                    }
+                    v_reply += '</div>'
+                    document.querySelector(".reply-box").innerHTML += v_reply
+                })
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+
+        function f_delete() {
+            let v_id = event.currentTarget.parentElement.children[0].value
+            if (confirm("댓글을 삭제하시겠습니까?")) {
+                db.collection("board").doc(v_docId).collection("reply").doc(v_id).delete()
+                    .then(() => {
+                        alert("댓글이 삭제되었습니다.")
+                        document.getElementById("replyContent").value = ""
+                        history.go(0)
+                    })
+                    .catch((err) => {
+                        console.error(err);
+                    });
+            }
+        }
+
+        document.getElementById("registReplyBtn").addEventListener("click", () => {
+            let v_content = document.getElementById("replyContent").value
+
+            let v_memId = v_login["memId"]
+            let v_memName = v_login["memName"]
+            let v_date = makeBoardDate()
+
+            let v_json = {
+                "content": v_content,
+                "memId": v_memId,
+                "memName": v_memName,
+                "date": v_date
+            }
+
+            db.collection("board").doc(v_docId).collection("reply").add(v_json)
+                .then(() => {
+                    alert("댓글이 등록되었습니다.")
+                    document.getElementById("replyContent").value = ""
+                    history.go(0)
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        })
+    </script>
+</body>
+
+</html>
