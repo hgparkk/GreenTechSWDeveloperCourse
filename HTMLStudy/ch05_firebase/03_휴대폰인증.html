@@ -39,16 +39,16 @@
     <script>
         firebase.auth().languageCode = "ko"
 
+        window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sendMsgBtn', {
+            'size': 'invisible',
+            'callback': (response) => {
+                // onSignInSubmit() 함수가 실행된 이후 문자를 보낼 수 있게됨
+                onSignInSubmit();
+            }
+        })
+
         document.querySelector("#sendMsgBtn").addEventListener("click", () => {
             let v_inputPhone = document.querySelector("#inputPhone").value
-
-            window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
-                'size': 'invisible',
-                'callback': (response) => {
-                    // onSignInSubmit() 함수가 실행된 이후 문자를 보낼 수 있게됨
-                    onSignInSubmit();
-                }
-            })
 
             const phoneNumber = "+82" + v_inputPhone
             const appVerifier = window.recaptchaVerifier;

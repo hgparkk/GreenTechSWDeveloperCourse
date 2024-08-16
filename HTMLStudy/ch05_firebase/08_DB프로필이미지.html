@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로필 이미지</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-storage-compat.js"></script>
+
+    <script src="../resources/js/serviceKey-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
+</head>
+
+<body>
+    <h2>프로필 이미지 변경</h2>
+    <div>
+        <img id="profImg" src="" alt="">
+    </div>
+    <div>
+        <input id="inputImage" type="file" accept="image/*" onchange="f_readImg()">
+    </div>
+
+    <script src="./common.js"></script>
+    <script>
+        const storage = firebase.storage();
+
+        function f_readImg() {
+            let v_inputFile = event.target.files[0]
+
+            let v_imgName = makeUniqueId() + (v_inputFile["type"].replace("image/", "."))
+
+            console.log(v_imgName)
+        }
+    </script>
+</body>
+
+</html>

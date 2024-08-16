@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
+    <title>로그인</title>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -23,33 +23,33 @@
     <div>
         <input id="inputPw" type="password" placeholder="비밀번호">
     </div>
-    <div>
-        <input id="inputName" type="text" placeholder="닉네임">
-    </div>
-    <button id="signUpBtn">회원가입</button>
+    <button id="signInBtn">로그인</button>
 
     <script>
         const db = firebase.firestore()
 
-        document.querySelector("#signUpBtn").addEventListener("click", () => {
+        document.querySelector("#signInBtn").addEventListener("click", () => {
             let inputId = document.querySelector("#inputId").value
             let inputPw = document.querySelector("#inputPw").value
-            let inputName = document.querySelector("#inputName").value
 
-            let v_json = {}
-            v_json["memId"] = inputId
-            v_json["memPw"] = inputPw
-            v_json["memName"] = inputName
+            db.collection("member").doc(inputId).get()
+                .then((result) => {
+                    if (!result) {
+                        alert("유효하지 않은 아이디 혹은 비밀번호 입니다.")
+                        return
+                    }
 
-            // collection 뒤 문자열에 해당하는 collection이 없으면 새 collection 추가, 있다면 기존 collection에 새 데이터 추가
-            // 
-            db.collection("member").doc(inputId).set(v_json)
-                .then(() => {
-                    console.log("Document successfully written!");
+                    let v_data = result.data()
+
+                    if (inputPw == v_data["memPw"]) {
+                        sessionStorage.setItem("login", JSON.stringify(v_data))
+                        location.replace("./index.html")
+                    } else {
+                        alert("유효하지 않은 아이디 혹은 비밀번호 입니다.")
+                    }
+                }).catch((error) => {
+                    console.log(error)
                 })
-                .catch((error) => {
-                    console.error("Error writing document: ", error);
-                });
         })
     </script>
 </body>

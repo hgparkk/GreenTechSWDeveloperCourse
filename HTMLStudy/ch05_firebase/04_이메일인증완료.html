@@ -22,14 +22,14 @@
         if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
             // 로컬 스토리지에 저장된 이메일 꺼내기
             var email = window.localStorage.getItem('emailForSignIn');
-            if (!email) {
-                email = window.prompt('Please provide your email for confirmation');
-            }
+
             firebase.auth().signInWithEmailLink(email, window.location.href)
                 .then((result) => {
                     window.localStorage.removeItem('emailForSignIn');
+                    console.log(result.user)
                 })
                 .catch((error) => {
+                    console.error(error)
                 });
         }
     </script>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>회원가입</title>
+    <title>회원 정보 수정</title>
 
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
@@ -18,7 +18,7 @@
 
 <body>
     <div>
-        <input id="inputId" type="text" placeholder="아이디">
+        <span id="spanId"></span>
     </div>
     <div>
         <input id="inputPw" type="password" placeholder="비밀번호">
@@ -26,26 +26,35 @@
     <div>
         <input id="inputName" type="text" placeholder="닉네임">
     </div>
-    <button id="signUpBtn">회원가입</button>
+    <button id="signUpBtn">회원정보수정</button>
 
     <script>
         const db = firebase.firestore()
 
+        let v_login = JSON.parse(sessionStorage.getItem("login"))
+        document.querySelector("#spanId").innerHTML = v_login["memId"]
+        let inputName = document.querySelector("#inputName")
+        inputName.value = v_login["memName"]
+
         document.querySelector("#signUpBtn").addEventListener("click", () => {
-            let inputId = document.querySelector("#inputId").value
-            let inputPw = document.querySelector("#inputPw").value
-            let inputName = document.querySelector("#inputName").value
+            let v_inputPw = document.querySelector("#inputPw").value
+            v_inputName = inputName.value
 
             let v_json = {}
-            v_json["memId"] = inputId
-            v_json["memPw"] = inputPw
-            v_json["memName"] = inputName
+            if (v_inputPw) {
+                v_json["memPw"] = v_inputPw
+            }
+            v_json["memName"] = v_inputName
 
-            // collection 뒤 문자열에 해당하는 collection이 없으면 새 collection 추가, 있다면 기존 collection에 새 데이터 추가
-            // 
-            db.collection("member").doc(inputId).set(v_json)
+            db.collection("member").doc(v_login["memId"]).update(v_json)
                 .then(() => {
-                    console.log("Document successfully written!");
+                    console.log("Document successfully udpate!");
+                    if (v_inputPw) {
+                        v_login["memPw"] = v_json["memPw"]
+                    }
+                    v_login["memName"] = v_json["memName"]
+                    sessionStorage.setItem("login", JSON.stringify(v_login))
+                    location.replace("./index.html")
                 })
                 .catch((error) => {
                     console.error("Error writing document: ", error);
