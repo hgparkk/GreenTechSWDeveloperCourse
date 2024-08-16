@@ -53,9 +53,10 @@
                 .then(() => {
                     localStorage.setItem('emailForSignIn', v_inputEmail);
                 })
-                .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
+                .catch((err) => {
+                    var errorCode = err.code;
+                    var errorMessage = err.message;
+                    console.error(errorCode + ", " + errorMessage)
                 });
         })
     </script>

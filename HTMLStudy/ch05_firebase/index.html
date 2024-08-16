@@ -5,27 +5,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>홈 화면</title>
+
+    <style>
+        .prof-img {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
 </head>
 
 <body>
     <nav class="nav-bar">
         <a href="./index.html">홈</a>
+        <img id="profImg" class="prof-img"
+            src="https://img1.daumcdn.net/thumb/R1280x0/?fname=http://t1.daumcdn.net/brunch/service/user/7r5X/image/9djEiPBPMLu_IvCYyvRPwmZkM1g.jpg">
         <a id="nav_signUp" href="./05_DB회원가입.html">회원가입</a>
         <a id="nav_login" href="./06_DB로그인.html">로그인</a>
         <a href="./07_DB회원수정.html">회원수정</a>
         <a href="./08_DB프로필이미지.html">프로필이미지</a>
-        <a href="./08_DB회원삭제.html">회원삭제</a>
-        <a href="./09_DB게시판.html">게시판</a>
+        <a href="./09_DB회원삭제.html">회원삭제</a>
+        <a href="./10_DB게시판.html">게시판</a>
     </nav>
 
     <script>
-        let v_info = JSON.parse(sessionStorage.getItem("login"))
+        let v_login = JSON.parse(sessionStorage.getItem("login"))
 
         let nav_signUp = document.querySelector("#nav_signUp")
         let nav_login = document.querySelector("#nav_login")
-        if (v_info) {
-            nav_signUp.innerHTML = v_info["memName"] + " 님"
+        if (v_login) {
+            nav_signUp.innerHTML = v_login["memName"] + " 님"
             nav_signUp.href = "./07_DB회원수정.html"
+
+            if (v_login["profImg"]) {
+                document.querySelector("#profImg").src = v_login["profImg"]
+            }
+
             nav_login.innerHTML = "로그아웃"
             nav_login.href = "./06_로그아웃.html"
         }

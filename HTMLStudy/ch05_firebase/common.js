@@ -17,3 +17,14 @@ function makeUniqueId() {
 
     return v_uniqueId
 }
+
+function makeBoardDate() {
+    let date = new Date()
+
+    let v_month = ((date.getMonth() + 1) + "").padStart(2, "0")
+    let v_date = (date.getDate() + "").padStart(2, "0")
+    let v_hours = (date.getHours() + "").padStart(2, "0")
+    let v_minutes = (date.getMinutes() + "").padStart(2, "0")
+
+    return v_month + "-" + v_date + " " + v_hours + ":" + v_minutes
+}

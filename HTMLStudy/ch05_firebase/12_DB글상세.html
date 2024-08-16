@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글 상세</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script src="../resources/js/serviceKey-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
+
+    <style>
+        .button-invisible {
+            display: none
+        }
+    </style>
+</head>
+
+<body>
+    <div id="title"></div>
+    <div>
+        <span id="memName"></span>
+        <span id="date"></span>
+    </div>
+    <div id="content"></div>
+    <div>
+        <button id="boardUpdate" class="button-invisible">글 수정</button>
+        <button id="boardDelete" class="button-invisible">글 삭제</button>
+    </div>
+    <script>
+        let boardUpdateBtn = document.getElementById("boardUpdate")
+        let boardDeleteBtn = document.getElementById("boardDelete")
+
+        let urlSearch = new URLSearchParams(location.search)
+
+        const db = firebase.firestore()
+
+        db.collection("board").doc(urlSearch.get("id")).get()
+            .then((result) => {
+                let v_json = result.data()
+                document.getElementById("title").innerHTML = v_json["title"]
+                document.title = v_json["title"]
+                document.getElementById("memName").innerHTML = v_json["memName"]
+                document.getElementById("date").innerHTML = v_json["date"]
+                document.getElementById("content").innerHTML = v_json["content"]
+
+                if (sessionStorage.getItem("login") && v_json["memId"] == JSON.parse(sessionStorage.getItem("login"))["memId"]) {
+                    boardUpdateBtn.classList.remove("button-invisible")
+                    boardDeleteBtn.classList.remove("button-invisible")
+                }
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+
+        boardUpdateBtn.addEventListener("click", () => {
+            location.href = "./13_DB글수정.html?id=" + urlSearch.get("id")
+        })
+
+        boardDeleteBtn.addEventListener("click", () => {
+            if (confirm("글을 삭제하시겠습니까?")) {
+                db.collection("board").doc(urlSearch.get("id")).delete()
+                    .then((result) => {
+                        alert("글이 삭제되었습니다.")
+                        location.replace("./10_DB게시판.html")
+                    })
+
+                    .catch((err) => {
+                        console.error(err)
+                    })
+            }
+        })
+
+    </script>
+</body>
+
+</html>

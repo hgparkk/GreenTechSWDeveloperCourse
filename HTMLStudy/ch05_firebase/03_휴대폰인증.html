@@ -55,7 +55,7 @@
             firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
                 .then((confirmationResult) => {
                     window.confirmationResult = confirmationResult;
-                }).catch((error) => {
+                }).catch((err) => {
                     console.log("SMS 전송 실패")
                 })
         })
@@ -66,8 +66,8 @@
             confirmationResult.confirm(v_inputPhone).then((result) => {
                 const user = result.user;
                 console.log(user)
-            }).catch((error) => {
-                console.error(error)
+            }).catch((err) => {
+                console.error(err)
             });
         })
     </script>

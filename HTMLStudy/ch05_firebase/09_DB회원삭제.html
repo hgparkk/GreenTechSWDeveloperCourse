@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원삭제</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script src="../resources/js/serviceKey-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
+</head>
+
+<body>
+    <div>
+        <span id="spanId"></span>
+    </div>
+    <div>
+        <input id="inputPw" type="password" placeholder="비밀번호">
+    </div>
+    <div>
+        <input id="inputName" type="text" placeholder="닉네임">
+    </div>
+    <button id="signUpBtn">회원정보수정</button>
+    <button id="deleteBtn">회원탈퇴</button>
+
+    <script>
+        const db = firebase.firestore()
+
+        let v_login = JSON.parse(sessionStorage.getItem("login"))
+
+        document.querySelector("#deleteBtn").addEventListener("click", () => {
+            if (confirm("탈퇴하시겠습니까?")) {
+                db.collection("member").doc(v_login["memId"]).delete()
+                    .then((result) => {
+                        sessionStorage.removeItem("login")
+                        alert("회원 탈퇴가 완료되었습니다.")
+                        location.replace("./index.html")
+                    })
+
+                    .catch((err) => {
+                        console.error(err)
+                    })
+            }
+        })
+    </script>
+</body>
+
+</html>

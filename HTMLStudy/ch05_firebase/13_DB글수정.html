@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글수정</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script src="../resources/js/serviceKey-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id="inputTitle" type="text">
+    </div>
+    <div>
+        <textarea name="" id="inputContent"></textarea>
+    </div>
+    <button id="updateBtn">수정 완료</button>
+    <button id="cancelBtn">취소</button>
+
+    <script src="./common.js"></script>
+    <script>
+        let v_json = {}
+
+        let inputTitle = document.getElementById("inputTitle")
+        let inputContent = document.getElementById("inputContent")
+
+        let urlSearch = new URLSearchParams(location.search)
+
+        const db = firebase.firestore()
+
+        db.collection("board").doc(urlSearch.get("id")).get()
+            .then((result) => {
+                v_json = result.data()
+                inputTitle.value = v_json["title"]
+                inputContent.value = v_json["content"]
+            })
+            .catch((err) => {
+                console.error(err);
+            });
+
+        window.onbeforeunload = () => " "
+
+        document.getElementById("updateBtn").addEventListener("click", () => {
+            v_json["title"] = inputTitle.value
+            v_json["content"] = inputContent.value
+            v_json["date"] = makeBoardDate()
+
+            db.collection("board").doc(urlSearch.get("id")).update(v_json)
+                .then(() => {
+                    window.onbeforeunload = null
+                    alert("글이 수정되었습니다.")
+                    location.replace("./12_DB글상세.html?id=" + urlSearch.get("id"))
+                })
+        })
+
+        document.getElementById("cancelBtn").addEventListener("click", () => {
+            history.back()
+        })
+    </script>
+</body>
+
+</html>

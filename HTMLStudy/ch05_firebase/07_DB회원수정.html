@@ -56,8 +56,8 @@
                     sessionStorage.setItem("login", JSON.stringify(v_login))
                     location.replace("./index.html")
                 })
-                .catch((error) => {
-                    console.error("Error writing document: ", error);
+                .catch((err) => {
+                    console.error(err);
                 });
         })
     </script>

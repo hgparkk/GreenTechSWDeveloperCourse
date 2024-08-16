@@ -56,9 +56,9 @@
                     })
                 })
                 // .catch(()=>{}) : firebase 서버에 요청 시 에러가 발생하면 실행되는 부분
-                .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
+                .catch((err) => {
+                    var errorCode = err.code;
+                    var errorMessage = err.message;
                     console.error(errorCode + ", " + errorMessage)
                 })
         })

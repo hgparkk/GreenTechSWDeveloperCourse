@@ -42,13 +42,13 @@
             v_json["memName"] = inputName
 
             // collection 뒤 문자열에 해당하는 collection이 없으면 새 collection 추가, 있다면 기존 collection에 새 데이터 추가
-            // 
             db.collection("member").doc(inputId).set(v_json)
                 .then(() => {
-                    console.log("Document successfully written!");
+                    alert("회원가입이 완료되었습니다.")
+                    location.replace("./06_DB로그인.html")
                 })
-                .catch((error) => {
-                    console.error("Error writing document: ", error);
+                .catch((err) => {
+                    console.error(err);
                 });
         })
     </script>

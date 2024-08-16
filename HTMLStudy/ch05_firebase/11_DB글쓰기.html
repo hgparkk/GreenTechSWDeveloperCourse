@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>글쓰기</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script src="../resources/js/serviceKey-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
+</head>
+
+<body>
+    <div>
+        <input id="inputTitle" type="text">
+    </div>
+    <div>
+        <textarea name="" id="inputContent"></textarea>
+    </div>
+    <button id="writeBtn">작성 완료</button>
+
+    <script src="./common.js"></script>
+    <script>
+        const db = firebase.firestore()
+
+        document.getElementById("writeBtn").addEventListener("click", () => {
+            let v_login = JSON.parse(sessionStorage.getItem("login"))
+
+            let v_json = {
+                "title": document.getElementById("inputTitle").value,
+                "content": document.getElementById("inputContent").value,
+                "memId": v_login["memId"],
+                "memName": v_login["memName"],
+                "date": makeBoardDate()
+            }
+
+            db.collection("board").add(v_json)
+                .then(() => {
+                    alert("작성이 완료되었습니다.")
+                    location.replace("./10_DB게시판.html")
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        })
+    </script>
+</body>
+
+</html>

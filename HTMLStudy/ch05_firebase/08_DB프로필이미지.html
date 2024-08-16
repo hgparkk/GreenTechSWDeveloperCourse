@@ -28,14 +28,59 @@
 
     <script src="./common.js"></script>
     <script>
+        const db = firebase.firestore()
         const storage = firebase.storage();
+
+        let v_login = JSON.parse(sessionStorage.getItem("login"))
+
+        if (!v_login) {
+            location.href = "./06_DB로그인.html"
+        }
+
+        if (v_login["profImg"]) {
+            document.querySelector("#profImg").src = v_login["profImg"]
+        }
 
         function f_readImg() {
             let v_inputFile = event.target.files[0]
 
-            let v_imgName = makeUniqueId() + (v_inputFile["type"].replace("image/", "."))
+            let v_imgPath = "profile/" + makeUniqueId() + (v_inputFile["type"].replace("image/", "."))
 
-            console.log(v_imgName)
+            let storageRef = storage.ref()
+            let path = storageRef.child(v_imgPath)
+
+            let upload = path.put(v_inputFile)
+
+            upload.on("state_changed",
+                // 업로드 진행중 동작하는 함수
+                () => {
+                    console.log("업로드중...")
+                },
+                // 업로드 실패시 동작하는 함수
+                (err) => {
+                    console.error(err)
+                },
+                // 업로드 성공시 동작하는 함수
+                () => {
+                    upload.snapshot.ref.getDownloadURL()
+                        .then((url) => {
+                            console.log("업로드한 경로", url)
+
+                            let v_json = { "profImg": url }
+
+                            db.collection("member").doc(v_login["memId"]).update(v_json)
+                                .then(() => {
+                                    console.log("Document successfully udpate!");
+                                    v_login["profImg"] = v_json["profImg"]
+                                    sessionStorage.setItem("login", JSON.stringify(v_login))
+                                    document.querySelector("#profImg").src = v_login["profImg"]
+                                })
+                                .catch((error) => {
+                                    console.error("Error writing document: ", error);
+                                });
+                        })
+                }
+            )
         }
     </script>
 </body>

@@ -47,8 +47,9 @@
                     } else {
                         alert("유효하지 않은 아이디 혹은 비밀번호 입니다.")
                     }
-                }).catch((error) => {
-                    console.log(error)
+                }).catch(() => {
+                    alert("유효하지 않은 아이디 혹은 비밀번호 입니다.")
+                    return
                 })
         })
     </script>

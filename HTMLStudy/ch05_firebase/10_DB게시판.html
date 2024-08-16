@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+
+    <script src="../resources/js/serviceKey-info.js"></script>
+    <script>
+        firebase.initializeApp(firebaseConfig)
+    </script>
+
+    <style>
+        .board-container {
+            width: 600px;
+            margin: auto;
+        }
+
+        .board {
+            display: flex;
+        }
+
+        .board-title {
+            width: 60%;
+        }
+
+        .board-name,
+        .board-date {
+            width: 20%;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="board-container"></div>
+    <button id="writeBtn">글쓰기</button>
+
+    <script>
+        let v_container = document.querySelector(".board-container")
+
+        const db = firebase.firestore()
+
+        db.collection("board").get()
+            .then((result) => {
+                result.forEach((doc) => {
+                    let v_data = doc.data()
+                    let v_board = '<div class="board">'
+                        + '<div class="board-title" >'
+                        + '<a href="'+ "./12_DB글상세.html?id=" + doc.id +'">' + v_data["title"] + '</a></div>'
+                        + '<div class="board-name">' + v_data["memName"] + '</div>'
+                        + '<div class="board-data">' + v_data["date"] + '</div>'
+                        + '</div >'
+                    v_container.innerHTML += v_board
+                })
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+
+        document.getElementById("writeBtn").addEventListener("click", () => {
+            let v_login = JSON.parse(sessionStorage.getItem("login"))
+            if (v_login) {
+                location.href = "./11_DB글쓰기.html"
+            } else {
+                alert("로그인 후 사용 가능합니다.")
+                location.href = "./06_DB로그인.html"
+            }
+        })
+    </script>
+</body>
+
+</html>
