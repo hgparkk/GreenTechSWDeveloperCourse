@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
@@ -12,11 +14,14 @@
 		<property name="username" value="sqld"></property>
 		<property name="password" value="sqld"></property>
 	</bean>
-	
+
 	<!-- Mybatis 설정 파일 및 mapper 파일들의 경로 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSesstionFactoryBean">
 		<property name="dataSourse" ref="dataSource"></property>
 		<property name="mapperLocations" ref="/WEB-INF/classes/mybatis/mapper/*.xml"></property>
 		<property name="configLocation" ref="/WEB-INF/classes/mybatis/mybatis-config.xml"></property>
 	</bean>
+
+	<!-- @Mapper 어노테이션이 붙은 DAO 클래스를 스캔하여 메모리에 등록 -->
+	<mybatis-spring:scan base-package="com.spring.study" annotation="org.apache.ibatis.annotations.Mapper" />
 </beans>
