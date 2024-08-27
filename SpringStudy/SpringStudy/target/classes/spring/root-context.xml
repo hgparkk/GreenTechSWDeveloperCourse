@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- 오라클 DB에 연결할 수 있도록 객체 생성 -->
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="diverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+		<property name="username" value="sqld"></property>
+		<property name="password" value="sqld"></property>
+	</bean>
+	
+	<!-- Mybatis 설정 파일 및 mapper 파일들의 경로 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSesstionFactoryBean">
+		<property name="dataSourse" ref="dataSource"></property>
+		<property name="mapperLocations" ref="/WEB-INF/classes/mybatis/mapper/*.xml"></property>
+		<property name="configLocation" ref="/WEB-INF/classes/mybatis/mybatis-config.xml"></property>
+	</bean>
+</beans>
