@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.study.board.dao.IBoardDAO">
+
+	<select id="getBoardList" resultType="BoardDTO">
+		SELECT
+			b.board_no,
+			b.board_title,
+			a.mem_id,
+			a.mem_name,
+			b.board_content,
+			TO_CHAR(b.board_date, 'MM.DD HH24:MI') AS board_date
+		FROM boards b JOIN members a ON a.mem_id = b.mem_id
+		ORDER BY board_no DESC
+	</select>
+	
+	<insert id="writeBoard" parameterType="BoardDTO">
+		INSERT INTO boards(
+			board_no,
+			board_title,
+			mem_id,
+			board_content,
+			board_date
+		) VALUES (
+			(SELECT COUNT(*)+1 FROM boards),
+			#{boardTitle},
+			#{memId},
+			#{boardContent},
+			SYSDATE
+		)
+	</insert>
+	
+</mapper>

@@ -110,7 +110,7 @@
 			<version>1.2</version>
 		</dependency>
 
-		<!--mybatis -->
+		<!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis</artifactId>
@@ -121,7 +121,8 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>2.0.6</version>
 		</dependency>
-		<!--https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc11 -->
+
+		<!-- https://mvnrepository.com/artifact/com.oracle.database.jdbc/ojdbc11 -->
 		<dependency>
 			<groupId>com.oracle.database.jdbc</groupId>
 			<artifactId>ojdbc11</artifactId>

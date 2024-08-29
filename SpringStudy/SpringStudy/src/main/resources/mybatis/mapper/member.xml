@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace에 연결할 인터페이스의 풀 경로를 작성해준다. -->
 <mapper namespace="com.spring.study.member.dao.IMemberDAO">
-	<select id="showMember">
+
+	<select id="loginMember" parameterType="MemberDTO" resultType="MemberDTO">
 		SELECT
 			mem_id,
 			mem_password,
@@ -10,5 +11,25 @@
 			mem_phone,
 			mem_email
 		FROM members
+		WHERE 1=1
+			AND mem_id = #{memId}
+			AND mem_password = #{memPassword}
 	</select>
+
+	<insert id="insertMember" parameterType="MemberDTO">
+		INSERT INTO members (
+			mem_id,
+			mem_password,
+			mem_name,
+			mem_phone,
+			mem_email
+		) VALUES (
+			#{memId},
+			#{memPassword},
+			#{memName},
+			#{memPhone},
+			#{memEmail}
+		)
+	</insert>
+	
 </mapper>
