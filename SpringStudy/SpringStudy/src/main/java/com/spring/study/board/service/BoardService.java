@@ -33,8 +33,13 @@ public class BoardService {
 		return result;
 	}
 
-	public int editBoard(BoardDTO board) {
-		int result = dao.editBoard(board);
+	public int updateBoard(BoardDTO board) {
+		int result = dao.updateBoard(board);
+		return result;
+	}
+	
+	public int deleteBoard(int no) {
+		int result = dao.deleteBoard(no);
 		return result;
 	}
 }

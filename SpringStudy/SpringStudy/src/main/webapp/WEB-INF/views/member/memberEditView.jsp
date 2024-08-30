@@ -8,24 +8,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
 <meta name="author" content="" />
-<title>게시판</title>
+<title>회원 수정</title>
 <%@ include file="/WEB-INF/inc/header.jsp"%>
-<style>
-.err-msg {
-	color: red;
-}
-</style>
-
 </head>
 
 <body id="page-top">
 	<%@ include file="/WEB-INF/inc/top.jsp"%>
-
 	<!-- Contact Section-->
 	<section class="page-section" id="contact">
 		<div class="container pt-5">
 			<!-- Contact Section Heading-->
-			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">로그인</h2>
+			<h2 class="page-section-heading text-center text-uppercase text-secondary mb-0">회원 수정</h2>
 			<!-- Icon Divider-->
 			<div class="divider-custom">
 				<div class="divider-custom-line"></div>
@@ -38,34 +31,40 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-xl-7">
 
-					<form id="contactForm" action="${pageContext.request.contextPath}/loginDo" method="POST">
-						<input type="hidden" value="${fromURL}" name="fromURL">
+					<form id="contactForm" action="${pageContext.request.contextPath}/memberEditDo" method="POST">
 
 						<!-- ID input-->
 						<div class="form-floating mb-3">
-							<input class="form-control" id="inputId" type="text" name="memId" value="${cookie.rememberId.value}" ${cookie.rememberId.value == null ? "autofocus" : ""} />
+							<input class="form-control" id="inputId" type="text" name="id" value="${sessionScope.login.memId}" />
 							<label for="inputId">아이디</label>
 						</div>
 
 						<!-- Password input-->
 						<div class="form-floating mb-3">
-							<input class="form-control" id="inputPw" type="password" name="memPassword" ${cookie.rememberId.value == null ? "" : "autofocus"} />
+							<input class="form-control" id="inputPw" type="password" name="pw" />
 							<label for="inputPw">비밀번호</label>
 						</div>
 
-						<!-- remember id input -->
-						<div class="form-check mb-3">
-							<input class="form-check-input" type="checkbox" id="inputRemeberID" type="checkbox" name="rememberId" ${cookie.rememberId.value == null ? "" : "checked"}>
-							<label class="form-check-label" for="inputRememberId">아이디 기억하기</label>
+						<!-- Name input-->
+						<div class="form-floating mb-3">
+							<input class="form-control" id="inputName" type="text" name="name" value="${sessionScope.login.memName}" />
+							<label for="inputName">닉네임</label>
 						</div>
 
-						<!-- attribute show -->
-						<div class="mb-3">
-							<span class="err-msg">${failMsg}</span>
+						<!-- PhoneNumber input-->
+						<div class="form-floating mb-3">
+							<input class="form-control" id="inputPhoneNum" type="tal" name="phone" value="${sessionScope.login.memPhone}" />
+							<label for="inputName">휴대폰 번호</label>
+						</div>
+
+						<!-- Email input-->
+						<div class="form-floating mb-3">
+							<input class="form-control" id="inputEmail" type="email" name="email" value="${sessionScope.login.memEmail}" />
+							<label for="inputName">이메일</label>
 						</div>
 
 						<!-- Submit Button-->
-						<button class="btn btn-primary btn-xl" id="submitButton" type="submit">로그인</button>
+						<button class="btn btn-primary btn-xl" id="submitButton" type="submit">수정하기</button>
 					</form>
 				</div>
 			</div>

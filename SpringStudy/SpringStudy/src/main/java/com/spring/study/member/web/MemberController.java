@@ -48,12 +48,16 @@ public class MemberController {
 	}
 
 	@RequestMapping("/loginView")
-	public String loginView() {
+	public String loginView(HttpServletRequest request, Model model) {
+		String fromURL = request.getHeader("Referer");
+		System.out.println(fromURL);
+		model.addAttribute("fromURL", fromURL);
+
 		return "member/loginView";
 	}
 
 	@RequestMapping(value = "/loginDo", method = RequestMethod.POST)
-	public String loginDo(MemberDTO member, boolean rememberId, Model model, HttpSession session,
+	public String loginDo(MemberDTO member, boolean rememberId, Model model, String fromURL, HttpSession session,
 			HttpServletResponse response, RedirectAttributes attr) {
 
 		MemberDTO login = memberService.loginMember(member);
@@ -69,7 +73,7 @@ public class MemberController {
 				cookie.setMaxAge(0);
 				response.addCookie(cookie);
 			}
-			return "redirect:/";
+			return "redirect:" + fromURL;
 		} else {
 			attr.addFlashAttribute("failMsg", "아이디 혹은 비밀번호가 올바르지 않습니다.");
 			return "redirect:/loginView";
@@ -77,8 +81,19 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/logoutDo")
-	public String logoutDo(HttpSession session) {
+	public String logoutDo(HttpSession session, HttpServletRequest request) {
 		session.invalidate();
-		return "redirect:/";
+		String fromURL = request.getHeader("Referer");
+		return "redirect:" + fromURL;
+	}
+	
+	@RequestMapping(value = "/memberEditView")
+	public String memberEditView(HttpSession session) {
+		
+		if (session.getAttribute("login") == null) {
+			return "redirect:/loginView";
+		}
+		
+		return "member/memberEditView";
 	}
 }

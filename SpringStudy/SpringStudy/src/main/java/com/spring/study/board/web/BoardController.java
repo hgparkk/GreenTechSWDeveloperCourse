@@ -74,11 +74,11 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/boardEditView", method = RequestMethod.POST)
-	public String boardEditView(int boardNo, Model model) {
+	public String boardEditView(int no, Model model) {
 
 		BoardDTO board;
 		try {
-			board = boardService.getBoard(boardNo);
+			board = boardService.getBoard(no);
 			model.addAttribute("keyBoard", board);
 		} catch (BizNotFoundException e) {
 			model.addAttribute("errMsg", e.getMessage());
@@ -91,9 +91,17 @@ public class BoardController {
 	@RequestMapping(value = "/boardEditDo", method = RequestMethod.POST)
 	public String boardEditDo(BoardDTO board, Model model) {
 
-		boardService.editBoard(board);
+		boardService.updateBoard(board);
 		model.addAttribute("no", board.getBoardNo());
 
 		return "redirect:/boardDetailView";
+	}
+
+	@RequestMapping(value = "/boardDeleteDo", method = RequestMethod.POST)
+	public String boardDeleteDo(int no) {
+
+		boardService.deleteBoard(no);
+
+		return "redirect:/boardView";
 	}
 }

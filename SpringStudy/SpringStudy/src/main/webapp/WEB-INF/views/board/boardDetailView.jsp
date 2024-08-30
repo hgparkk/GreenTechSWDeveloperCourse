@@ -58,12 +58,12 @@
 					<div class="col-lg-8 col-xl-7">
 						<div class="d-flex justify-content-end">
 							<form action="${pageContext.request.contextPath}/boardEditView" method="POST">
-								<input type="hidden" value="${keyBoard.boardNo}" name="boardNo">
+								<input type="hidden" value="${keyBoard.boardNo}" name="no">
 								<button class="btn btn-warning me-2" type="submit">수정</button>
 							</form>
-							<form action="${pageContext.request.contextPath}/boardDeleteDo" method="POST">
-								<input type="hidden" value="${keyBoard.boardNo}" name="boardNo">
-								<button class="btn btn-danger me-2" type="submit">삭제</button>
+							<form id="delForm" action="${pageContext.request.contextPath}/boardDeleteDo" method="POST">
+								<input type="hidden" value="${keyBoard.boardNo}" name="no">
+								<button id="delBtn" class="btn btn-danger me-2" type="button">삭제</button>
 							</form>
 						</div>
 					</div>
@@ -73,6 +73,14 @@
 	</section>
 
 	<%@ include file="/WEB-INF/inc/footer.jsp"%>
+
+	<script>
+	document.getElementById("delBtn").addEventListener("click",()=>{
+		if(confirm("정말로 삭제하시겠습니까?")){
+			document.getElementById("delForm").submit();
+		}
+	})
+	</script>
 </body>
 
 </html>

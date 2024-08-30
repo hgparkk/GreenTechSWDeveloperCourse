@@ -8,13 +8,15 @@
 			board_title,
 			mem_id,
 			board_content,
-			board_date
+			board_date,
+			del_yn
 		) VALUES (
 			(SELECT COUNT(*)+1 FROM boards),
 			#{boardTitle},
 			#{memId},
 			#{boardContent},
-			SYSDATE
+			SYSDATE,
+			'n'
 		)
 	</insert>
 	
@@ -27,6 +29,8 @@
 			b.board_content,
 			TO_CHAR(b.board_date, 'MM-DD HH24:MI') AS board_date
 		FROM boards b JOIN members a ON a.mem_id = b.mem_id
+		WHERE 1=1
+			AND b.del_yn = 'N'
 		ORDER BY board_no DESC
 	</select>
 	
@@ -41,16 +45,18 @@
 		FROM boards b JOIN members a ON a.mem_id = b.mem_id
 		WHERE 1=1
 			AND b.board_no = #{boardNo}
+			AND b.del_yn = 'N'
 	</select>
 	
-	<update id="editBoard" parameterType="BoardDTO">
+	<!-- 글 삭제는 보틍 테이블의 각 데이터에 DEL_YN 과 같이 삭제 여부관련 컬럼을 추가한다. Y는 삭제됨 N은 존재함 -->
+	
+	<update id="deleteBoard" parameterType="int">
 		UPDATE
 			boards
 		SET
-			board_title = #{boardTitle},
-			board_content = #{boardContent}
+			del_yn = 'Y'
 		WHERE 1=1
 			AND board_no = #{boardNo}
 	</update>
-	
+
 </mapper>

@@ -16,10 +16,19 @@
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="<c:url value="/registView" />">회원가입</a></li>
 				</c:if>
 				<c:if test="${sessionScope.login != null }">
-					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#">${sessionScope.login.memName}님</a></li>
-					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="<c:url value="/logoutDo" />">로그아웃</a></li>
+					<li class="nav-item mx-0 mx-lg-1"><select id="loginMemberDo" class="from-select nav-link py-3 px-0 px-lg-3 rounded bg-secondary border-0 text-white" aria="Default select example">
+							<option selected hidden>${sessionScope.login.memName}님</option>
+							<option value="memberEditView">회원 수정</option>
+							<option value="logoutDo">로그아웃</option>
+					</select></li>
 				</c:if>
 			</ul>
 		</div>
 	</div>
 </nav>
+
+<script>
+document.getElementById("loginMemberDo").addEventListener("change",()=>{
+	location.href = "${pageContext.request.contextPath}/"+ document.getElementById("loginMemberDo").value
+})
+</script>
