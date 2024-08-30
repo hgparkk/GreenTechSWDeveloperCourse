@@ -42,8 +42,6 @@ public class MemberController {
 		member.setMemPhone(request.getParameter("phone"));
 		member.setMemEmail(request.getParameter("email"));
 
-		System.out.println(member);
-
 		memberService.insertMember(member);
 
 		return "redirect:/loginView";
@@ -57,11 +55,8 @@ public class MemberController {
 	@RequestMapping(value = "/loginDo", method = RequestMethod.POST)
 	public String loginDo(MemberDTO member, boolean rememberId, Model model, HttpSession session,
 			HttpServletResponse response, RedirectAttributes attr) {
-		System.out.println(member);
 
 		MemberDTO login = memberService.loginMember(member);
-
-		System.out.println(login);
 
 		if (login != null) {
 			session.setAttribute("login", login);

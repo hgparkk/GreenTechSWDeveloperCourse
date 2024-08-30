@@ -45,7 +45,7 @@
 							<c:forEach items="${keyBoardList}" var="board">
 								<tr>
 									<td>${board.boardNo}</td>
-									<td>${board.boardTitle}</td>
+									<td><a href="${pageContext.request.contextPath}/boardDetailView?no=${board.boardNo}">${board.boardTitle}</a></td>
 									<td>${board.memName}</td>
 									<td>${board.boardDate}</td>
 								</tr>

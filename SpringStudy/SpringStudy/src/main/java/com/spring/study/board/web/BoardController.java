@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.spring.study.board.dto.BoardDTO;
 import com.spring.study.board.service.BoardService;
+import com.spring.study.common.exception.BizNotFoundException;
 import com.spring.study.member.dto.MemberDTO;
 
 @Controller
@@ -19,16 +20,6 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-
-	@RequestMapping("/boardView")
-	public String boardView(Model model) {
-
-		List<BoardDTO> boardList = boardService.getBoardList();
-
-		model.addAttribute("keyBoardList", boardList);
-
-		return "board/boardView";
-	}
 
 	@RequestMapping("/boardWriteView")
 	public String boardWriteView(HttpSession session) {
@@ -51,8 +42,58 @@ public class BoardController {
 		String memId = login.getMemId();
 		board.setMemId(memId);
 
-		boardService.writeBoard(board);
+		boardService.insertBoard(board);
 
 		return "redirect:/boardView";
+	}
+
+	@RequestMapping("/boardView")
+	public String boardView(Model model) {
+
+		List<BoardDTO> boardList = boardService.getBoardList();
+
+		model.addAttribute("keyBoardList", boardList);
+
+		return "board/boardView";
+	}
+
+	@RequestMapping("boardDetailView")
+	public String boardDetailView(int no, Model model) {
+
+		BoardDTO board;
+		try {
+			board = boardService.getBoard(no);
+		} catch (BizNotFoundException e) {
+			model.addAttribute("errMsg", e.getMessage());
+			return "errPage";
+		}
+
+		model.addAttribute("keyBoard", board);
+
+		return "board/boardDetailView";
+	}
+
+	@RequestMapping(value = "/boardEditView", method = RequestMethod.POST)
+	public String boardEditView(int boardNo, Model model) {
+
+		BoardDTO board;
+		try {
+			board = boardService.getBoard(boardNo);
+			model.addAttribute("keyBoard", board);
+		} catch (BizNotFoundException e) {
+			model.addAttribute("errMsg", e.getMessage());
+			return "errPage";
+		}
+
+		return "board/boardEditView";
+	}
+
+	@RequestMapping(value = "/boardEditDo", method = RequestMethod.POST)
+	public String boardEditDo(BoardDTO board, Model model) {
+
+		boardService.editBoard(board);
+		model.addAttribute("no", board.getBoardNo());
+
+		return "redirect:/boardDetailView";
 	}
 }

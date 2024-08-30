@@ -8,6 +8,8 @@ import com.spring.study.board.dto.BoardDTO;
 
 @Mapper
 public interface IBoardDAO {
+	int insertBoard(BoardDTO board);
 	List<BoardDTO> getBoardList();
-	int writeBoard(BoardDTO board);
+	BoardDTO getBoard(int boardNo);
+	int editBoard(BoardDTO board);
 }
