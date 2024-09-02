@@ -13,4 +13,5 @@ public interface IBoardDAO {
 	BoardDTO getBoard(int boardNo);
 	int updateBoard(BoardDTO board);
 	int deleteBoard(int boardNo);
+	int noMemberIdBoard(String memId);
 }

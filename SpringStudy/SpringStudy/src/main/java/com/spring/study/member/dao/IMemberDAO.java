@@ -9,8 +9,14 @@ import com.spring.study.member.dto.MemberDTO;
 @Mapper
 public interface IMemberDAO {
 	// 추상 메소드만 선언
-	MemberDTO loginMember(MemberDTO member);
-
 	// insert, update, delete의 경우 return 타입은 int 이다
 	int insertMember(MemberDTO member);
+
+	MemberDTO loginMember(MemberDTO member);
+
+	MemberDTO getMember(String memId);
+
+	int updateMember(MemberDTO member);
+
+	int deleteMember(String memId);
 }

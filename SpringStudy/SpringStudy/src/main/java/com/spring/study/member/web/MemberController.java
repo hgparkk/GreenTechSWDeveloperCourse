@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.study.board.service.BoardService;
 import com.spring.study.member.dto.MemberDTO;
 import com.spring.study.member.service.MemberService;
 
@@ -20,6 +21,9 @@ public class MemberController {
 
 	@Autowired
 	MemberService memberService;
+
+	@Autowired
+	BoardService boardService;
 
 	@RequestMapping("/registView")
 	public String registView() {
@@ -50,7 +54,6 @@ public class MemberController {
 	@RequestMapping("/loginView")
 	public String loginView(HttpServletRequest request, Model model) {
 		String fromURL = request.getHeader("Referer");
-		System.out.println(fromURL);
 		model.addAttribute("fromURL", fromURL);
 
 		return "member/loginView";
@@ -86,14 +89,24 @@ public class MemberController {
 		String fromURL = request.getHeader("Referer");
 		return "redirect:" + fromURL;
 	}
-	
+
 	@RequestMapping(value = "/memberEditView")
-	public String memberEditView(HttpSession session) {
-		
-		if (session.getAttribute("login") == null) {
-			return "redirect:/loginView";
-		}
-		
+	public String memberEditView() {
 		return "member/memberEditView";
+	}
+
+	@RequestMapping(value = "/memberEditDo", method = RequestMethod.POST)
+	public String memberEditDo(MemberDTO member, HttpSession session) {
+		memberService.updateMember(member);
+		session.setAttribute("login", memberService.getMember(member.getMemId()));
+		return "redirect:/memberEditView";
+	}
+
+	@RequestMapping(value = "/memberDeleteDo", method = RequestMethod.POST)
+	public String memberDeleteDo(String memId, HttpSession session) {
+		boardService.noMemberIdBoard(memId);
+		memberService.deleteMember(memId);
+		session.invalidate();
+		return "redirect:/";
 	}
 }

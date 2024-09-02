@@ -54,7 +54,7 @@
 						<pre class="board-content">${keyBoard.boardContent}</pre>
 					</div>
 				</div>
-				<c:if test="${keyBoard.memId == sessionScope.login.memId}">
+				<c:if test="${sessionScope.login.memId != null && keyBoard.memId == sessionScope.login.memId}">
 					<div class="col-lg-8 col-xl-7">
 						<div class="d-flex justify-content-end">
 							<form action="${pageContext.request.contextPath}/boardEditView" method="POST">

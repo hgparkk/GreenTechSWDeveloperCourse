@@ -16,13 +16,11 @@ public class BoardService {
 	IBoardDAO dao;
 
 	public int insertBoard(BoardDTO board) {
-		int result = dao.insertBoard(board);
-		return result;
+		return dao.insertBoard(board);
 	}
 
 	public List<BoardDTO> getBoardList() {
-		List<BoardDTO> result = dao.getBoardList();
-		return result;
+		return dao.getBoardList();
 	}
 
 	public BoardDTO getBoard(int boardNo) throws BizNotFoundException {
@@ -34,12 +32,14 @@ public class BoardService {
 	}
 
 	public int updateBoard(BoardDTO board) {
-		int result = dao.updateBoard(board);
-		return result;
+		return dao.updateBoard(board);
 	}
-	
+
 	public int deleteBoard(int no) {
-		int result = dao.deleteBoard(no);
-		return result;
+		return dao.deleteBoard(no);
+	}
+
+	public int noMemberIdBoard(String memId) {
+		return dao.noMemberIdBoard(memId);
 	}
 }

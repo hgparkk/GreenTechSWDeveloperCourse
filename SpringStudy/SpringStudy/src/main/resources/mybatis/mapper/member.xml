@@ -3,19 +3,6 @@
 <!-- namespace에 연결할 인터페이스의 풀 경로를 작성해준다. -->
 <mapper namespace="com.spring.study.member.dao.IMemberDAO">
 
-	<select id="loginMember" parameterType="MemberDTO" resultType="MemberDTO">
-		SELECT
-			mem_id,
-			mem_password,
-			mem_name,
-			mem_phone,
-			mem_email
-		FROM members
-		WHERE 1=1
-			AND mem_id = #{memId}
-			AND mem_password = #{memPassword}
-	</select>
-
 	<insert id="insertMember" parameterType="MemberDTO">
 		INSERT INTO members (
 			mem_id,
@@ -31,5 +18,53 @@
 			#{memEmail}
 		)
 	</insert>
+
+	<select id="loginMember" parameterType="MemberDTO" resultType="MemberDTO">
+		SELECT
+			mem_id,
+			mem_password,
+			mem_name,
+			mem_phone,
+			mem_email
+		FROM members
+		WHERE 1=1
+			AND mem_id = #{memId}
+			AND mem_password = #{memPassword}
+	</select>
+	
+	<select id="getMember" parameterType="String" resultType="MemberDTO">
+		SELECT
+			mem_id,
+			mem_password,
+			mem_name,
+			mem_phone,
+			mem_email
+		FROM members
+		WHERE 1=1
+			AND mem_id = #{memId}
+	</select>
+	
+	<update id="updateMember" parameterType="MemberDTO">
+		UPDATE
+			members
+		SET
+			mem_name = #{memName},
+			mem_phone = #{memPhone},
+			mem_email = #{memEmail}
+			
+			<!-- mybatis의 if 문을 활용하여 동적으로 쿼리문을 생성할 수 있다. -->
+			<if test="memPassword.isEmpty() == false">
+				,mem_password = #{memPassword}
+			</if>
+		WHERE 1=1
+			AND mem_id = #{memId}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM
+			members
+		WHERE
+			mem_id = #{memId}
+	</delete>
 	
 </mapper>
