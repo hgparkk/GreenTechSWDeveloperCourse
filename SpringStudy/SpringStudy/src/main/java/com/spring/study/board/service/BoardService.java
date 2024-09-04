@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.spring.study.board.dao.IBoardDAO;
 import com.spring.study.board.dto.BoardDTO;
 import com.spring.study.common.exception.BizNotFoundException;
+import com.spring.study.common.vo.SearchVO;
 
 @Service
 public class BoardService {
@@ -18,9 +19,13 @@ public class BoardService {
 	public int insertBoard(BoardDTO board) {
 		return dao.insertBoard(board);
 	}
+	
+	public int getTotalCount(SearchVO search) {
+		return dao.getTotalCount(search);
+	}
 
-	public List<BoardDTO> getBoardList() {
-		return dao.getBoardList();
+	public List<BoardDTO> getBoardList(SearchVO search) {
+		return dao.getBoardList(search);
 	}
 
 	public BoardDTO getBoard(int boardNo) throws BizNotFoundException {

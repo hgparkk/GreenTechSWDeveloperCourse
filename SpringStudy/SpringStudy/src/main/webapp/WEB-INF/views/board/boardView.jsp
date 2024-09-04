@@ -29,6 +29,15 @@
 				</div>
 				<div class="divider-custom-line"></div>
 			</div>
+			<div class="row justify-content-end">
+				<div class="col-lg-8 col-xl-7">
+					<select id="rowSizeSelect" name="rowSizePerPage">
+						<option value="10" ${keySearch.rowSizePerPage == '10' ? 'selected' : ''}>10개</option>
+						<option value="30" ${keySearch.rowSizePerPage == '30' ? 'selected' : ''}>30개</option>
+						<option value="50" ${keySearch.rowSizePerPage == '50' ? 'selected' : ''}>50개</option>
+					</select>
+				</div>
+			</div>
 			<!-- Contact Section Form-->
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-xl-7">
@@ -50,11 +59,45 @@
 									<td>${board.boardDate}</td>
 								</tr>
 							</c:forEach>
+							<c:if test="${keyBoardList.size()==0}">
+								<tr>
+									<td colspan="4">해당 게시글이 존재하지 않습니다.</td>
+								</tr>
+							</c:if>
 						</tbody>
 					</table>
 				</div>
 				<div class="d-flex justify-content-end">
 					<button id="writeBtn" class="btn btn-primary">글쓰기</button>
+				</div>
+				<div class="d-flex justify-content-center">
+					<nav aria-label="Page navigation example">
+						<ul class="pagination">
+							<li class="page-item"><a class="page-link ${1 == keySearch.firstPage ? 'disabled':''}" href="<c:url value="/boardView${not empty keySearch.searchWord ? ('?searchOption=' += keySearch.searchOption += '&searchWord=' += keySearch.searchWord += '&') : '?'}rowSizePerPage= ${keySearch.rowSizePerPage}&page=${keySearch.firstPage-1}"/>" aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
+							</a></li>
+							<c:forEach begin="${keySearch.firstPage}" end="${keySearch.lastPage}" var="num">
+								<li class="page-item"><a class="page-link ${num == keySearch.page ? 'active':''}" href="<c:url value="/boardView${not empty keySearch.searchWord ? ('?searchOption=' += keySearch.searchOption += '&searchWord=' += keySearch.searchWord += '&') : '?'}rowSizePerPage= ${keySearch.rowSizePerPage}&page=${num}"/>">${num}</a></li>
+							</c:forEach>
+							<li class="page-item"><a class="page-link ${keySearch.totalPage == keySearch.lastPage ? 'disabled':''}" href="<c:url value="/boardView${not empty keySearch.searchWord ? ('?searchOption=' += keySearch.searchOption += '&searchWord=' += keySearch.searchWord += '&') : '?'}rowSizePerPage= ${keySearch.rowSizePerPage}&page=${keySearch.lastPage+1}"/>" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+							</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div class="d-flex justify-content-center">
+					<form id="boardForm" class="d-flex" action="<c:url value="/boardView"/>" method="GET">
+						<input id="rowSize" name="rowSizePerPage" type="hidden" value="${keySearch.rowSizePerPage}">
+						<select class="form-select me-1" name="searchOption">
+							<option value="title" ${keySearch.searchOption == 'title' ? 'selected':''}>제목</option>
+							<option value="content" ${keySearch.searchOption == 'content' ? 'selected':''}>내용</option>
+							<option value="name" ${keySearch.searchOption == 'name' ? 'selected':''}>작성자</option>
+						</select>
+						<input class="form-control me-1" type="text" name="searchWord" value="${keySearch.searchWord}">
+						<button class="btn btn-primary" type="submit">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+  								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+							</svg>
+						</button>
+					</form>
 				</div>
 			</div>
 		</div>
@@ -64,6 +107,11 @@
 
 	<script>
 		let v_id = '${sessionScope.login.memId}'
+		
+		document.getElementById("rowSizeSelect").addEventListener("change",()=>{
+			document.getElementById("rowSize").value = document.getElementById("rowSizeSelect").value
+			document.getElementById("boardForm").submit();
+		})
 	
 		document.getElementById("writeBtn").addEventListener("click",()=>{
 			if(!v_id){

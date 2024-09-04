@@ -20,18 +20,43 @@
 		)
 	</insert>
 	
-	<select id="getBoardList" resultType="BoardDTO">
-		SELECT
-			b.board_no,
-			b.board_title,
-			a.mem_id,
-			NVL(a.mem_name,'(알 수 없음)') AS mem_name,
-			b.board_content,
-			TO_CHAR(b.board_date, 'MM-DD HH24:MI') AS board_date
-		FROM boards b LEFT OUTER JOIN members a ON a.mem_id = b.mem_id
-		WHERE 1=1
+	<select id="getTotalCount" parameterType="SearchVO" resultType="int">
+		SELECT 
+			COUNT(*)
+		FROM 
+			boards b LEFT OUTER JOIN members a ON a.mem_id = b.mem_id
+		WHERE 1 = 1
 			AND b.del_yn = 'N'
-		ORDER BY board_no DESC
+			<include refid="boardSearch"/>
+	</select>
+	
+	<select id="getBoardList" parameterType="SearchVO" resultType="BoardDTO">
+		SELECT
+			*
+		FROM
+			(
+				SELECT
+					a.*,
+					ROWNUM AS rnum
+				FROM
+					(
+						SELECT
+							b.board_no,
+							b.board_title,
+							a.mem_id,
+							NVL(a.mem_name,'(알 수 없음)') AS mem_name,
+							b.board_content,
+							TO_CHAR(b.board_date, 'MM-DD HH24:MI') AS board_date
+						FROM 
+							boards b LEFT OUTER JOIN members a ON a.mem_id = b.mem_id
+						WHERE 1 = 1
+							AND b.del_yn = 'N'
+							<include refid="boardSearch"/>
+							ORDER BY board_no DESC
+						)a
+				)
+			WHERE 1 = 1
+				AND rnum BETWEEN #{start} AND #{end}
 	</select>
 	
 	<select id="getBoard" resultType="BoardDTO" parameterType="int">
@@ -42,7 +67,8 @@
 			NVL(a.mem_name,'(알 수 없음)') AS mem_name,
 			b.board_content,
 			TO_CHAR(b.board_date, 'YYYY-MM-DD HH24:MI:SS') AS board_date
-		FROM boards b LEFT OUTER JOIN members a ON a.mem_id = b.mem_id
+		FROM 
+			boards b LEFT OUTER JOIN members a ON a.mem_id = b.mem_id
 		WHERE 1=1
 			AND b.board_no = #{boardNo}
 			AND b.del_yn = 'N'
@@ -77,5 +103,17 @@
 		WHERE
 			mem_id = #{memId}
 	</update>
+	
+	<!-- 공통 부분 묶기 -->
+	
+	<sql id="boardSearch">
+		<if test="searchWord != null">
+			<choose>
+				<when test="searchOption == 'title'">AND b.board_title LIKE '%' || #{searchWord} || '%'</when>
+				<when test="searchOption == 'content'">AND b.board_content LIKE '%' || #{searchWord} || '%'</when>
+				<when test="searchOption == 'name'">AND a.mem_name = #{searchWord}</when>
+			</choose>
+		</if>
+	</sql>
 
 </mapper>

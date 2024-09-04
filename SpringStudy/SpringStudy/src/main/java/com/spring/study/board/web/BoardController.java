@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.spring.study.board.dto.BoardDTO;
 import com.spring.study.board.service.BoardService;
 import com.spring.study.common.exception.BizNotFoundException;
+import com.spring.study.common.vo.SearchVO;
 import com.spring.study.member.dto.MemberDTO;
 
 @Controller
@@ -48,11 +49,13 @@ public class BoardController {
 	}
 
 	@RequestMapping("/boardView")
-	public String boardView(Model model) {
+	public String boardView(Model model, SearchVO search) {
 
-		List<BoardDTO> boardList = boardService.getBoardList();
+		search.setTotalInfo(boardService.getTotalCount(search));
+		List<BoardDTO> boardList = boardService.getBoardList(search);
 
 		model.addAttribute("keyBoardList", boardList);
+		model.addAttribute("keySearch", search);
 
 		return "board/boardView";
 	}
