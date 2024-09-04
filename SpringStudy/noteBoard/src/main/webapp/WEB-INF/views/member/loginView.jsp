@@ -10,6 +10,12 @@
 <meta name="author" content="" />
 <title>로그인</title>
 <%@ include file="/WEB-INF/inc/header.jsp"%>
+
+<style>
+.err-msg {
+	color: red;
+}
+</style>
 </head>
 
 <body>
@@ -27,16 +33,20 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-xl-7">
 					<form action="<c:url value="/loginDo" />" method="POST">
-						<input type="hidden" values="${fromUrl}" name="fromUrl">
+						<input type="hidden" value="${fromUrl}" name="fromUrl">
 
 						<div class="form-floating mb-3">
-							<input class="form-control" type="text" name="cMemId" value="${cookie.rememberId.value}" />
+							<input class="form-control" id="inputId" type="text" name="cMemId" value="${cookie.rememberId.value}" />
 							<label for="inputId">아이디</label>
 						</div>
 
 						<div class="form-floating mb-3">
-							<input class="form-control" type="password" name="cMemPw" />
+							<input class="form-control" id="inputPw" type="password" name="cMemPw" />
 							<label for="inputPw">비밀번호</label>
+						</div>
+
+						<div class="mb-3">
+							<span class="err-msg">${failMsg}</span>
 						</div>
 
 						<div class="form-check mb-3">

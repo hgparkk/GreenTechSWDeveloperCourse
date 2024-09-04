@@ -38,10 +38,10 @@
 						<tbody>
 							<c:forEach items="${keyBoardList}" var="board">
 								<tr>
-									<td>${board.boardNo}</td>
-									<td><a href="${pageContext.request.contextPath}/boardDetailView?no=${board.boardNo}">${board.boardTitle}</a></td>
-									<td>${board.memName}</td>
-									<td>${board.boardDate}</td>
+									<td>${board.cBoardNo}</td>
+									<td><a href="<c:url value = "/boardView?no=${board.cBoardNo}"/>">${board.cBoardTitle}</a></td>
+									<td>${board.cMemName}</td>
+									<td>${board.cBoardDate}</td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -53,6 +53,17 @@
 			</div>
 		</div>
 	</section>
+	<%@ include file="/WEB-INF/inc/footer.jsp"%>
+	<script>
+		let v_id = '${sessionScope.login.cMemId}'
+	
+		document.getElementById("writeBtn").addEventListener("click",()=>{
+			if(!v_id){
+				alert('로그인 후 글쓰기가 가능합니다.\n로그인 페이지로 이동합니다.')
+			}
+			location.href='${pageContext.request.contextPath}/insertBoardView'
+		})
+	</script>
 </body>
 
 </html>

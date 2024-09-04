@@ -19,4 +19,16 @@ public class MemberService {
 	public MemberDTO loginMember(MemberDTO member) {
 		return dao.loginMember(member);
 	}
+	
+	public MemberDTO selectMember(String memId) {
+		return dao.selectMember(memId);
+	}
+	
+	public int updateMember(MemberDTO member) {
+		return dao.updateMember(member);
+	}
+	
+	public int deleteMember(String memId) {
+		return dao.deleteMember(memId);
+	}
 }

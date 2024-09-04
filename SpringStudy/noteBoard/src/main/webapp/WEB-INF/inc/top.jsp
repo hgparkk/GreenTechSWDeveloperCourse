@@ -16,16 +16,10 @@
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="<c:url value="/insertMemberView" />">회원가입</a></li>
 				</c:if>
 				<c:if test="${sessionScope.login != null }">
-					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="<c:url value="/updateMemberView" />">${sessionScope.login.memName}님</a></li>
+					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="<c:url value="/updateMemberView" />">${sessionScope.login.cMemName}님</a></li>
 					<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="<c:url value="/logoutDo" />">로그아웃</a></li>
 				</c:if>
 			</ul>
 		</div>
 	</div>
 </nav>
-
-<script>
-document.getElementById("loginMemberDo").addEventListener("change",()=>{
-	location.href = "${pageContext.request.contextPath}/"+ document.getElementById("loginMemberDo").value
-})
-</script>

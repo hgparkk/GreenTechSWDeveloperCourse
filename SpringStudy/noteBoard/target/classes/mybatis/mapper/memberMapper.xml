@@ -22,7 +22,37 @@
 		FROM
 			c_members
 		WHERE 1=1
-			AND mem_id = #{cMemId}
-			AND mem_pw = #{cMemPw}
+			AND c_mem_id = #{cMemId}
+			AND c_mem_pw = #{cMemPw}
 	</select>
+	
+	<select id="selectMember" parameterType="String" resultType="MemberDTO">
+		SELECT
+			c_mem_id,
+			c_mem_pw,
+			c_mem_name
+		FROM c_members
+		WHERE 1=1
+			AND c_mem_id = #{cMemId}
+	</select>
+	
+	<update id="updateMember" parameterType="MemberDTO">
+		UPDATE
+			c_members
+		SET
+			c_mem_name = #{cMemName}
+			
+			<if test="cMemPw.isEmpty() == false">
+				,c_mem_pw = #{cMemPw}
+			</if>
+		WHERE 1=1
+			AND c_mem_id = #{cMemId}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		DELETE FROM
+			c_members
+		WHERE
+			c_mem_id = #{cMemId}
+	</delete>
 </mapper>

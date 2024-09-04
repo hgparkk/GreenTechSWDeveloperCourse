@@ -8,4 +8,7 @@ import com.spring.study.member.dto.MemberDTO;
 public interface IMemberDAO {
 	int insertMember(MemberDTO member);
 	MemberDTO loginMember(MemberDTO member);
+	MemberDTO selectMember(String memId);
+	int updateMember(MemberDTO member);
+	int deleteMember(String memId);
 }

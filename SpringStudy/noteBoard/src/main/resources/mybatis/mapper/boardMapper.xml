@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.spring.study.board.dao.IBoardDAO">
+
+	<insert id="insertBoard" parameterType="BoardDTO">
+		INSERT INTO c_boards(
+			c_board_no,
+			c_board_title,
+			c_mem_id,
+			c_board_content,
+			c_board_date
+		) VALUES (
+			c_board_no_seq.NEXTVAL,
+			#{cBoardTitle},
+			#{cMemId},
+			#{cBoardContent},
+			SYSDATE
+		)
+	</insert>
+	
+	<select id="selectBoardList" resultType="BoardDTO">
+		SELECT
+			a.c_board_no,
+			a.c_board_title,
+			a.c_mem_id,
+			NVL(b.c_mem_name,'(알 수 없음)') AS c_mem_name,
+			a.c_board_content,
+			TO_CHAR(a.c_board_date, 'MM-dd HH24:MI') AS c_board_date
+		FROM
+			c_boards a,
+			c_members b
+		WHERE 1=1
+			AND a.c_mem_id = b.c_mem_id(+)
+			AND a.c_del_yn = 'N'
+	</select>
+	
+	<select id="selectBoard" resultType="BoardDTO">
+		SELECT
+			a.c_board_no,
+			a.c_board_title,
+			a.c_mem_id,
+			NVL(b.c_mem_name,'(알 수 없음)') AS c_mem_name,
+			a.c_board_content,
+			TO_CHAR(a.c_board_date, 'YYYY-MM-dd HH24:MI') AS c_board_date
+		FROM
+			c_boards a,
+			c_members b
+		WHERE 1=1
+			AND a.c_mem_id = b.c_mem_id(+)
+			AND a.c_board_no = #{cBoardNo}
+			AND a.c_del_yn = 'N'
+	</select>
+	
+	<update id="updateBoard" parameterType="BoardDTO">
+		UPDATE
+			c_boards
+		SET
+			c_board_title = #{cBoardTitle},
+			c_board_content = #{cBoardContent}
+		WHERE 1=1
+			AND c_board_no = #{cBoardNo}
+	</update>
+	
+	<update id="boardMemberInvalid" parameterType="String">
+		UPDATE
+			c_boards
+		SET
+			c_mem_id = null
+		WHERE 1=1
+			AND c_mem_id = #{cMemId}
+	</update>
+	
+	<update id="deleteBoard">
+		UPDATE
+			c_boards
+		SET
+			c_del_yn = 'Y'
+		WHERE 1=1
+			AND c_board_no = #{cBoardNo}
+	</update>
+	
+</mapper>
