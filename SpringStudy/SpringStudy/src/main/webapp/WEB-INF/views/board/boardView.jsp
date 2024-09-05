@@ -29,8 +29,8 @@
 				</div>
 				<div class="divider-custom-line"></div>
 			</div>
-			<div class="row justify-content-end">
-				<div class="col-lg-8 col-xl-7">
+			<div class="d-flex justify-content-end">
+				<div>
 					<select id="rowSizeSelect" name="rowSizePerPage">
 						<option value="10" ${keySearch.rowSizePerPage == '10' ? 'selected' : ''}>10개</option>
 						<option value="30" ${keySearch.rowSizePerPage == '30' ? 'selected' : ''}>30개</option>

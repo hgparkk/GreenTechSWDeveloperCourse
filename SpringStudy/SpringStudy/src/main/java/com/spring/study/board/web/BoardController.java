@@ -15,12 +15,17 @@ import com.spring.study.board.service.BoardService;
 import com.spring.study.common.exception.BizNotFoundException;
 import com.spring.study.common.vo.SearchVO;
 import com.spring.study.member.dto.MemberDTO;
+import com.spring.study.reply.dto.ReplyDTO;
+import com.spring.study.reply.service.ReplyService;
 
 @Controller
 public class BoardController {
 
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	ReplyService replyService;
 
 	@RequestMapping("/boardWriteView")
 	public String boardWriteView(HttpSession session) {
@@ -70,8 +75,11 @@ public class BoardController {
 			model.addAttribute("errMsg", e.getMessage());
 			return "errPage";
 		}
+		
+		List<ReplyDTO> replyList = replyService.getReplyList(no);
 
 		model.addAttribute("keyBoard", board);
+		model.addAttribute("keyReplyList",replyList);
 
 		return "board/boardDetailView";
 	}

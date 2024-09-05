@@ -23,9 +23,3 @@
 		</div>
 	</div>
 </nav>
-
-<script>
-document.getElementById("loginMemberDo").addEventListener("change",()=>{
-	location.href = "${pageContext.request.contextPath}/"+ document.getElementById("loginMemberDo").value
-})
-</script>
