@@ -59,6 +59,13 @@
 								<div class="board-sub-content">${keyBoard.boardDate}</div>
 							</div>
 						</div>
+
+						<div>
+							<c:forEach items="${keyAttachList}" var="attach">
+								<a href="${pageContext.request.contextPath }/fileDownload?fileName=${attach.atchFileName}&fileOriginName=${attach.atchOriginalName}">${attach.atchOriginalName } (${attach.atchFancySize })</a>
+							</c:forEach>
+						</div>
+
 						<pre class="board-content pt-3">${keyBoard.boardContent}</pre>
 					</div>
 					<div class="d-flex justify-content-end">
@@ -81,22 +88,22 @@
 									<div class="col-2">${reply.memName}</div>
 									<div class="col-7">${reply.replyContent}</div>
 									<div class="col-2">${reply.replyDate}</div>
-									<div class="col-1">
-										<img src="${pageContext.request.contextPath}/assets/img/close.png" style="width: 20px;" onclick="f_deleteComment()">
-									</div>
+									<c:if test="${reply.memId == sessionScope.login.memId || keyBoard.memId == sessionScope.login.memId}">
+										<div class="col-1">
+											<img src="${pageContext.request.contextPath}/assets/img/close.png" style="width: 20px;" onclick="f_deleteComment()">
+										</div>
+									</c:if>
 								</div>
 							</c:forEach>
 						</div>
-						<div class="row">
-							<form id="replyForm" action="${pageContext.request.contextPath}/replyWriteDo" method="POST">
-								<input type="hidden" value="${sessionScope.login.memId}" name="memId">
-								<input type="hidden" value="${keyBoard.boardNo}" name="boardNo">
-								<div class="col-10">
-									<input id="inputComment" class="form-control" type="text" name="replyContent">
-								</div>
-								<button id="submitComment" class="btn btn-primary col-2" type="button">등록</button>
-							</form>
-						</div>
+						<form id="replyForm" class="row" action="${pageContext.request.contextPath}/replyWriteDo" method="POST">
+							<input type="hidden" value="${sessionScope.login.memId}" name="memId">
+							<input type="hidden" value="${keyBoard.boardNo}" name="boardNo">
+							<div class="col-10">
+								<input id="inputComment" class="form-control" type="text" name="replyContent">
+							</div>
+							<button id="submitComment" class="btn btn-primary col-2" type="button">등록</button>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -136,9 +143,7 @@
 			type: 'POST',
 			url: v_url,
 			data: v_formData,
-			success: function(resp){
-				console.log(resp)
-				
+			success: function(resp){				
 				let v_comment = document.createElement("div")
 				v_comment.classList.add("row")
 				v_comment.classList.add("pt-2")

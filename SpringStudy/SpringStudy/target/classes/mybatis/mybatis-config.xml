@@ -8,7 +8,8 @@
 	<typeAliases>
 		<typeAlias type="com.spring.study.member.dto.MemberDTO" alias="MemberDTO" />
 		<typeAlias type="com.spring.study.board.dto.BoardDTO" alias="BoardDTO" />
-		<typeAlias type="com.spring.study.common.vo.SearchVO" alias="SearchVO"/>
-		<typeAlias type="com.spring.study.reply.dto.ReplyDTO" alias="ReplyDTO"/>
+		<typeAlias type="com.spring.study.common.vo.SearchVO" alias="SearchVO" />
+		<typeAlias type="com.spring.study.reply.dto.ReplyDTO" alias="ReplyDTO" />
+		<typeAlias type="com.spring.study.attach.dto.AttachDTO" alias="AttachDTO" />
 	</typeAliases>
 </configuration>

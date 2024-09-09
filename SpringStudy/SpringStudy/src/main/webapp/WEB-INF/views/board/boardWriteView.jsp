@@ -32,14 +32,21 @@
 			<!-- Contact Section Form-->
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-xl-7">
-					<form id="contractForm" action="${pageContext.request.contextPath}/boardWriteDo" method="POST">
+					<form id="contractForm" action="${pageContext.request.contextPath}/boardWriteDo" method="POST" enctype="multipart/form-data">
 						<!-- title input -->
 						<div class="mb-3">
 							<input class="form-control" id="inputTitle" type="text" name="boardTitle" placeholder="제목을 입력해주세요" />
 						</div>
+						
 						<!-- content input -->
 						<div class="mb-3">
 							<textarea class="form-control" name="boardContent" rows="10"></textarea>
+						</div>
+						
+						<!-- file input -->
+						<div class="mb-3">
+							<label for="formFileMultiple" class="form-label">파일 첨부</label>
+							<input class="form-control" name="boardFile" type="file" id="formFileMultiple" multiple>
 						</div>
 
 						<!-- Submit Button-->

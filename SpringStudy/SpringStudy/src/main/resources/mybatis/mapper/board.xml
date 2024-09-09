@@ -16,7 +16,7 @@
 			#{memId},
 			#{boardContent},
 			SYSDATE,
-			'n'
+			'N'
 		)
 	</insert>
 	

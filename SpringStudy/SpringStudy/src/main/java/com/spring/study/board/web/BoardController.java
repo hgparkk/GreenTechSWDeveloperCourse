@@ -1,5 +1,6 @@
 package com.spring.study.board.web;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -9,10 +10,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.spring.study.attach.dto.AttachDTO;
+import com.spring.study.attach.service.AttachService;
 import com.spring.study.board.dto.BoardDTO;
 import com.spring.study.board.service.BoardService;
 import com.spring.study.common.exception.BizNotFoundException;
+import com.spring.study.common.util.FileUploadUtils;
 import com.spring.study.common.vo.SearchVO;
 import com.spring.study.member.dto.MemberDTO;
 import com.spring.study.reply.dto.ReplyDTO;
@@ -23,9 +28,15 @@ public class BoardController {
 
 	@Autowired
 	BoardService boardService;
-	
+
 	@Autowired
 	ReplyService replyService;
+
+	@Autowired
+	FileUploadUtils fileUploadUtils;
+
+	@Autowired
+	AttachService attachService;
 
 	@RequestMapping("/boardWriteView")
 	public String boardWriteView(HttpSession session) {
@@ -38,9 +49,19 @@ public class BoardController {
 	}
 
 	@RequestMapping(value = "/boardWriteDo", method = RequestMethod.POST)
-	public String boardWriteDo(BoardDTO board, HttpSession session) {
+	public String boardWriteDo(BoardDTO board, HttpSession session, MultipartFile[] boardFile) {
 
-		System.out.println(board);
+		if (boardFile != null) {
+			for (int i = 0; i < boardFile.length; i++) {
+				try {
+					AttachDTO fileHistoy = fileUploadUtils.saveFile(boardFile[i]);
+					attachService.insertAttach(fileHistoy);
+				} catch (IOException e) {
+					e.printStackTrace();
+					return "errPage";
+				}
+			}
+		}
 
 		// session.getAttribute는 반환 타입이 object 이기 때문에 형변환이 필요하다.
 		MemberDTO login = (MemberDTO) session.getAttribute("login");
@@ -65,7 +86,7 @@ public class BoardController {
 		return "board/boardView";
 	}
 
-	@RequestMapping("boardDetailView")
+	@RequestMapping("/boardDetailView")
 	public String boardDetailView(int no, Model model) {
 
 		BoardDTO board;
@@ -75,11 +96,14 @@ public class BoardController {
 			model.addAttribute("errMsg", e.getMessage());
 			return "errPage";
 		}
-		
+
 		List<ReplyDTO> replyList = replyService.getReplyList(no);
 
+		List<AttachDTO> attachList = attachService.getAttachList(no);
+
 		model.addAttribute("keyBoard", board);
-		model.addAttribute("keyReplyList",replyList);
+		model.addAttribute("keyReplyList", replyList);
+		model.addAttribute("keyAttachList", attachList);
 
 		return "board/boardDetailView";
 	}
