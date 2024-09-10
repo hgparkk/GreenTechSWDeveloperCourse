@@ -25,11 +25,11 @@
 			mem_password,
 			mem_name,
 			mem_phone,
-			mem_email
+			mem_email,
+			mem_profile_img
 		FROM members
 		WHERE 1=1
 			AND mem_id = #{memId}
-			AND mem_password = #{memPassword}
 	</select>
 	
 	<select id="getMember" parameterType="String" resultType="MemberDTO">
@@ -56,6 +56,15 @@
 			<if test="memPassword.isEmpty() == false">
 				,mem_password = #{memPassword}
 			</if>
+		WHERE 1=1
+			AND mem_id = #{memId}
+	</update>
+	
+	<update id="updateProfile" parameterType="MemberDTO">
+		UPDATE
+			members
+		SET
+			mem_profile_img = #{memProfileImg}
 		WHERE 1=1
 			AND mem_id = #{memId}
 	</update>

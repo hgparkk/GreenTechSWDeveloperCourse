@@ -18,5 +18,7 @@ public interface IMemberDAO {
 
 	int updateMember(MemberDTO member);
 
+	int updateProfile(MemberDTO member);
+
 	int deleteMember(String memId);
 }

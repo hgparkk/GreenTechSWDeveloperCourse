@@ -28,6 +28,10 @@ public class MemberService {
 		return dao.updateMember(member);
 	}
 	
+	public int updateProfile(MemberDTO member) {
+		return dao.updateProfile(member);
+	}
+	
 	public int deleteMember(String memId) {
 		return dao.deleteMember(memId);
 	}

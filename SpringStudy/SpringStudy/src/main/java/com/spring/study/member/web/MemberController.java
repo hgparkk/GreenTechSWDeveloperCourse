@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +26,9 @@ public class MemberController {
 	@Autowired
 	BoardService boardService;
 
+	@Autowired
+	BCryptPasswordEncoder passwordEncoder;
+
 	@RequestMapping("/registView")
 	public String registView() {
 		return "member/registView";
@@ -33,15 +37,10 @@ public class MemberController {
 	@RequestMapping(value = "/registDo", method = RequestMethod.POST)
 	public String registDo(HttpServletRequest request) {
 
-		System.out.println(request.getParameter("id"));
-		System.out.println(request.getParameter("pw"));
-		System.out.println(request.getParameter("name"));
-		System.out.println(request.getParameter("phone"));
-		System.out.println(request.getParameter("email"));
-
 		MemberDTO member = new MemberDTO();
 		member.setMemId(request.getParameter("id"));
-		member.setMemPassword(request.getParameter("pw"));
+		String encodePw = passwordEncoder.encode(request.getParameter("pw"));
+		member.setMemPassword(encodePw);
 		member.setMemName(request.getParameter("name"));
 		member.setMemPhone(request.getParameter("phone"));
 		member.setMemEmail(request.getParameter("email"));
@@ -66,6 +65,10 @@ public class MemberController {
 		MemberDTO login = memberService.loginMember(member);
 
 		if (login != null) {
+			if (!passwordEncoder.matches(member.getMemPassword(), login.getMemPassword())) {
+				attr.addFlashAttribute("failMsg", "아이디 혹은 비밀번호가 올바르지 않습니다.");
+				return "redirect:/loginView";
+			}
 			session.setAttribute("login", login);
 			if (rememberId) {
 				Cookie cookie = new Cookie("rememberId", member.getMemId());

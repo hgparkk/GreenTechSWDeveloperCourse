@@ -1,7 +1,10 @@
 package com.spring.study.board.dto;
 
+import javax.validation.constraints.Pattern;
+
 public class BoardDTO {
 	private int boardNo;
+	@Pattern(regexp = "^.{5,}$",message="제목에는 5글자 이상 작성하여 주세요.")
 	private String boardTitle;
 	private String memId;
 	private String memName;

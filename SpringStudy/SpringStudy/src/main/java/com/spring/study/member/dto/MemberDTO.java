@@ -6,16 +6,19 @@ public class MemberDTO {
 	private String memName;
 	private String memPhone;
 	private String memEmail;
+	private String memProfileImg;
 
 	public MemberDTO() {
 	}
 
-	public MemberDTO(String memId, String memPassword, String memName, String memPhone, String memEmail) {
+	public MemberDTO(String memId, String memPassword, String memName, String memPhone, String memEmail,
+			String memProfileImg) {
 		this.memId = memId;
 		this.memPassword = memPassword;
 		this.memName = memName;
 		this.memPhone = memPhone;
 		this.memEmail = memEmail;
+		this.memProfileImg = memProfileImg;
 	}
 
 	public String getMemId() {
@@ -58,9 +61,17 @@ public class MemberDTO {
 		this.memEmail = memEmail;
 	}
 
+	public String getMemProfileImg() {
+		return memProfileImg;
+	}
+
+	public void setMemProfileImg(String memProfileImg) {
+		this.memProfileImg = memProfileImg;
+	}
+
 	@Override
 	public String toString() {
 		return "MemberDTO [memId=" + memId + ", memPassword=" + memPassword + ", memName=" + memName + ", memPhone="
-				+ memPhone + ", memEmail=" + memEmail + "]";
+				+ memPhone + ", memEmail=" + memEmail + ", memProfileImg=" + memProfileImg + "]";
 	}
 }

@@ -28,4 +28,10 @@
 	<!-- 첨부파일을 처리하는 빈(bean) 설정 -->
 	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.support.StandardServletMultipartResolver"></beans:bean>
 
+	<interceptors>
+		<interceptor>
+			<mapping path="/memberEditView" />
+			<beans:bean id="loginCheckInterceptor" class="com.spring.study.common.interceptor.LoginCheckInterceptor"></beans:bean>
+		</interceptor>
+	</interceptors>
 </beans:beans>

@@ -10,6 +10,21 @@
 <meta name="author" content="" />
 <title>회원 수정</title>
 <%@ include file="/WEB-INF/inc/header.jsp"%>
+
+<style>
+.profile-div {
+	width: 300px;
+	height: 300px;
+	border-radius: 150px;
+	overflow: hidden;
+	margin: auto;
+}
+
+.profile-img {
+	width: 110%;
+	cursor: pointer;
+}
+</style>
 </head>
 
 <body id="page-top">
@@ -30,6 +45,16 @@
 			<!-- Contact Section Form-->
 			<div class="row justify-content-center">
 				<div class="col-lg-8 col-xl-7">
+					<div class="profile-div d-flex justify-content-center align-items-center">
+						<c:if test="${sessionScope.login.memProfileImg == null }">
+							<img class="profile-img" id="profileImg" src="assets/img/basic_profile_img.jpeg">
+						</c:if>
+						<c:if test="${sessionScope.login.memProfileImg != null }">
+							<img class="profile-img" id="profileImg" src="${pageContext.request.contextPath}/displayImage?fileName=${sessionScope.login.memProfileImg}">
+						</c:if>
+					</div>
+					<input id="inputImg" type="file" hidden="hidden" accept="image/*" onchange="f_sendImg()">
+
 					<form id="memberEditForm" action="${pageContext.request.contextPath}/memberEditDo" method="POST">
 
 						<!-- ID input-->
@@ -87,6 +112,32 @@
 				document.getElementById("deleteForm").submit();
 			}
 		})
+		
+		let v_profileImg = document.getElementById("profileImg")
+		let v_inputImg = document.getElementById("inputImg")
+		
+		v_profileImg.addEventListener("click",()=> v_inputImg.click());
+		
+		function f_sendImg(){
+			let v_formData = new FormData();
+			v_formData.append('file',event.target.files[0])
+			
+			let v_url = "${pageContext.request.contextPath}/uploadProfile"
+			
+			$.ajax({
+				type : "POST",
+				url : v_url,
+				contentType : false,
+				processData : false,
+				enctype : "multipart/form-data",
+				data : v_formData,
+				success : function(resp){
+					console.log(resp)
+					
+					v_profileImg.src = "${pageContext.request.contextPath}/displayImage?fileName=" + resp
+				}
+			})
+		}
 	</script>
 </body>
 
