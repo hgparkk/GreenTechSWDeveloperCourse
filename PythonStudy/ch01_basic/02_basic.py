@@ -5,6 +5,12 @@ a = 10
 b = "hello"
 b = 'hello World'
 
+# 긴 문자열에 대해 ''' """ 가능
+b = """
+    Hello World!! Hello World!! 
+    Hello World!! Hello World!! 
+"""
+
 # 콘솔에 출력
 print(a)
 print(b)
