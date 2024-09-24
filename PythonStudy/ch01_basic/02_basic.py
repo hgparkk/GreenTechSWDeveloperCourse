@@ -88,22 +88,22 @@ print(a > b or a == b)
 
 print("====================")
 
-# 파이썬에서 기본 배열
+# 파이썬에서 기본 리스트
 v_array = []
 print(v_array)
 
 v_array = [2, 4, 5]
 print(v_array)
 
-# 배열 끝에 값 추가
+# 리스트 끝에 값 추가
 v_array.append(1)
 print(v_array)
 
-# 배열 내 인덱스 제거
+# 리스트 내 인덱스 제거
 v_array.pop(1)
 print(v_array)
 
-# 배열 내 값 수정
+# 리스트 내 값 수정
 v_array[1] = 3
 print(v_array)
 
@@ -116,10 +116,10 @@ print(v_array[1:])  # 1 ~ 끝
 print(v_array[:2])  # 처음 ~ 2
 print(v_array[:])  # 모든 인덱스
 
-# 배열의 길이
+# 리스트의 길이
 print(len(v_array))
 
-# 배열 정렬
+# 리스트 정렬
 v_array.sort() # 오름차순
 print(v_array)
 
