@@ -18,3 +18,4 @@ cur.close()
 conn.close()
 
 print(df.loc[2])
+
