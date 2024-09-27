@@ -17,7 +17,6 @@ select = Select(driver.find_element(By.CSS_SELECTOR, "#searchDate"))
 select.select_by_value("A")
 
 before_height = driver.execute_script("return document.body.scrollHeight")
-count = 0
 
 df = pd.DataFrame(columns=["img_src", "a_href", "fest_name", "fest_start", "fest_end", "fest_loc"])
 
@@ -37,7 +36,6 @@ while True:
         break
 
     before_height = after_height
-    count += 1
 
 df = pd.DataFrame(columns=["img_src", "a_href", "fest_name", "fest_start", "fest_end", "fest_loc"])
 
