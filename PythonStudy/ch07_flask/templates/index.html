@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>머신러닝 동물 분류</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+    <style>
+        .container {
+            width: 1000px;
+            margin: auto;
+        }
+
+        .profile-box {
+            width: 400px;
+            height: 400px;
+            border-radius: 200px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .profile-box>img {
+            width: 120%;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="profile-box">
+            <img id="profileImg" src="https://www.studiopeople.kr/common/img/default_profile.png">
+        </div>
+        <input type="file" id="inputImg" accept="img/*" hidden>
+        <div id="result"></div>
+    </div>
+
+    <div class="spinner-border text-primary" role="status" style="width: 60px; height:60px;">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+    <script>
+        const v_profileImg = document.getElementById("profileImg")
+        const v_inputImg = document.getElementById("inputImg")
+        const v_result = document.getElementById("result")
+
+        const v_spinner = document.querySelector(".spinner-border")
+
+        const URL = "https://teachablemachine.withgoogle.com/models/zuL34ngDQ/";
+
+        let model = null
+        let maxPredictions = 0
+
+        // await를 사용하고 싶으면 function 앞에 async 를 붙여야 함
+        async function init() {
+            const modelURL = URL + "model.json"
+            const metadataURL = URL + "metadata.json"
+
+            // await : 해당 함수 방식을 동기식으로 바꿈
+            model = await tmImage.load(modelURL, metadataURL)
+            maxPredictions = model.getTotalClasses()
+
+            v_spinner.classList.add("d-none")
+
+            v_profileImg.addEventListener("click", () => v_inputImg.click())
+
+            v_inputImg.addEventListener("change", () => {
+                let v_file = event.target.files[0]
+
+                let v_reader = new FileReader()
+                v_reader.onload = (e) => {
+                    v_profileImg.src = e.target.result
+                    v_result.innerHTML = ""
+                    setTimeout(predict, 1000)
+                }
+                v_reader.readAsDataURL(v_file)
+            })
+        }
+
+        window.onload = () => init()
+
+        async function predict() {
+            let v_pred = await model.predict(v_profileImg)
+
+            for (let i = 0; i < v_pred.length; i++) {
+                v_result.innerHTML += '<p>' + v_pred[i]["className"] + ' : ' + v_pred[i]["probability"].toFixed(2) * 100 + '% </p>'
+            }
+        }
+    </script>
+</body>
+
+</html>
