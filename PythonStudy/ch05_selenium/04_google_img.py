@@ -13,7 +13,7 @@ driver.get("https://www.google.com/imghp?hl=ko&ogbl")
 search_bar = driver.find_element(By.CSS_SELECTOR, "textarea[name=q]")
 
 # 검색창에 검색어 입력
-search_bar.send_keys("강아지")
+search_bar.send_keys("고양이")
 
 search_bar.send_keys(Keys.RETURN)
 
@@ -30,7 +30,7 @@ now = datetime.datetime.now()
 
 time_name = now.strftime("%y%m%d%H%M")
 
-v_path = "강아지" + time_name
+v_path = "고양이" + time_name
 try:
     os.mkdir(v_path)
 except:
@@ -48,6 +48,6 @@ for div in tag_div:
 
     response = requests.get(v_img.get_attribute("src"))
 
-    with open(v_path + "/dog" + str(count) + ".png", "wb") as file:
+    with open(v_path + "/cat" + str(count) + ".png", "wb") as file:
         file.write(response.content)
     count += 1
